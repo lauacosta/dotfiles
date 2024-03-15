@@ -2,6 +2,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 local set = vim.opt
 
+vim.g.have_nerd_font = true
 set.clipboard = "unnamedplus"
 set.cursorline = true
 set.linebreak = false

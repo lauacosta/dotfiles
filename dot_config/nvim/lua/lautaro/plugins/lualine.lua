@@ -12,7 +12,7 @@ return {
 				cyan = "#008080",
 				darkblue = "#081633",
 				green = "#00d992",
-				yellow = "#f8fe7a",
+				yellow = "#fbffad",
 				orange = "#fb7f19",
 				violet = "#a9a1e1",
 				magenta = "#d3869b",
@@ -102,7 +102,7 @@ return {
 			ins_left({
 				"mode",
 				icons_enabled = true,
-				separator = "𐄠",
+				separator = "|",
 				color = function()
 					return { fg = mode_colors(), gui = "bold" }
 				end,

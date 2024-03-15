@@ -39,14 +39,18 @@ globalkeys = gears.table.join(
 		awful.spawn("firefox")
 	end, { description = "execute firefox", group = "awesome" }),
 
+	-- awful.key({ modkey }, ",", function()
+	-- 	awful.spawn.with_shell("nvim /home/lautaro/.config/awesome")
+	-- end, { description = "open awesome config", group = "awesome" }),
+
 	awful.key({ modkey }, "p", function()
 		awful.spawn("nemo")
 	end, { description = "launch the file explorer", group = "launcher" }),
 	awful.key({}, "XF86AudioRaiseVolume", function()
-		awful.util.spawn("amixer set Master 9%+")
+		awful.util.spawn("amixer set Master 5%+")
 	end),
 	awful.key({}, "XF86AudioLowerVolume", function()
-		awful.util.spawn("amixer set Master 9%-")
+		awful.util.spawn("amixer set Master 5%-")
 	end),
 	awful.key({}, "XF86AudioMute", function()
 		awful.util.spawn("amixer sset Master toggle")

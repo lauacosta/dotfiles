@@ -5,30 +5,49 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			{ "j-hui/fidget.nvim", event = "VeryLazy", opts = {} },
+			{ "j-hui/fidget.nvim", opts = {} },
+			{ "folke/neodev.nvim", opts = {} },
 		},
 		config = function()
-			-- LSP Keymaps
-			local opts = { noremap = true, silent = true }
-			local bufopts = { noremap = true, buffer = bufnr, silent = true }
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+				callback = function(event)
+					local map = function(keys, func, desc)
+						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+					end
 
-			vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts)
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-			vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-			vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-			vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-			vim.keymap.set("n", "<space>wl", function()
-				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-			end, bufopts)
-			vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-			vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
-			vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
-			vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-			vim.keymap.set("n", "<space>f", function()
-				vim.lsp.buf.format({ async = true })
-			end, bufopts)
+					map("<space>e", vim.diagnostic.open_float, "")
+					map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+					map("H", vim.lsp.buf.hover, "[H]over")
+					map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+					map("gS", vim.lsp.buf.signature_help, "[G]oto [S]ignature")
+					map("gr", vim.lsp.buf.references, "[G]oto [R]erences")
+					map("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd")
+					map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove")
+					map("<leader>wl", function()
+						print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+					end, "[W]orkspace [L]ist")
+					map("<leader>D", vim.lsp.buf.type_definition, "[D]efinition")
+					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+					map("<leader>f", function()
+						vim.lsp.buf.format({ async = true })
+					end, "[F]ormat")
+
+					local client = vim.lsp.get_client_by_id(event.data.client_id)
+					if client and client.server_capabilities.documentHighlightProvider then
+						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+							buffer = event.buf,
+							callback = vim.lsp.buf.document_highlight,
+						})
+
+						vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+							buffer = event.buf,
+							callback = vim.lsp.buf.clear_references,
+						})
+					end
+				end,
+			})
 
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
@@ -38,9 +57,6 @@ return {
 				gopls = {},
 				pyright = {},
 				rust_analyzer = {},
-				-- Some languages (like typescript) have entire language plugins that can be useful:
-				--    https://github.com/pmizio/typescript-tools.nvim
-
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -75,12 +91,9 @@ return {
 				handlers = {
 					function(server_name)
 						local server = servers[server_name] or {}
-						require("lspconfig")[server_name].setup({
-							cmd = server.cmd,
-							settings = server.settings,
-							filetypes = server.filetypes,
-							capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {}),
-						})
+						server.capabilities =
+							vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {}),
+							require("lspconfig")[server_name].setup(server)
 					end,
 				},
 			})

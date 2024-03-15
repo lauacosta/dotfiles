@@ -18,7 +18,8 @@ SETUVAR _fisher_reitzig_2F_sdkman_2D_for_2D_fish_40_v2_2E_30_2E_30__files:\x7e/\
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fish_color_autosuggestion:585858
 SETUVAR fish_color_cancel:\x2dr
-SETUVAR fish_color_command:a1b56c
+SETUVAR fish_color_comand:8ABEB7
+SETUVAR fish_color_command:8ABEB7
 SETUVAR fish_color_comment:f7ca88
 SETUVAR fish_color_cwd:green
 SETUVAR fish_color_cwd_root:red

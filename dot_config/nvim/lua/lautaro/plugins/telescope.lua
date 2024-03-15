@@ -1,7 +1,7 @@
 return {
 	{ -- Fuzzy Finder (files, lsp, etc)
 		"nvim-telescope/telescope.nvim",
-		event = "VeryLazy",
+		event = "VimEnter",
 		branch = "0.1.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -34,19 +34,22 @@ return {
 			pcall(require("telescope").load_extension, "ui-select")
 
 			local builtin = require("telescope.builtin")
-			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-			vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
-			vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
-			vim.keymap.set("n", "<leader>sg", builtin.git_files, {})
-			vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-			vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-			vim.keymap.set("n", "<C-g>", function()
+			local map = function(keys, func, desc)
+				vim.keymap.set("n", keys, func, { desc = "Telescope: " .. desc })
+			end
+			map("<leader><leader>", builtin.buffers, "[ ] Find existing buffers")
+			map("<leader>s.", builtin.oldfiles, '[S]earch Recent Files ("." for repeat)')
+			map("<leader>sf", builtin.find_files, "[S]earch [F]iles")
+			map("<leader>sd", builtin.diagnostics, "[S]earch [D]iagnostics")
+			map("<leader>sg", builtin.git_files, "[S]earch [G]itfiles")
+			map("<leader>sk", builtin.keymaps, "[S]earch [K]eymaps")
+			map("<leader>sw", builtin.grep_string, "[S]earch current [W]ord")
+			map("<C-g>", function()
 				builtin.grep_string({ search = vim.fn.input("Grep > ") })
-			end)
-			vim.keymap.set("n", "<leader>sn", function()
+			end, "[G]rep string")
+			map("<leader>sn", function()
 				builtin.find_files({ cwd = vim.fn.stdpath("config") })
-			end, { desc = "[S]earch [N]eovim files" })
+			end, "[S]earch [N]eovim files")
 		end,
 	},
 }

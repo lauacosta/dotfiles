@@ -101,6 +101,7 @@ beautiful.volume = lain.widget.alsa({
 
 		widget:set_markup(markup.font(beautiful.font, " ♪: " .. volume_now.level .. "% "))
 	end,
+	timeout = 1,
 })
 beautiful.volume.widget:buttons(awful.util.table.join(
 	awful.button({}, 4, function()
