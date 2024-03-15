@@ -12,7 +12,7 @@ local themes_path = gfs.get_themes_dir()
 local theme = {}
 
 theme.font = "Iosevka Nerd Font 10"
-theme.wallpaper = "/home/lautaro/.local/share/chezmoi/images/Untitled.png"
+theme.wallpaper = "/home/lautaro/.local/share/chezmoi/Wallpaper.png"
 theme.icon_theme = nil
 
 theme.bg_normal = "#222222"

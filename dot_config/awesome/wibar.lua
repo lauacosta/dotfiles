@@ -5,6 +5,7 @@ require("awful.autofocus")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 require("awful.hotkeys_popup.keys")
+local net_widgets = require("net_widgets")
 
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
@@ -101,7 +102,7 @@ beautiful.volume = lain.widget.alsa({
 
 		widget:set_markup(markup.font(beautiful.font, " ♪: " .. volume_now.level .. "% "))
 	end,
-	timeout = 1,
+	timeout = 0.5,
 })
 beautiful.volume.widget:buttons(awful.util.table.join(
 	awful.button({}, 4, function()
@@ -114,7 +115,8 @@ beautiful.volume.widget:buttons(awful.util.table.join(
 	end)
 ))
 
-local spr = wibox.widget.textbox("  ")
+local spr = wibox.widget.textbox(" | ")
+local net_wireless = net_widgets.wireless({ interface = "wlan0" })
 
 awful.screen.connect_for_each_screen(function(s)
 	set_wallpaper(s)
@@ -161,6 +163,7 @@ awful.screen.connect_for_each_screen(function(s)
 		bg = beautiful.bg_normal,
 		fg = beautiful.fg_normal,
 	})
+
 	s.mywibox:setup({
 		layout = wibox.layout.align.horizontal,
 		{
@@ -179,18 +182,18 @@ awful.screen.connect_for_each_screen(function(s)
 		},
 		{
 			layout = wibox.layout.fixed.horizontal,
-			mykeyboardlayout,
-
+			net_wireless,
 			volicon,
+			spr,
 			beautiful.volume.widget,
-
-			memicon,
+			spr,
 			mem.widget,
-			cpuicon,
+			spr,
 			cpu.widget,
 			spr,
 			wibox.widget.systray(),
 			spr,
+			mykeyboardlayout,
 			s.mylayoutbox,
 		},
 	})
