@@ -23,7 +23,8 @@ local color_options = {
 	champagne = "#E5D0C6",
 	orange = "#FE5F00",
 	green = "#8aaf91",
-	duperdark = "#181818",
+	duperdark = "#1d2021",
+	-- duperdark = "#181818",
 	dupergrey = "#B8B8B8",
 }
 

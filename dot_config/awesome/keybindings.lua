@@ -10,7 +10,7 @@ globalkeys = gears.table.join(
 	end, { description = "open a terminal", group = "launcher" }),
 	awful.key({ modkey, "Shift" }, "r", awesome.restart, { description = "reload awesome", group = "awesome" }),
 	awful.key({ modkey, "Shift" }, "e", awesome.quit, { description = "quit awesome", group = "awesome" }),
-	awful.key({ modkey }, "space", function()
+	awful.key({ modkey, "Shift" }, "space", function()
 		local layouts = { "latam", "us" }
 		local current_layout = io.popen("setxkbmap -query | grep layout | awk '{print $2}'"):read("*l")
 		local next_layout = ""
@@ -116,7 +116,7 @@ globalkeys = gears.table.join(
 	awful.key({ modkey, "Control" }, "l", function()
 		awful.tag.incncol(-1, nil, true)
 	end, { description = "decrease the number of columns", group = "layout" }),
-	awful.key({ modkey, "Shift" }, "space", function()
+	awful.key({ modkey, "Shift" }, ",", function()
 		awful.layout.inc(-1)
 	end, { description = "select previous", group = "layout" }),
 
@@ -129,7 +129,8 @@ globalkeys = gears.table.join(
 
 	-- Prompt
 	awful.key({ modkey }, "d", function()
-		awful.screen.focused().mypromptbox:run()
+		awful.spawn.with_shell("rofi -show drun")
+		-- awful.screen.focused().mypromptbox:run()
 	end, { description = "run prompt", group = "launcher" })
 )
 

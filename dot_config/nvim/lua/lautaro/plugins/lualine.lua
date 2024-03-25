@@ -162,7 +162,7 @@ return {
 
 			ins_right({
 				"branch",
-				icon = "⤷",
+				icon = "↳",
 				color = { fg = colors.yellow, gui = "bold" },
 			})
 

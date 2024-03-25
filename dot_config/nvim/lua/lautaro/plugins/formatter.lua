@@ -14,6 +14,7 @@ return {
 				javascript = { "biome" },
 				typescript = { "biome" },
 				bash = { "beautysh" },
+				python = { "ruff" },
 			},
 		},
 	},

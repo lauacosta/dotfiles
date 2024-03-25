@@ -2,10 +2,11 @@ local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
 
-config.font = wezterm.font("Iosevka Nerd Font Mono")
+config.font = wezterm.font("Iosevka Nerd Font")
 config.font_size = 11
 config.colors = {}
-config.colors.background = "#181818"
+config.colors.background = "#1D2021"
+-- config.colors.background = "#181818"
 
 config.window_close_confirmation = "NeverPrompt"
 config.skip_close_confirmation_for_processes_named = {
@@ -15,7 +16,6 @@ config.skip_close_confirmation_for_processes_named = {
 	"fish",
 	"tmux",
 }
--- config.default_cursor_style = "BlinkingBar"
 config.enable_scroll_bar = true
 config.window_padding = {
 	left = 12,
@@ -29,38 +29,44 @@ config.hide_tab_bar_if_only_one_tab = true
 config.freetype_load_target = "HorizontalLcd"
 
 local act = wezterm.action
-
+local shell = os.getenv("SHELL")
+local leader = "CTRL|SHIFT"
 config.keys = {
 	{
-		-- '1' key
 		key = "raw:49",
-		mods = "CTRL|SHIFT",
+		mods = leader,
 		action = act.SpawnTab({
 			DomainName = "local",
 		}),
 	},
+	{
+		key = "n",
+		mods = leader,
+		action = act.SpawnTab({
+			DomainName = "local",
+		}),
+	},
+
 	{
 		key = "t",
-		mods = "CMD|SHIFT",
-		action = act.ShowTabNavigator,
-	},
-	{
-		key = "T",
-		mods = "CTRL|SHIFT",
-		action = act.SpawnTab({
-			DomainName = "local",
+		mods = leader,
+		action = wezterm.action.SplitPane({
+			direction = "Down",
+			command = { args = { shell } },
+			size = { Percent = 30 },
 		}),
 	},
+
 	{
 		key = "w",
-		mods = "CTRL|SHIFT",
-		action = act.CloseCurrentTab({
+		mods = leader,
+		action = act.CloseCurrentPane({
 			confirm = false,
 		}),
 	},
 	{
 		key = ",",
-		mods = "CMD",
+		mods = leader,
 		action = act.SpawnCommandInNewTab({
 			cwd = os.getenv("WEZTERM_CONFIG_DIR"),
 			set_environment_variables = {

@@ -21,11 +21,10 @@ else
 end
 
 
-
 function fish_prompt
 	set_color brblack
 	echo -n "["(date "+%H:%M")"] "
-	set_color "#F9F5D7"
+    set_color "#ECEBF3"
 	echo -n (whoami)
 	echo -n "@"
 	set_color "#8ABEB7"
@@ -45,33 +44,33 @@ function fish_prompt
 end
 
 function fish_greeting
-    set_color --bold "#F9F5D7"
+    set_color --bold "#ECEBF3"
     echo -n "OS: " 
 
     set_color "#8abeb7"
     echo (uname -o)
 
-    set_color --bold "#F9F5D7"
+    set_color --bold "#ECEBF3"
     echo -n "Hostname: " 
 
     set_color "#8abeb7"
     echo (uname -n)
 
-    set_color --bold "#F9F5D7"
+    set_color --bold "#ECEBF3"
     echo -n "Uptime: "
 
     set_color "#8abeb7"
     echo (uptime -p)
 
-    set_color --bold "#F9F5D7"
+    set_color --bold "#ECEBF3"
     echo "Disk usage:"
-    set_color "#F9F5D7"
+    set_color "#ECEBF3"
     echo \t (df -lH --output=file,used,size,pcent /dev/sda3 | tail -n+2)
 
-    set_color "#F9F5D7"
+    set_color "#ECEBF3"
     echo "Network:"
 
-    set_color "#F9F5D7"
+    set_color "#ECEBF3"
     echo \t (ip -4 -brief -o addres show | grep  wlan0) 
     echo \t (ip -6 -brief -o addres show | grep  wlan0) \n
 end

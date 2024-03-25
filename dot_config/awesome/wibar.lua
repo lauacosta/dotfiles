@@ -6,6 +6,7 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 require("awful.hotkeys_popup.keys")
 local net_widgets = require("net_widgets")
+local ky = require("custom_keyboard_layout")
 
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
@@ -66,6 +67,7 @@ screen.connect_signal("property::geometry", set_wallpaper)
 
 local markup = lain.util.markup
 
+-- local mykeyboardlayout = widget.keyboardlayout()
 local mykeyboardlayout = awful.widget.keyboardlayout()
 
 local clock = awful.widget.watch("date +'%a %d %b %R'", 60, function(widget, stdout)
