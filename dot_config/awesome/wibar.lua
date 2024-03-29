@@ -6,7 +6,6 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 require("awful.hotkeys_popup.keys")
 local net_widgets = require("net_widgets")
-local ky = require("custom_keyboard_layout")
 
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
@@ -173,15 +172,11 @@ awful.screen.connect_for_each_screen(function(s)
 
 			s.mytaglist,
 			s.mypromptbox,
+			spr,
+			clock,
+			spr,
 		},
-		{
-			{
-				align = "center",
-				widget = clock,
-			},
-			-- s.mytasklist,
-			layout = wibox.layout.constraint,
-		},
+		s.mytasklist,
 		{
 			layout = wibox.layout.fixed.horizontal,
 			net_wireless,
