@@ -43,6 +43,7 @@ Group.new("Keyword", c.lilac)
 Group.new("RedKey", c.red:light())
 Group.new("Function", c.yellow:light())
 Group.new("Variable", c.white)
+Group.new("Type", c.red:light())
 Group.new("Chain", c.yellow:light(), nil, s.bold)
 
 Group.new("Normal", c.white, c.duperdark)
@@ -56,7 +57,7 @@ vim.cmd([[
     hi link @string.lua				    String
     hi link @lsp.type.property.lua		Normal
 
-    hi link @lsp.type.property.rust		Identifier
+    hi link @lsp.type.property.rust		Normal
 
     hi link @type.rust				    Type
     hi link @type.builtin.rust			Type
@@ -82,4 +83,6 @@ vim.cmd([[
     hi link @module.rust			    Import
     hi link @comment.rust			    Comment
     hi link @punctuation.special.rust	Delimiter
+
+    hi link @variable.parameter.cpp     Identifier
 ]])

@@ -48,7 +48,7 @@ function fish_greeting
     echo -n "OS: " 
 
     set_color "#8abeb7"
-    echo (uname -o)
+    echo (uname --kernel-release --operating-system)
 
     set_color --bold "#ECEBF3"
     echo -n "Hostname: " 
@@ -65,7 +65,8 @@ function fish_greeting
     set_color --bold "#ECEBF3"
     echo "Disk usage:"
     set_color "#ECEBF3"
-    echo \t (df -lH --output=file,used,size,pcent /dev/sda3 | tail -n+2)
+    echo \t (df -h | grep -E '/$' | awk '{print $6 "\t" $3 "\t" $2 "\t" $5}')
+    echo \t (df -h | grep -E 'home' | awk '{print $6 "\t" $3 "\t" $2 "\t" $5}')
 
     set_color "#ECEBF3"
     echo "Network:"

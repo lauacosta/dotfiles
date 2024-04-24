@@ -2,6 +2,8 @@ return {
 
 	"tjdevries/colorbuddy.vim",
 	"tjdevries/gruvbuddy.nvim",
+	"mfussenegger/nvim-jdtls",
+	"ellisonleao/gruvbox.nvim",
 	{
 		"tpope/vim-sleuth",
 		event = "VeryLazy",
