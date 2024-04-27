@@ -3,8 +3,13 @@ if not pcall(require, "colorbuddy") then
 end
 vim.opt.termguicolors = true
 require("colorizer").setup()
+local colorbuddy = require('colorbuddy')
 
-local Color, c, Group, g, s = require("colorbuddy").setup()
+local Color = colorbuddy.Color
+local c = colorbuddy.colors
+local Group = colorbuddy.Group
+local g = colorbuddy.groups
+local s = colorbuddy.styles
 
 local color_options = {
 	turquoise = "#698b69",

@@ -1,3 +1,4 @@
+set -g fish_key_bindings fish_vi_key_bindings
 abbr -a c cargo
 abbr -a m make
 abbr -a g git
@@ -19,6 +20,11 @@ else
 	abbr -a ll 'ls -l'
 	abbr -a lll 'ls -la'
 end
+
+function multicd
+    echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
+end
+abbr --add dotdot --regex '^\.\.+$' --function multicd
 
 
 function fish_prompt
@@ -72,8 +78,8 @@ function fish_greeting
     echo "Network:"
 
     set_color "#ECEBF3"
-    echo \t (ip -4 -brief -o addres show | grep  wlan0) 
-    echo \t (ip -6 -brief -o addres show | grep  wlan0) \n
+    echo \t (ip -4 -brief -o addres show | awk 'NR==2')
+    echo \t (ip -6 -brief -o addres show | awk 'NR==2') \n
 end
 
 if status is-interactive 
@@ -86,6 +92,6 @@ fish_add_path -aP /home/lautaro/personal
 source ~/.asdf/asdf.fish
 fish_add_path /home/lautaro/.mozbuild/git-cinnabar/
 fish_add_path ""$(python3 -m site --user-base)"/bin/"
-fish_add_path /home/lautaro/personal/go/bin/
+fish_add_path /home/lautaro/personal/apps/go/bin/
 fish_add_path /home/lautaro/personal/apps/wezterm-20240203-110809-5046fc22/target/release/
 

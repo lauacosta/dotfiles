@@ -44,7 +44,7 @@ globalkeys = gears.table.join(
 	-- end, { description = "open awesome config", group = "awesome" }),
 
 	awful.key({ modkey }, "p", function()
-		awful.spawn("nemo")
+		awful.spawn("nautilus")
 	end, { description = "launch the file explorer", group = "launcher" }),
 	awful.key({}, "XF86AudioRaiseVolume", function()
 		awful.util.spawn("amixer set Master 5%+")
