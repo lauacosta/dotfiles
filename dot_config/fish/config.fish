@@ -30,54 +30,54 @@ abbr --add dotdot --regex '^\.\.+$' --function multicd
 function fish_prompt
 	set_color brblack
 	echo -n "["(date "+%H:%M")"] "
-    set_color "#ECEBF3"
+    set_color "#fbf1c7"
 	echo -n (whoami)
 	echo -n "@"
-	set_color "#8ABEB7"
+	set_color "#b8bb26"
 	echo -n (uname -n)
 	if [ $PWD != $HOME ]
 		set_color brblack
 		echo -n '::'
-	    set_color "#B294BB"
+	    set_color "#fabd2f"
 		echo -n (basename $PWD)
 	end
-	set_color --bold "#FBFFAD"
+	# set_color --bold "#fe8019"
+    set_color --bold "#8ABEB7"
 	printf '%s ' (__fish_git_prompt)
-	# set_color "#DD2D4A"
 	set_color brblack
 	echo -n '| '
 	set_color normal
 end
 
 function fish_greeting
-    set_color --bold "#ECEBF3"
+    # set_color --bold "#ECEBF3"
     echo -n "OS: " 
 
-    set_color "#8abeb7"
+    # set_color "#8abeb7"
     echo (uname --kernel-release --operating-system)
 
-    set_color --bold "#ECEBF3"
+    # set_color --bold "#ECEBF3"
     echo -n "Hostname: " 
 
-    set_color "#8abeb7"
+    # set_color "#8abeb7"
     echo (uname -n)
 
-    set_color --bold "#ECEBF3"
+    # set_color --bold "#ECEBF3"
     echo -n "Uptime: "
 
-    set_color "#8abeb7"
+    # set_color "#8abeb7"
     echo (uptime -p)
 
-    set_color --bold "#ECEBF3"
+    # set_color --bold "#ECEBF3"
     echo "Disk usage:"
-    set_color "#ECEBF3"
+    # set_color "#ECEBF3"
     echo \t (df -h | grep -E '/$' | awk '{print $6 "\t" $3 "\t" $2 "\t" $5}')
     echo \t (df -h | grep -E 'home' | awk '{print $6 "\t" $3 "\t" $2 "\t" $5}')
 
-    set_color "#ECEBF3"
+    # set_color "#ECEBF3"
     echo "Network:"
 
-    set_color "#ECEBF3"
+    # set_color "#ECEBF3"
     echo \t (ip -4 -brief -o addres show | awk 'NR==2')
     echo \t (ip -6 -brief -o addres show | awk 'NR==2') \n
 end
@@ -95,3 +95,5 @@ fish_add_path ""$(python3 -m site --user-base)"/bin/"
 fish_add_path /home/lautaro/personal/apps/go/bin/
 fish_add_path /home/lautaro/personal/apps/wezterm-20240203-110809-5046fc22/target/release/
 
+
+theme_gruvbox dark hard

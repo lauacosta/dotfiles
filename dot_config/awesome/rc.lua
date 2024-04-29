@@ -57,8 +57,14 @@ awful.layout.layouts = {
 	-- awful.layout.suit.corner.sw,
 	-- awful.layout.suit.corner.se,}
 }
+
 -- Load custom file configs
 require("wibar")
 require("keybindings")
 require("rules")
 require("signals")
+
+local gears = require("gears")
+client.connect_signal("manage", function(c)
+	c.shape = gears.shape.rounded_rect
+end)

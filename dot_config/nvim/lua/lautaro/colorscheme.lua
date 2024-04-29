@@ -3,7 +3,7 @@ if not pcall(require, "colorbuddy") then
 end
 vim.opt.termguicolors = true
 require("colorizer").setup()
-local colorbuddy = require('colorbuddy')
+local colorbuddy = require("colorbuddy")
 
 local Color = colorbuddy.Color
 local c = colorbuddy.colors
@@ -20,8 +20,6 @@ local color_options = {
 	aqua = "#8ec07c",
 	pink = "#fef601",
 	yellow = "#f8fe7a",
-	-- white = "#EEF0F2",
-	-- white = "#F9F5D7",
 	red = "#DD2D4A",
 	blue = "#96bcbb",
 	lilac = "#B294BB",
@@ -29,7 +27,7 @@ local color_options = {
 	orange = "#FE5F00",
 	green = "#8aaf91",
 	duperdark = "#1d2021",
-	-- duperdark = "#181818",
+	-- duperdark = "#282828",
 	dupergrey = "#B8B8B8",
 }
 
@@ -45,6 +43,7 @@ Group.new("Special", c.champagne)
 Group.new("String", c.green:light())
 Group.new("Delimiter", c.champagne)
 Group.new("Keyword", c.lilac)
+Group.new("Statement", c.lilac)
 Group.new("RedKey", c.red:light())
 Group.new("Function", c.yellow:light())
 Group.new("Variable", c.white)

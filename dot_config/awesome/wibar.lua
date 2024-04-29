@@ -6,9 +6,10 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 require("awful.hotkeys_popup.keys")
 local net_widgets = require("net_widgets")
-local net_widgets = require("net_widgets")
 local docker_widget = require("awesome-wm-widgets.docker-widget.docker")
--- local github_activity_widget = require("awesome-wm-widgets.github-activity-widget.github-activity-widget")
+local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
+local github_activity_widget = require("awesome-wm-widgets.github-activity-widget.github-activity-widget")
 
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
@@ -68,26 +69,14 @@ end
 screen.connect_signal("property::geometry", set_wallpaper)
 
 local markup = lain.util.markup
-
--- local mykeyboardlayout = widget.keyboardlayout()
 local mykeyboardlayout = awful.widget.keyboardlayout()
-
-local clock = awful.widget.watch("date +'%a %d %b %R'", 60, function(widget, stdout)
+local clock = awful.widget.watch("date +'%a %b %d %R '", 60, function(widget, stdout)
 	widget:set_markup(" " .. markup.font(beautiful.font, stdout))
 end)
-
-local memicon = wibox.widget.imagebox(beautiful.widget_mem)
 local mem = lain.widget.mem({
 	settings = function()
 		mem_used = string.format("%.1f", mem_now.used / 1024)
-		widget:set_markup(markup.font(beautiful.font, " RAM: " .. mem_used .. "GB "))
-	end,
-})
-
-local cpuicon = wibox.widget.imagebox(beautiful.widget_cpu)
-local cpu = lain.widget.cpu({
-	settings = function()
-		widget:set_markup(markup.font(beautiful.font, " CPU: " .. cpu_now.usage .. "% "))
+		widget:set_markup(markup.font(beautiful.font, " RAM: " .. mem_used .. " GB "))
 	end,
 })
 
@@ -164,7 +153,7 @@ awful.screen.connect_for_each_screen(function(s)
 	s.mywibox = awful.wibar({
 		position = "top",
 		screen = s,
-		height = dpi(24),
+		height = dpi(25),
 		bg = beautiful.bg_normal,
 		fg = beautiful.fg_normal,
 	})
@@ -173,35 +162,39 @@ awful.screen.connect_for_each_screen(function(s)
 		layout = wibox.layout.align.horizontal,
 		{
 			layout = wibox.layout.fixed.horizontal,
-
+			s.mylayoutbox,
+			spr,
 			s.mytaglist,
 			s.mypromptbox,
 		},
-        {
-            layout = wibox.layout.align.horizontal,
-            -- layout = wibox.layout.fixed.horizontal,
-            clock,
-            -- s.mytasklist,
-        },
+		{
+			layout = wibox.layout.align.horizontal,
+		},
 		{
 			layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
-            spr,
-             docker_widget{
-                number_of_containers = 5
-            },
+			mykeyboardlayout,
+			cpu_widget({
+				width = 100,
+				step_width = 4,
+				step_spacing = 1,
+			}),
+			spr,
+			docker_widget({
+				number_of_containers = 5,
+			}),
+			spr,
+			github_activity_widget({
+				username = "lauacosta",
+			}),
 			spr,
 			beautiful.volume.widget,
 			spr,
 			mem.widget,
+			volicon,
+			net_wireless,
 			spr,
-			cpu.widget,
-			spr,
-            volicon,
-            net_wireless,
-            spr,
-            wibox.widget.systray(),
-			s.mylayoutbox,
+			wibox.widget.systray(),
+			clock,
 		},
 	})
 end)
