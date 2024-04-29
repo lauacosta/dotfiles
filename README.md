@@ -4,5 +4,5 @@ Este repositorio contiene las aplicaciones y la configuracion que uso en mi maqu
 
 ## Instalación:
 
-    export GITHUB_USERNAME=windrnr
+    export GITHUB_USERNAME=lauacosta
     sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
