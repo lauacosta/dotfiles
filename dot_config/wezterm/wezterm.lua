@@ -65,7 +65,7 @@ config.keys = {
 		}),
 	},
 	{
-		key = ",",
+		key = "c",
 		mods = leader,
 		action = act.SpawnCommandInNewTab({
 			cwd = os.getenv("WEZTERM_CONFIG_DIR"),
