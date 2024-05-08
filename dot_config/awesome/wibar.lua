@@ -109,7 +109,7 @@ beautiful.volume.widget:buttons(awful.util.table.join(
 ))
 
 local spr = wibox.widget.textbox(" ")
-local net_wireless = net_widgets.wireless({ interface = "wlan0" })
+local net_wireless = net_widgets.wireless({ interface = "wlp2s0f0u6" })
 
 awful.screen.connect_for_each_screen(function(s)
 	set_wallpaper(s)

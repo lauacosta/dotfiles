@@ -8,6 +8,9 @@ return {
 			{ "j-hui/fidget.nvim", opts = {} },
 			{ "folke/neodev.nvim", opts = {} },
 		},
+		opts = {
+			inlay_hints = { enabled = true },
+		},
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
@@ -55,8 +58,8 @@ return {
 			local servers = {
 				clangd = {},
 				gopls = {},
-				pyright = {},
 				rust_analyzer = {},
+				basedpyright = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -98,6 +101,8 @@ return {
 					end,
 				},
 			})
+			-- local lspconfig = require("lspconfig")
+			-- lspconfig.basedpyright.setup({})
 		end,
 	},
 	{
