@@ -21,6 +21,7 @@ set.tabstop = 4
 set.termguicolors = true
 set.wrap = false
 vim.o.completeopt = vim.o.completeopt:gsub(",?preview", "")
+vim.g.db_ui_auto_execute_table_helpers = 1
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	pattern = { "*.md", "*.txt", "*.tex" },

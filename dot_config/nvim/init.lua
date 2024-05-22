@@ -1,3 +1,4 @@
+vim.deprecate = function() end
 require("lautaro")
 require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/LuaSnip/" })
 

@@ -39,10 +39,6 @@ return {
 		event = "VeryLazy",
 	},
 	{
-		"tpope/vim-commentary",
-		event = "VeryLazy",
-	},
-	{
 		"norcalli/nvim-colorizer.lua",
 		event = "VeryLazy",
 	},

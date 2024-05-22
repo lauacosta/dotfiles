@@ -54,40 +54,13 @@ return {
 					{ name = "path" },
 				},
 			})
+
+			cmp.setup.filetype({ "sql" }, {
+				sources = {
+					{ name = "vim-dadbod-completion" },
+					{ name = "buffer" },
+				},
+			})
 		end,
 	},
-	-- {
-	--
-	-- 	"hrsh7th/nvim-cmp",
-	-- 	dependencies = {
-	-- 		{
-	-- 			"L3MON4D3/LuaSnip",
-	-- 			build = (function()
-	-- 				if vim.fn.has("win32") == 1 then
-	-- 					return
-	-- 				end
-	-- 				return "make install_jsregexp"
-	-- 			end)(),
-	-- 		},
-	-- 		"saadparwaiz1/cmp_luasnip",
-	-- 		"hrsh7th/cmp-buffer",
-	-- 		"hrsh7th/cmp-path",
-	-- 		"hrsh7th/cmp-cmdline",
-	-- 		"rafamadriz/friendly-snippets",
-	-- 		{
-	-- 			"hrsh7th/cmp-nvim-lsp",
-	-- 			config = function()
-	-- 				local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-	-- 				local servers = { "gopls", "clangd", "rust_analyzer", "pyright", "tsserver", "lua_ls", "jsonls" }
-
-	-- 				for _, server_name in pairs(servers) do
-	-- 					require("lspconfig")[server_name].setup({
-	-- 						capabilities = capabilities,
-	-- 					})
-	-- 				end
-	-- 			end,
-	-- 		},
-	-- 	},
-	-- },
 }

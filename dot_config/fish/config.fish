@@ -26,6 +26,10 @@ function multicd
 end
 abbr --add dotdot --regex '^\.\.+$' --function multicd
 
+function git_hash
+    echo -n  '['(git rev-parse HEAD 2>/dev/null | string replace -r '^(.{0,8}).*' '$1')']'
+end
+
 
 function fish_prompt
 	set_color brblack
@@ -42,7 +46,8 @@ function fish_prompt
 		echo -n (basename $PWD)
 	end
     set_color --bold "#8ABEB7"
-	printf '%s ' (__fish_git_prompt)
+	# printf '%s ' (git_prompt)
+	printf '%s %s ' (fish_git_prompt) (git_hash)
 	set_color brblack
 	echo -n '| '
 	set_color normal
@@ -80,8 +85,13 @@ function fish_greeting
     echo \t (ip -6 -brief -o addres show | awk 'NR==2') \n
 end
 
-if status is-interactive 
-    # atuin init fish --disable-ctrl-r | source
+switch ":$PATH:"
+    case '*:/home/lautaro/.juliaup/bin:*'
+        ;;
+
+    case '*'
+        set -x PATH  /home/lautaro/.juliaup/bin $PATH
+        ;;
 end
 
 fish_add_path -aP /usr/local/go/bin
@@ -92,5 +102,11 @@ fish_add_path /home/lautaro/.mozbuild/git-cinnabar/
 fish_add_path ""$(python3 -m site --user-base)"/bin/"
 fish_add_path /home/lautaro/personal/apps/go/bin/
 fish_add_path /home/lautaro/personal/apps/wezterm-20240203-110809-5046fc22/target/release/
+fish_add_path /home/lautaro/personal/apps/gradle/gradle-8.7/bin/
+
+abbr -a relational relational.py
+fish_add_path /home/lautaro/personal/apps/relational/relational.py
+
+set -Ux EDITOR nvim
 
 theme_gruvbox dark hard
