@@ -90,8 +90,10 @@ return {
 					},
 				},
 				rust_analyzer = {},
-				basedpyright = {},
+				zls = {},
+				pyright = {},
 				julials = {},
+				ruff_lsp = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -116,6 +118,7 @@ return {
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua",
+				"sqlfmt",
 				"goimports",
 				"biome",
 				"beautysh",

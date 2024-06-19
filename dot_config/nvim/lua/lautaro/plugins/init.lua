@@ -1,8 +1,14 @@
 return {
 
+	{
+		"windwp/nvim-ts-autotag",
+		opts = true,
+	},
 	"tjdevries/colorbuddy.vim",
 	"tjdevries/gruvbuddy.nvim",
 	"mfussenegger/nvim-jdtls",
+
+	"rose-pine/neovim",
 	{
 		"ellisonleao/gruvbox.nvim",
 		priority = 1000,
@@ -34,6 +40,7 @@ return {
 			vim.cmd("colorscheme gruvbox")
 		end,
 	},
+
 	{
 		"tpope/vim-sleuth",
 		event = "VeryLazy",

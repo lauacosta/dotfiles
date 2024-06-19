@@ -9,6 +9,8 @@ abbr -a gs 'git status'
 abbr -a gp 'git push'
 abbr -a ct 'cargo t'
 abbr -a vim 'nvim'
+abbr -a tma 'tmux attach'
+abbr -a cwr 'cargo-watch -q -c -x \'run -q\''
 
 if command -v eza > /dev/null
 	abbr -a l 'eza'
@@ -101,6 +103,7 @@ source ~/.asdf/asdf.fish
 fish_add_path /home/lautaro/.mozbuild/git-cinnabar/
 fish_add_path ""$(python3 -m site --user-base)"/bin/"
 fish_add_path /home/lautaro/personal/apps/go/bin/
+fish_add_path /home/lautaro/personal/apps/zig/
 fish_add_path /home/lautaro/personal/apps/wezterm-20240203-110809-5046fc22/target/release/
 fish_add_path /home/lautaro/personal/apps/gradle/gradle-8.7/bin/
 
@@ -110,3 +113,7 @@ fish_add_path /home/lautaro/personal/apps/relational/relational.py
 set -Ux EDITOR nvim
 
 theme_gruvbox dark hard
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
