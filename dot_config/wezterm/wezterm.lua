@@ -3,7 +3,7 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 config.font = wezterm.font("Iosevka Nerd Font")
-config.font_size = 11
+config.font_size = 10
 config.colors = {}
 config.colors.background = "#1D2021"
 -- config.colors.background = "#181818"

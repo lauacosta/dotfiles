@@ -10,7 +10,7 @@ globalkeys = gears.table.join(
 	end, { description = "open a terminal", group = "launcher" }),
 	awful.key({ modkey, "Shift" }, "r", awesome.restart, { description = "reload awesome", group = "awesome" }),
 	awful.key({ modkey, "Shift" }, "e", awesome.quit, { description = "quit awesome", group = "awesome" }),
-	awful.key({ modkey }, "space", function()
+	awful.key({ modkey }, ",", function()
 		local layouts = { "latam", "us" }
 		local current_layout = io.popen("setxkbmap -query | grep layout | awk '{print $2}'"):read("*l")
 		local next_layout = ""

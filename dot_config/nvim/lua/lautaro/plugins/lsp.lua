@@ -58,6 +58,7 @@ return {
 
 			local servers = {
 				clangd = {},
+				omnisharp = {},
 				tsserver = {
 					settings = {
 						typescript = {

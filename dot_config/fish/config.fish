@@ -96,6 +96,15 @@ switch ":$PATH:"
         ;;
 end
 
+function yy
+	set tmp (mktemp -t "yazi-cwd.XXXXXX")
+	yazi $argv --cwd-file="$tmp"
+	if set cwd (cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+		cd -- "$cwd"
+	end
+	rm -f -- "$tmp"
+end
+
 fish_add_path -aP /usr/local/go/bin
 fish_add_path -aP /home/lautaro/personal
 
@@ -117,3 +126,4 @@ theme_gruvbox dark hard
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+

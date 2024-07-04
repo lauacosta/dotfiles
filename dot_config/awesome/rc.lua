@@ -34,7 +34,8 @@ end
 
 -- BASIC CONFIG
 beautiful.init("/home/lautaro/.config/awesome/theme.lua")
-terminal = "wezterm"
+-- terminal = "wezterm"
+terminal = "alacritty"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 modkey = "Mod4"
