@@ -4,6 +4,7 @@ return {
 		"windwp/nvim-ts-autotag",
 		opts = true,
 	},
+	"tpope/vim-commentary",
 	"tjdevries/colorbuddy.vim",
 	"tjdevries/gruvbuddy.nvim",
 	"mfussenegger/nvim-jdtls",
