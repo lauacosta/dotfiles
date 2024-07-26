@@ -91,7 +91,6 @@ return {
 					},
 				},
 				rust_analyzer = {},
-				zls = {},
 				pyright = {},
 				julials = {},
 				ruff_lsp = {},

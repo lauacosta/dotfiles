@@ -114,7 +114,6 @@ fish_add_path ""$(python3 -m site --user-base)"/bin/"
 fish_add_path /home/lautaro/personal/apps/go/bin/
 fish_add_path /home/lautaro/personal/apps/zig/
 fish_add_path /home/lautaro/personal/apps/wezterm-20240203-110809-5046fc22/target/release/
-fish_add_path /home/lautaro/personal/apps/gradle/gradle-8.7/bin/
 
 abbr -a relational relational.py
 fish_add_path /home/lautaro/personal/apps/relational/relational.py
@@ -127,3 +126,5 @@ theme_gruvbox dark hard
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
+set --export LIBTORCH "$HOME/personal/code/libtorch/"
+set --export LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/usr/local/lib64/"
