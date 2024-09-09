@@ -5,7 +5,6 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			"jose-elias-alvarez/typescript.nvim",
 			{ "j-hui/fidget.nvim", opts = {} },
 			{ "folke/neodev.nvim", opts = {} },
 		},
@@ -58,23 +57,8 @@ return {
 
 			local servers = {
 				clangd = {},
+				tsserver = {},
 				omnisharp = {},
-				tsserver = {
-					settings = {
-						typescript = {
-							inlayHints = {
-								includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
-								includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-								includeInlayVariableTypeHints = true,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
-							},
-						},
-					},
-				},
 				gopls = {
 					settings = {
 						gopls = {
@@ -92,8 +76,6 @@ return {
 				},
 				rust_analyzer = {},
 				pyright = {},
-				julials = {},
-				ruff_lsp = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -104,8 +86,6 @@ return {
 									"${3rd}/luv/library",
 									unpack(vim.api.nvim_get_runtime_file("", true)),
 								},
-								-- If lua_ls is really slow on your computer, you can try this instead:
-								-- library = { vim.env.VIMRUNTIME },
 							},
 							diagnostics = { disable = { "missing-fields" } },
 						},
@@ -118,11 +98,7 @@ return {
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua",
-				"sqlfmt",
 				"goimports",
-				"biome",
-				"beautysh",
-				"ruff",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -136,14 +112,6 @@ return {
 					end,
 				},
 			})
-			-- local lspconfig = require("lspconfig")
-			-- lspconfig.basedpyright.setup({})
 		end,
-	},
-	{
-		"pmizio/typescript-tools.nvim",
-		event = "VeryLazy",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {},
 	},
 }

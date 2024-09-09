@@ -54,13 +54,13 @@
 
 
 (
- (macro_invocation ; [185, 17] - [189, 5]
-  (scoped_identifier ; [185, 17] - [185, 31]
-  path: (identifier) @module (#eq? @module "sqlx"); [185, 17] - [185, 21]
-  name: (identifier) @macro_name) (#eq? @macro_name "query_as") ; [185, 23] - [185, 31]
-  (token_tree ; [185, 32] - [189, 5]
-      (identifier) ; [186, 8] - [186, 11]
-      (string_literal ; [187, 8] - [187, 98]
+ (macro_invocation 
+  (scoped_identifier 
+  path: (identifier) @module (#eq? @module "sqlx")
+  name: (identifier) @macro_name) (#eq? @macro_name "query_as") 
+  (token_tree 
+      (identifier) 
+      (string_literal 
         (string_content) @injection.content  (#set! injection.language "sql")
       )
   )
@@ -90,4 +90,12 @@
     )
   )
  )
+)
+
+(
+ (line_comment
+   doc: (doc_comment) @injection.content
+ ) 
+ (#set! injection.language "markdown")
+ (#set! injection.include-children)
 )

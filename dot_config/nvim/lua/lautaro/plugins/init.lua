@@ -1,21 +1,37 @@
 return {
+	"justinmk/vim-sneak",
+	{
+		"tpope/vim-fugitive",
+		event = "VeryLazy",
+	},
+	{
+		"f-person/git-blame.nvim",
+		event = "VeryLazy",
+	},
 
+	-- Cerrar automaticamente tags en HTML, XML, etc.
 	{
 		"windwp/nvim-ts-autotag",
 		opts = true,
 	},
 	"tpope/vim-commentary",
-	"tjdevries/colorbuddy.vim",
-	"tjdevries/gruvbuddy.nvim",
 	"mfussenegger/nvim-jdtls",
 
-	"rose-pine/neovim",
+	{
+		"projekt0n/github-nvim-theme",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("github-theme").setup({})
+			-- vim.cmd("colorscheme github_dark")
+		end,
+	},
 	{
 		"ellisonleao/gruvbox.nvim",
 		priority = 1000,
 		config = function()
 			require("gruvbox").setup({
-				terminal_colors = true, -- add neovim terminal colors
+				terminal_colors = true,
 				undercurl = true,
 				underline = true,
 				bold = true,
@@ -31,8 +47,8 @@ return {
 				invert_signs = false,
 				invert_tabline = false,
 				invert_intend_guides = false,
-				inverse = true, -- invert background for search, diffs, statuslines and errors
-				contrast = "hard", -- can be "hard", "soft" or empty string
+				inverse = true,
+				contrast = "hard",
 				palette_overrides = {},
 				overrides = {},
 				dim_inactive = false,
@@ -42,10 +58,6 @@ return {
 		end,
 	},
 
-	{
-		"tpope/vim-sleuth",
-		event = "VeryLazy",
-	},
 	{
 		"norcalli/nvim-colorizer.lua",
 		event = "VeryLazy",
