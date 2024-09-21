@@ -34,7 +34,6 @@ end
 
 -- BASIC CONFIG
 beautiful.init("/home/lautaro/.config/awesome/theme.lua")
--- terminal = "wezterm"
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
@@ -64,8 +63,3 @@ require("wibar")
 require("keybindings")
 require("rules")
 require("signals")
-
-local gears = require("gears")
-client.connect_signal("manage", function(c)
-	c.shape = gears.shape.rounded_rect
-end)

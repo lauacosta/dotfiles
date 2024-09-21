@@ -36,7 +36,7 @@ globalkeys = gears.table.join(
 		awful.spawn.with_shell("flameshot gui --clipboard -p ~/captures/")
 	end, { description = "create a screenshot with flameshot", group = "awesome" }),
 	awful.key({ modkey }, "o", function()
-		awful.spawn("firefox")
+		awful.spawn("firefox-nightly")
 	end, { description = "execute firefox", group = "awesome" }),
 
 	-- awful.key({ modkey }, ",", function()

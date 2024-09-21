@@ -59,6 +59,9 @@ return {
 				clangd = {},
 				tsserver = {},
 				omnisharp = {},
+				volar = {},
+				cssls = {},
+				-- tailwindcss = {},
 				gopls = {
 					settings = {
 						gopls = {

@@ -5,11 +5,11 @@ require("awful.autofocus")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 require("awful.hotkeys_popup.keys")
-local net_widgets = require("net_widgets")
-local docker_widget = require("awesome-wm-widgets.docker-widget.docker")
-local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
-local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
-local github_activity_widget = require("awesome-wm-widgets.github-activity-widget.github-activity-widget")
+-- local net_widgets = require("net_widgets")
+-- local docker_widget = require("awesome-wm-widgets.docker-widget.docker")
+-- local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+-- local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
+-- local github_activity_widget = require("awesome-wm-widgets.github-activity-widget.github-activity-widget")
 
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
@@ -109,7 +109,7 @@ beautiful.volume.widget:buttons(awful.util.table.join(
 ))
 
 local spr = wibox.widget.textbox(" ")
-local net_wireless = net_widgets.wireless({ interface = "wlp2s0f0u6" })
+-- local net_wireless = net_widgets.wireless({ interface = "wlp2s0f0u6" })
 
 awful.screen.connect_for_each_screen(function(s)
 	set_wallpaper(s)
@@ -151,7 +151,7 @@ awful.screen.connect_for_each_screen(function(s)
 	})
 
 	s.mywibox = awful.wibar({
-		position = "top",
+		position = "bottom",
 		screen = s,
 		height = dpi(25),
 		bg = beautiful.bg_normal,
@@ -173,25 +173,25 @@ awful.screen.connect_for_each_screen(function(s)
 		{
 			layout = wibox.layout.fixed.horizontal,
 			mykeyboardlayout,
-			cpu_widget({
-				width = 100,
-				step_width = 4,
-				step_spacing = 1,
-			}),
+			-- cpu_widget({
+			-- 	width = 100,
+			-- 	step_width = 4,
+			-- 	step_spacing = 1,
+			-- }),
 			spr,
-			docker_widget({
-				number_of_containers = 5,
-			}),
+			-- docker_widget({
+			-- 	number_of_containers = 5,
+			-- }),
 			spr,
-			github_activity_widget({
-				username = "lauacosta",
-			}),
+			-- github_activity_widget({
+			-- 	username = "lauacosta",
+			-- }),
 			spr,
 			beautiful.volume.widget,
 			spr,
 			mem.widget,
 			volicon,
-			net_wireless,
+			-- net_wireless,
 			spr,
 			wibox.widget.systray(),
 			clock,

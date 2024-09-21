@@ -12,7 +12,7 @@ local themes_path = gfs.get_themes_dir()
 local theme = {}
 
 theme.font = "Iosevka Nerd Font 10"
-theme.wallpaper = "/home/lautaro/.local/share/chezmoi/Wallpaper.png"
+theme.wallpaper = "/home/lautaro/personal/vault/wallhaven-3l9z69_1920x1080.png"
 theme.icon_theme = nil
 
 theme.bg_normal = "#222222"
@@ -26,8 +26,8 @@ theme.fg_focus = "#ffffff"
 theme.fg_urgent = "#ffffff"
 theme.fg_minimize = "#ffffff"
 
-theme.useless_gap = dpi(2)
-theme.border_width = dpi(2)
+theme.useless_gap = dpi(0.5)
+theme.border_width = dpi(1)
 theme.border_normal = "#000000"
 theme.border_focus = "#535d6c"
 theme.border_marked = "#91231c"
