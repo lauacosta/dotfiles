@@ -57,26 +57,55 @@ return {
 
 			local servers = {
 				clangd = {},
-				tsserver = {},
-				omnisharp = {},
-				volar = {},
-				cssls = {},
-				-- tailwindcss = {},
-				gopls = {
+				angularls = {},
+				tsserver = {
 					settings = {
-						gopls = {
-							hints = {
-								assignVariableTypes = true,
-								compositeLiteralFields = true,
-								compositeLiteralTypes = true,
-								constantValues = true,
-								functionTypeParameters = true,
-								parameterNames = true,
-								rangeVariableTypes = true,
+						typescript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "all",
+								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHints = true,
+								includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
+							},
+						},
+						javascript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "all",
+								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHints = true,
+								includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
 							},
 						},
 					},
 				},
+				omnisharp = {},
+				volar = {},
+				cssls = {},
+				-- tailwindcss = {},
+				elixirls = {},
+				-- gopls = {
+				-- 	settings = {
+				-- 		gopls = {
+				-- 			hints = {
+				-- 				assignVariableTypes = true,
+				-- 				compositeLiteralFields = true,
+				-- 				compositeLiteralTypes = true,
+				-- 				constantValues = true,
+				-- 				functionTypeParameters = true,
+				-- 				parameterNames = true,
+				-- 				rangeVariableTypes = true,
+				-- 			},
+				-- 		},
+				-- 	},
+				-- },
 				rust_analyzer = {},
 				pyright = {},
 				lua_ls = {
@@ -101,7 +130,7 @@ return {
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua",
-				"goimports",
+				-- "goimports",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

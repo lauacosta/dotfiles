@@ -2,6 +2,7 @@ require("lautaro.set")
 require("lautaro.lazy")
 require("lautaro.keymaps")
 require("lspconfig").phpactor.setup({})
+require("lspconfig").ocamllsp.setup({})
 local lspconfig = require("lspconfig")
 
 lspconfig.tsserver.setup({

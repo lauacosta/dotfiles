@@ -70,11 +70,10 @@ return {
 				table.insert(config.sections.lualine_x, component)
 			end
 
-			local mode_colors = function()
+			local mode_colors_fg = function()
 				local mode_color = {
 					n = colors.yellow,
 					i = colors.violet,
-
 					v = colors.magenta,
 					[""] = colors.magenta,
 					V = colors.magenta,
@@ -104,7 +103,7 @@ return {
 				icons_enabled = true,
 				separator = "|",
 				color = function()
-					return { fg = mode_colors(), gui = "bold" }
+					return { fg = mode_colors_fg(), gui = "bold" }
 				end,
 			})
 

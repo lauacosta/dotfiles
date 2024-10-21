@@ -10,9 +10,11 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				rust = { "ast-grep" },
-				go = { "goimports" },
+				ocaml = { "ocamlformat" },
+				-- go = { "goimports" },
 				javascript = { "biome" },
 				typescript = { "biome" },
+				html = { "biome" },
 				bash = { "beautysh" },
 				python = { "ruff" },
 			},
