@@ -1,6 +1,5 @@
-
 # dotfiles
-Este repositorio contiene las aplicaciones y la configuracion que uso en mi maquina. Utilizo [`chezmoi`](https://github.com/twpayne/chezmoi).
+Este repositorio contiene las aplicaciones y la configuracion que uso. Utilizo [`chezmoi`](https://github.com/twpayne/chezmoi).
 
 ## Instalación:
 
