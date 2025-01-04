@@ -18,43 +18,6 @@ return {
 	"mfussenegger/nvim-jdtls",
 
 	{
-		"projekt0n/github-nvim-theme",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			require("github-theme").setup({})
-			-- vim.cmd("colorscheme github_dark")
-		end,
-	},
-
-	{
-		"rebelot/kanagawa.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			require("kanagawa").setup({})
-			-- vim.cmd("colorscheme github_dark")
-		end,
-	},
-	-- {
-	-- 	"bluz71/vim-moonfly-colors",
-	-- 	lazy = false,
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		require("moonfly").setup({})
-	-- 		-- vim.cmd("colorscheme github_dark")
-	-- 	end,
-	-- },
-	{
-		"AlexvZyl/nordic.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			require("nordic").setup({})
-			-- vim.cmd("colorscheme github_dark")
-		end,
-	},
-	{
 		"ellisonleao/gruvbox.nvim",
 		priority = 1000,
 		config = function()
@@ -77,8 +40,10 @@ return {
 				invert_intend_guides = false,
 				inverse = true,
 				contrast = "hard",
+				overrides = {
+					Comment = { fg = "#fe8019" },
+				},
 				palette_overrides = {},
-				overrides = {},
 				dim_inactive = false,
 				transparent_mode = false,
 			})

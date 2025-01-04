@@ -4,6 +4,7 @@ abbr -a m make
 abbr -a g git
 abbr -a j just
 abbr -a ga 'git add'
+abbr -a gap 'git add -p'
 abbr -a gc 'git commit'
 abbr -a gd 'git diff'
 abbr -a gs 'git status'
@@ -109,13 +110,13 @@ end
 fish_add_path -aP /usr/local/go/bin
 fish_add_path -aP /home/lautaro/personal
 
-source ~/.asdf/asdf.fish
+# source ~/.asdf/asdf.fish
 fish_add_path /home/lautaro/.mozbuild/git-cinnabar/
 fish_add_path ""$(python3 -m site --user-base)"/bin/"
 fish_add_path /home/lautaro/personal/apps/go/bin/
 fish_add_path /home/lautaro/personal/apps/spring-3.3.3/bin/
 fish_add_path /home/lautaro/personal/apps/zig/
-fish_add_path /home/lautaro/personal/apps/wezterm-20240203-110809-5046fc22/target/release/
+# fish_add_path /home/lautaro/personal/apps/wezterm-20240203-110809-5046fc22/target/release/
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 set --export PATH "$HOME/.cargo/bin:$PATH"
@@ -138,3 +139,4 @@ end
 # pnpm end
 
 theme_gruvbox dark hard
+~/.local/bin/mise activate fish | source

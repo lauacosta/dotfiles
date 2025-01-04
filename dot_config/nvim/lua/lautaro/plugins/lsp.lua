@@ -57,57 +57,57 @@ return {
 
 			local servers = {
 				clangd = {},
-				angularls = {},
-				tsserver = {
-					settings = {
-						typescript = {
-							inlayHints = {
-								includeInlayParameterNameHints = "all",
-								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHints = true,
-								includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
-							},
-						},
-						javascript = {
-							inlayHints = {
-								includeInlayParameterNameHints = "all",
-								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHints = true,
-								includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
-							},
-						},
-					},
-				},
-				omnisharp = {},
-				volar = {},
-				cssls = {},
-				-- tailwindcss = {},
-				elixirls = {},
-				-- gopls = {
+				-- angularls = {},
+				-- tsserver = {
 				-- 	settings = {
-				-- 		gopls = {
-				-- 			hints = {
-				-- 				assignVariableTypes = true,
-				-- 				compositeLiteralFields = true,
-				-- 				compositeLiteralTypes = true,
-				-- 				constantValues = true,
-				-- 				functionTypeParameters = true,
-				-- 				parameterNames = true,
-				-- 				rangeVariableTypes = true,
+				-- 		typescript = {
+				-- 			inlayHints = {
+				-- 				includeInlayParameterNameHints = "all",
+				-- 				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+				-- 				includeInlayFunctionParameterTypeHints = true,
+				-- 				includeInlayVariableTypeHints = true,
+				-- 				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+				-- 				includeInlayPropertyDeclarationTypeHints = true,
+				-- 				includeInlayFunctionLikeReturnTypeHints = true,
+				-- 				includeInlayEnumMemberValueHints = true,
+				-- 			},
+				-- 		},
+				-- 		javascript = {
+				-- 			inlayHints = {
+				-- 				includeInlayParameterNameHints = "all",
+				-- 				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+				-- 				includeInlayFunctionParameterTypeHints = true,
+				-- 				includeInlayVariableTypeHints = true,
+				-- 				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+				-- 				includeInlayPropertyDeclarationTypeHints = true,
+				-- 				includeInlayFunctionLikeReturnTypeHints = true,
+				-- 				includeInlayEnumMemberValueHints = true,
 				-- 			},
 				-- 		},
 				-- 	},
 				-- },
+				-- omnisharp = {},
+				-- volar = {},
+				-- cssls = {},
+				-- tailwindcss = {},
+				elixirls = {},
+				gopls = {
+					settings = {
+						gopls = {
+							hints = {
+								assignVariableTypes = true,
+								compositeLiteralFields = true,
+								compositeLiteralTypes = true,
+								constantValues = true,
+								functionTypeParameters = true,
+								parameterNames = true,
+								rangeVariableTypes = true,
+							},
+						},
+					},
+				},
 				rust_analyzer = {},
-				pyright = {},
+				ruff_lsp = {},
 				lua_ls = {
 					settings = {
 						Lua = {
