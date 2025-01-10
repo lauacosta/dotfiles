@@ -21,7 +21,7 @@ return {
 	},
 
 	{
-		"nvim-treesitter/nvim-treesitter-context",
-		opts = true,
+		-- "nvim-treesitter/nvim-treesitter-context",
+		-- opts = true,
 	},
 }

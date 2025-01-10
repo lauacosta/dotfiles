@@ -26,17 +26,17 @@ return {
 				:find()
 		end
 
-		vim.keymap.set("n", "<leader>hw", function()
+		vim.keymap.set("n", "<leader>sh", function()
 			toggle_telescope(harpoon:list())
 		end, { desc = "Open harpoon window" })
 
 		vim.keymap.set("n", "<leader>ha", function()
-			harpoon:list():append()
+			harpoon:list():add()
 		end, { desc = "Append to the list" })
 		vim.keymap.set("n", "<C->", function()
 			harpoon:list():prev()
 		end, { desc = "Previous buffer" })
-		vim.keymap.set("n", "<C-e>", function()
+		vim.keymap.set("n", "<leader>e", function()
 			harpoon:list():next()
 		end, { desc = "Next buffer" })
 	end,
