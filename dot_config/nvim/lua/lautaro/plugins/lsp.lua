@@ -5,12 +5,12 @@ return {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			"jose-elias-alvarez/typescript.nvim",
 			{ "j-hui/fidget.nvim", opts = {} },
-			{ "folke/neodev.nvim", opts = {} },
+			{ "folke/lazydev.nvim", opts = {} },
 		},
 		opts = {
 			inlay_hints = { enabled = true },
+			code_lens = { enable = true },
 		},
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -53,28 +53,34 @@ return {
 				end,
 			})
 
+			vim.api.nvim_create_autocmd({ "LspAttach", "InsertLeave", "BufEnter" }, {
+				group = vim.api.nvim_create_augroup("LspCodelens", { clear = true }),
+				callback = function()
+					vim.lsp.codelens.refresh({ bufnr = 0 })
+				end,
+			})
+
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 			local servers = {
 				clangd = {},
-				omnisharp = {},
-				tsserver = {
-					settings = {
-						typescript = {
-							inlayHints = {
-								includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
-								includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-								includeInlayVariableTypeHints = true,
-								includeInlayFunctionParameterTypeHints = true,
-								includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-								includeInlayPropertyDeclarationTypeHints = true,
-								includeInlayFunctionLikeReturnTypeHints = true,
-								includeInlayEnumMemberValueHints = true,
-							},
-						},
-					},
-				},
+				-- tsserver = {
+				-- 	settings = {
+				-- 		typescript = {
+				-- 			inlayHints = {
+				-- 				includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
+				-- 				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+				-- 				includeInlayVariableTypeHints = true,
+				-- 				includeInlayFunctionParameterTypeHints = true,
+				-- 				includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+				-- 				includeInlayPropertyDeclarationTypeHints = true,
+				-- 				includeInlayFunctionLikeReturnTypeHints = true,
+				-- 				includeInlayEnumMemberValueHints = true,
+				-- 			},
+				-- 		},
+				-- 	},
+				-- },
 				gopls = {
 					settings = {
 						gopls = {
@@ -92,8 +98,16 @@ return {
 				},
 				rust_analyzer = {},
 				pyright = {},
-				julials = {},
-				ruff_lsp = {},
+				ocamllsp = {
+					settings = {
+						codelens = { enable = true },
+						inlayHints = { enable = true },
+						syntaxDocumentation = { enable = true },
+						extendedHover = { enable = true },
+					},
+
+					server_capabilities = { semanticTokensProvider = false },
+				},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -118,11 +132,8 @@ return {
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua",
-				"sqlfmt",
 				"goimports",
 				"biome",
-				"beautysh",
-				"ruff",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

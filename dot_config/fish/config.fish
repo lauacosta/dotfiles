@@ -3,7 +3,8 @@ abbr -a c cargo
 abbr -a m make
 abbr -a g git
 abbr -a ga 'git add'
-abbr -a gc 'git commit'
+abbr -a gap 'git add -p'
+abbr -a gcm 'git commit -m'
 abbr -a gd 'git diff'
 abbr -a gs 'git status'
 abbr -a gp 'git push'
@@ -110,7 +111,7 @@ fish_add_path -aP /home/lautaro/personal
 
 source ~/.asdf/asdf.fish
 fish_add_path /home/lautaro/.mozbuild/git-cinnabar/
-fish_add_path ""$(python3 -m site --user-base)"/bin/"
+# fish_add_path ""$(python3 -m site --user-base)"/bin/"
 fish_add_path /home/lautaro/personal/apps/go/bin/
 fish_add_path /home/lautaro/personal/apps/zig/
 fish_add_path /home/lautaro/personal/apps/wezterm-20240203-110809-5046fc22/target/release/
@@ -120,11 +121,27 @@ fish_add_path /home/lautaro/personal/apps/relational/relational.py
 
 set -Ux EDITOR nvim
 
-theme_gruvbox dark hard
+# theme_gruvbox dark hard
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
-
+set --export PATH "/home/lautaro/lua-5.4.7/src/" $PATH
 set --export LIBTORCH "$HOME/personal/code/libtorch/"
 set --export LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/usr/local/lib64/"
+
+# pnpm
+set -gx PNPM_HOME "/home/lautaro/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+test -r '/home/lautaro/.opam/opam-init/init.fish' && source '/home/lautaro/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
+# END opam configuration
