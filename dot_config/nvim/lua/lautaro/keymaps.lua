@@ -54,3 +54,4 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	vim.keymap.set("n", "<A-n>", "]sz=", { noremap = true }),
 	vim.keymap.set("n", "<A-p>", "[sz=", { noremap = true }),
 })
+
