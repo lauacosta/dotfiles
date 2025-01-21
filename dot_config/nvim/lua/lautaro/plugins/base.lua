@@ -1,24 +1,24 @@
-return {
-	"justinmk/vim-sneak",
-	{
-		"tpope/vim-fugitive",
-		event = "VeryLazy",
-	},
-	{
-		"f-person/git-blame.nvim",
-		event = "VeryLazy",
-	},
+local import = function(libraries)
+	local libs = {}
+	for _, lib in ipairs(libraries) do
+		table.insert(libs, { lib, enabled = true, event = "VeryLazy" })
+	end
+	return libs
+end
 
-	-- Cerrar automaticamente tags en HTML, XML, etc.
-	{
+return {
+	unpack(import({
+		"justinmk/vim-sneak",
+		"tpope/vim-fugitive",
+		"f-person/git-blame.nvim",
 		"windwp/nvim-ts-autotag",
-		opts = true,
-	},
-	"tpope/vim-commentary",
-	"mfussenegger/nvim-jdtls",
+		"tpope/vim-commentary",
+		"mfussenegger/nvim-jdtls",
+	})),
 
 	{
 		"ellisonleao/gruvbox.nvim",
+		enabled = true,
 		priority = 1000,
 		config = function()
 			require("gruvbox").setup({
@@ -47,16 +47,13 @@ return {
 				dim_inactive = false,
 				transparent_mode = false,
 			})
-			vim.cmd("colorscheme gruvbox")
+			vim.cmd.colorscheme("gruvbox")
 		end,
 	},
 
 	{
-		"norcalli/nvim-colorizer.lua",
-		event = "VeryLazy",
-	},
-	{
 		"lewis6991/gitsigns.nvim",
+		enabled = true,
 		event = "VeryLazy",
 		opts = {
 			signs = {
@@ -70,22 +67,18 @@ return {
 	},
 	{
 		"folke/todo-comments.nvim",
+		enabled = true,
 		event = "VeryLazy",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = { signs = false },
 	},
 	{
 		"echasnovski/mini.nvim",
+		enabled = true,
 		event = "VeryLazy",
 		config = function()
-			--  - va)  - [V]isually select [A]round [)]parenthen
-			--  - yinq - [Y]ank [I]nside [N]ext [']quote
-			--  - ci'  - [C]hange [I]nside [']quote
-			require("mini.ai").setup({ n_lines = 501 })
-			-- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
-			-- - sd'   - [S]urround [D]elete [']quotes
-			-- - sr)'  - [S]urround [R]eplace [)] [']
-			require("mini.surround").setup()
+			local statusline = require("mini.statusline")
+			statusline.setup({ use_icons = true })
 		end,
 	},
 }

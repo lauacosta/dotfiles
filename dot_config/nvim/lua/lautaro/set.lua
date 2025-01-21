@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
 local set = vim.opt
 
 vim.g.have_nerd_font = true
@@ -22,10 +20,3 @@ set.termguicolors = true
 set.wrap = false
 vim.o.completeopt = vim.o.completeopt:gsub(",?preview", "")
 vim.g.db_ui_auto_execute_table_helpers = 1
-
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-	pattern = { "*.md", "*.txt", "*.tex" },
-	command = "set linebreak | set wrap",
-	vim.keymap.set("n", "<A-n>", "]sz=", { noremap = true }),
-	vim.keymap.set("n", "<A-p>", "[sz=", { noremap = true }),
-})

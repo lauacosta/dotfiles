@@ -1,6 +1,7 @@
 return {
-	{ -- Autoformat
+	{
 		"stevearc/conform.nvim",
+		enabled = true,
 		opts = {
 			notify_on_error = false,
 			format_on_save = {
@@ -9,9 +10,7 @@ return {
 			},
 			formatters_by_ft = {
 				lua = { "stylua" },
-				rust = { "ast-grep" },
 				ocaml = { "ocamlformat" },
-				-- go = { "goimports" },
 				javascript = { "biome" },
 				typescript = { "biome" },
 				html = { "biome" },

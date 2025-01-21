@@ -1,6 +1,7 @@
 return {
 	{
 		"nvim-telescope/telescope.nvim",
+		enabled = true,
 		event = "VimEnter",
 		branch = "0.1.x",
 		dependencies = {

@@ -1,6 +1,7 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		enabled = true,
 		event = "VeryLazy",
 		build = ":TSUpdate",
 		config = function()
@@ -21,7 +22,8 @@ return {
 	},
 
 	{
-		-- "nvim-treesitter/nvim-treesitter-context",
-		-- opts = true,
+		"nvim-treesitter/nvim-treesitter-context",
+		enabled = true,
+		opts = true,
 	},
 }
