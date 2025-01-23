@@ -5,7 +5,6 @@ abbr -a g git
 abbr -a j just
 abbr -a ga 'git add'
 abbr -a gap 'git add -p'
-abbr -a gcm 'git commit -m'
 abbr -a gc 'git commit'
 abbr -a gd 'git diff'
 abbr -a gs 'git status'
@@ -111,14 +110,27 @@ end
 fish_add_path -aP /usr/local/go/bin
 fish_add_path -aP /home/lautaro/personal
 
+# source ~/.asdf/asdf.fish
 fish_add_path /home/lautaro/.mozbuild/git-cinnabar/
-
-test -r '/home/lautaro/.opam/opam-init/init.fish' && source '/home/lautaro/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
-set -Ux EDITOR nvim
+fish_add_path ""$(python3 -m site --user-base)"/bin/"
+fish_add_path /home/lautaro/personal/apps/go/bin/
+fish_add_path /home/lautaro/personal/apps/spring-3.3.3/bin/
+fish_add_path /home/lautaro/personal/apps/zig/
+# fish_add_path /home/lautaro/personal/apps/wezterm-20240203-110809-5046fc22/target/release/
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 set --export PATH "$HOME/.cargo/bin:$PATH"
 set --export PATH "$HOME/go/bin:$PATH"
+
+# set --export LIBTORCH "$HOME/personal/code/libtorch/"
+# set --export LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/usr/local/lib64/"
+set --export DENO_INSTALL "/home/lautaro/.deno"
+set --export PATH "$DENO_INSTALL/bin:$PATH"
+set --export FLYCTL_INSTALL "/home/lautaro/.fly"
+set --export PATH "$FLYCTL_INSTALL/bin:$PATH"
+
+uv generate-shell-completion fish | source
+
 # pnpm
 set -gx PNPM_HOME "/home/lautaro/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
@@ -128,4 +140,12 @@ end
 
 theme_gruvbox dark hard
 ~/.local/bin/mise activate fish | source
-uv generate-shell-completion fish | source
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+test -r '/home/lautaro/.opam/opam-init/init.fish' && source '/home/lautaro/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
+# END opam configuration

@@ -18,6 +18,7 @@ return { {
   },
   opts = {
     inlay_hints = { enabled = true },
+    code_lens = { enabled = true },
   },
   config = function()
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -26,7 +27,7 @@ return { {
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if not client then return end
 
-        if client.supports_method('TextDocument/formatting', 0) then
+        if client.supports_method('TextDocument/Formatting', 0) then
           vim.api.nvim_create_autocmd('BufWritePre', {
             buffer = event.buf,
             callback = function() vim.lsp.buf.format({ bufnr = event.buf, id = client.id }) end,
@@ -77,6 +78,13 @@ return { {
       function(server_name)
         require "lspconfig"[server_name].setup { capatabilites = capabilities }
       end
+    }
+    require "lspconfig".ocamllsp.setup {
+      settings = { 
+        codelens = { enabled = true }, 
+        syntaxDocumentation = { enable = true }, 
+      },
+      capatabilites = capabilities 
     }
   end,
 },
