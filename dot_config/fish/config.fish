@@ -34,7 +34,6 @@ function git_hash
     echo -n  '['(git rev-parse HEAD 2>/dev/null | string replace -r '^(.{0,8}).*' '$1')']'
 end
 
-
 function fish_prompt
 	set_color brblack
 	echo -n "["(date "+%H:%M")"] "
@@ -51,9 +50,9 @@ function fish_prompt
 	end
     set_color --bold "#8ABEB7"
 	# printf '%s ' (git_prompt)
-	printf '%s %s ' (fish_git_prompt) (git_hash)
+	printf '%s %s \n' (fish_git_prompt) (git_hash)
 	set_color brblack
-	echo -n '| '
+    echo -n '>> '
 	set_color normal
 end
 

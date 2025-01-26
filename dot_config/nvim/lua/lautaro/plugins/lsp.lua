@@ -80,11 +80,19 @@ return { {
       end
     }
     require "lspconfig".ocamllsp.setup {
-      settings = { 
-        codelens = { enabled = true }, 
-        syntaxDocumentation = { enable = true }, 
+      settings = {
+        codelens = { enabled = true },
+        syntaxDocumentation = { enable = true },
       },
-      capatabilites = capabilities 
+      capatabilites = capabilities
+    }
+
+    require "lspconfig".rust_analyzer.setup {
+      settings = {
+        codelens = { enabled = true },
+        syntaxDocumentation = { enable = true },
+      },
+      capatabilites = capabilities
     }
   end,
 },

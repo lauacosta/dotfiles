@@ -60,6 +60,5 @@ vim.api.nvim_create_autocmd({ "LspAttach", "InsertLeave", "BufEnter" }, {
   group = vim.api.nvim_create_augroup("LspCodelens", { clear = true }),
   callback = function()
     vim.lsp.codelens.refresh({ bufnr = 0 })
-    print("Hola!")
   end,
 })
