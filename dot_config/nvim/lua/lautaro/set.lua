@@ -20,3 +20,4 @@ set.termguicolors = true
 set.wrap = false
 vim.o.completeopt = vim.o.completeopt:gsub(",?preview", "")
 vim.g.db_ui_auto_execute_table_helpers = 1
+-- vim.lsp.codelens.position = "above"

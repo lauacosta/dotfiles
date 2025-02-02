@@ -49,7 +49,7 @@ return {
       local map = function(keys, func, desc)
         vim.keymap.set("n", keys, func, { desc = "Telescope: " .. desc })
       end
-      map("<leader><leader>", builtin.buffers, "[ ] Find existing buffers")
+      map("<leader>bb", builtin.buffers, "[ ] Find existing buffers")
       map("<leader>s.", builtin.oldfiles, '[S]earch Recent Files ("." for repeat)')
       map("<leader>sf",
         builtin.find_files,

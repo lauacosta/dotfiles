@@ -13,12 +13,8 @@ return { {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
-    { "j-hui/fidget.nvim", opts = {} },
-    -- { "folke/neodev.nvim", opts = {} },
-  },
-  opts = {
-    inlay_hints = { enabled = true },
-    code_lens = { enabled = true },
+    { "https://git.sr.ht/~whynothugo/lsp_lines.nvim" },
+    { "j-hui/fidget.nvim",                           opts = {} },
   },
   config = function()
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -81,10 +77,13 @@ return { {
     }
     require "lspconfig".ocamllsp.setup {
       settings = {
-        codelens = { enabled = true },
+        codelens = {
+          enabled = true,
+          position = "above"
+        },
         syntaxDocumentation = { enable = true },
       },
-      capatabilites = capabilities
+      capabilities = capabilities
     }
 
     require "lspconfig".rust_analyzer.setup {
@@ -94,6 +93,10 @@ return { {
       },
       capatabilites = capabilities
     }
+
+
+    require("lsp_lines").setup()
+    vim.diagnostic.config { virtual_text = true, virtual_lines = false }
   end,
 },
 }

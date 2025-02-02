@@ -31,7 +31,9 @@ end
 abbr --add dotdot --regex '^\.\.+$' --function multicd
 
 function git_hash
-    echo -n  '['(git rev-parse HEAD 2>/dev/null | string replace -r '^(.{0,8}).*' '$1')']'
+    if git rev-parse --is-inside-work-tree >/dev/null 2>&1
+        echo -n  '['(git rev-parse --abbrev-ref HEAD) (git rev-parse HEAD 2>/dev/null | string replace -r '^(.{0,8}).*' '$1')']'
+    end
 end
 
 function fish_prompt
@@ -49,8 +51,7 @@ function fish_prompt
 		echo -n (basename $PWD)
 	end
     set_color --bold "#8ABEB7"
-	# printf '%s ' (git_prompt)
-	printf '%s %s \n' (fish_git_prompt) (git_hash)
+	printf ' %s\n' (git_hash)
 	set_color brblack
     echo -n '>> '
 	set_color normal
@@ -86,15 +87,6 @@ function fish_greeting
     set_color "#fbf1c7"
     echo \t (ip -4 -brief -o addres show | awk 'NR==2')
     echo \t (ip -6 -brief -o addres show | awk 'NR==2') \n
-end
-
-switch ":$PATH:"
-    case '*:/home/lautaro/.juliaup/bin:*'
-        ;;
-
-    case '*'
-        set -x PATH  /home/lautaro/.juliaup/bin $PATH
-        ;;
 end
 
 function yy
