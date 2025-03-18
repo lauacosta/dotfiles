@@ -8,7 +8,6 @@ end
 
 return {
   unpack(import({
-    "justinmk/vim-sneak",
     "tpope/vim-fugitive",
     "f-person/git-blame.nvim",
     "windwp/nvim-ts-autotag",
@@ -43,6 +42,9 @@ return {
         contrast = "hard",
         overrides = {
           Comment = { fg = "#fe8019" },
+          LspInlayHint = { fg = "#928374", italic = true },
+          FidgetTitle = { fg = "#fabd2f", bold = true },
+          FidgetTask = { fg = "#b8bb26" },
         },
         palette_overrides = {},
         dim_inactive = false,

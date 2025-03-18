@@ -32,7 +32,14 @@ abbr --add dotdot --regex '^\.\.+$' --function multicd
 
 function git_hash
     if git rev-parse --is-inside-work-tree >/dev/null 2>&1
-        echo -n  '['(git rev-parse --abbrev-ref HEAD) (git rev-parse HEAD 2>/dev/null | string replace -r '^(.{0,8}).*' '$1')']'
+        set branch (git rev-parse --abbrev-ref HEAD 2>/dev/null)
+        set commit (git rev-parse HEAD 2>/dev/null | string replace -r '^(.{0,8}).*' '$1')
+
+        if test -z "$commit"
+            echo -n "[$branch (no commits)]"
+        else
+            echo -n "[$branch $commit]"
+        end
     end
 end
 
@@ -107,11 +114,13 @@ fish_add_path ""$(python3 -m site --user-base)"/bin/"
 fish_add_path /home/lautaro/personal/apps/go/bin/
 fish_add_path /home/lautaro/personal/apps/spring-3.3.3/bin/
 fish_add_path /home/lautaro/personal/apps/zig/
-# fish_add_path /home/lautaro/personal/apps/wezterm-20240203-110809-5046fc22/target/release/
+fish_add_path /home/lautaro/personal/apps/RustRover-2024.3.6/bin/
+
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 set --export PATH "$HOME/.cargo/bin:$PATH"
 set --export PATH "$HOME/go/bin:$PATH"
+set --export PATH "$HOME/.config/herd-lite/bin/:$PATH"
 
 # set --export LIBTORCH "$HOME/personal/code/libtorch/"
 # set --export LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/usr/local/lib64/"
