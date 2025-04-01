@@ -2,6 +2,7 @@ set -g fish_key_bindings fish_vi_key_bindings
 abbr -a c cargo
 abbr -a m make
 abbr -a g git
+abbr -a k kubectl
 abbr -a j just
 abbr -a ga 'git add'
 abbr -a gap 'git add -p'
@@ -14,11 +15,11 @@ abbr -a vim 'nvim'
 abbr -a tma 'tmux attach'
 abbr -a cwr 'cargo-watch -q -c -x \'run -q\''
 
-if command -v eza > /dev/null
-	abbr -a l 'eza'
-	abbr -a ls 'eza'
-	abbr -a ll 'eza -l'
-	abbr -a lll 'eza -la'
+if command -v exa > /dev/null
+	abbr -a l 'exa'
+	abbr -a ls 'exa'
+	abbr -a ll 'exa -l'
+	abbr -a lll 'exa -la'
 else
 	abbr -a l 'ls'
 	abbr -a ll 'ls -l'
@@ -108,7 +109,6 @@ end
 fish_add_path -aP /usr/local/go/bin
 fish_add_path -aP /home/lautaro/personal
 
-# source ~/.asdf/asdf.fish
 fish_add_path /home/lautaro/.mozbuild/git-cinnabar/
 fish_add_path ""$(python3 -m site --user-base)"/bin/"
 fish_add_path /home/lautaro/personal/apps/go/bin/
@@ -122,8 +122,6 @@ set --export PATH "$HOME/.cargo/bin:$PATH"
 set --export PATH "$HOME/go/bin:$PATH"
 set --export PATH "$HOME/.config/herd-lite/bin/:$PATH"
 
-# set --export LIBTORCH "$HOME/personal/code/libtorch/"
-# set --export LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/usr/local/lib64/"
 set --export DENO_INSTALL "/home/lautaro/.deno"
 set --export PATH "$DENO_INSTALL/bin:$PATH"
 set --export FLYCTL_INSTALL "/home/lautaro/.fly"
@@ -140,12 +138,3 @@ end
 
 theme_gruvbox dark hard
 ~/.local/bin/mise activate fish | source
-
-
-# BEGIN opam configuration
-# This is useful if you're using opam as it adds:
-#   - the correct directories to the PATH
-#   - auto-completion for the opam binary
-# This section can be safely removed at any time if needed.
-test -r '/home/lautaro/.opam/opam-init/init.fish' && source '/home/lautaro/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
-# END opam configuration
