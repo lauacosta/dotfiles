@@ -46,7 +46,6 @@ return {
           FidgetTitle = { fg = "#fabd2f", bold = true },
           FidgetTask = { fg = "#b8bb26" },
         },
-        palette_overrides = {},
         dim_inactive = false,
         transparent_mode = false,
       })

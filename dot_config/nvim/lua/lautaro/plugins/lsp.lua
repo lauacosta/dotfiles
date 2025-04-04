@@ -1,15 +1,14 @@
 return { {
   "neovim/nvim-lspconfig",
   dependencies = {
-    {
-      "folke/lazydev.nvim",
-      opts = {
-        library = {
-          { path = "${3d}/luv/library", words = { "vim%.uv" } },
-        }
-      }
-    },
-    "SmiteshP/nvim-navic",
+    -- {
+    --   "folke/lazydev.nvim",
+    --   opts = {
+    --     library = {
+    --       { path = "${3d}/luv/library", words = { "vim%.uv" } },
+    --     }
+    --   }
+    -- },
     "saghen/blink.cmp",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
@@ -18,19 +17,13 @@ return { {
     { "j-hui/fidget.nvim",                           opts = {} },
   },
   config = function()
-    local navic = require("nvim-navic")
-
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
       callback = function(event)
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if not client then return end
 
-        if client.server_capabilities.documentSymbolProvider then
-          navic.attach(client, event.buf)
-        end
-
-        if client.supports_method('TextDocument/Formatting', 0) then
+        if client:supports_method('TextDocument/Formatting', 0) then
           if client.name ~= 'pylsp' or client.name ~= 'ts_ls' then
             vim.api.nvim_create_autocmd('BufWritePre', {
               buffer = event.buf,
@@ -43,6 +36,10 @@ return { {
             })
           end
         end
+
+        -- if client:supports_method("textDocument/completion") then
+        --   vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+        -- end
 
         if client and client.server_capabilities.documentHighlightProvider then
           vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
@@ -156,9 +153,7 @@ return { {
       capabilities = capabilities
     }
 
-
-    -- require("lsp_lines").setup()
-    vim.diagnostic.config { virtual_text = true, virtual_lines = false }
+    vim.diagnostic.config { virtual_text = { current_line = true } }
   end,
 },
 }
