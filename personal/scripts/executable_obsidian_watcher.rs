@@ -1,3 +1,18 @@
+#!/usr/bin/env -S cargo +nightly -Zscript --quiet
+
+---
+[package]
+name = "obsidian_pdf_watcher"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+color-eyre = "0.6.3"
+notify = "6.1"
+tracing = "0.1.41"
+tracing-subscriber = "0.3.19"
+---
+
 use color_eyre::eyre;
 use color_eyre::owo_colors::OwoColorize;
 use notify::{EventKind, RecursiveMode, Result, Watcher};

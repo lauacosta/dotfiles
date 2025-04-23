@@ -1,3 +1,5 @@
+theme_gruvbox dark hard
+
 set -g fish_key_bindings fish_vi_key_bindings
 abbr -a c cargo
 abbr -a m make
@@ -10,10 +12,32 @@ abbr -a gc 'git commit'
 abbr -a gd 'git diff'
 abbr -a gs 'git status'
 abbr -a gp 'git push'
+abbr -a gl 'git log -1 HEAD'
 abbr -a ct 'cargo t'
 abbr -a vim 'nvim'
 abbr -a tma 'tmux attach'
 abbr -a cwr 'cargo-watch -q -c -x \'run -q\''
+
+fish_add_path -aP /usr/local/go/bin
+fish_add_path -aP /home/lautaro/personal
+fish_add_path ""$(python3 -m site --user-base)"/bin/"
+fish_add_path /home/lautaro/personal/apps/zig/
+fish_add_path "$HOME/.juliaup/bin/"
+fish_add_path "$HOME/.cargo/bin"
+
+uv generate-shell-completion fish | source
+~/.local/bin/mise activate fish | source
+
+# pnpm
+set -gx PNPM_HOME "/home/lautaro/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
+
+# BEGIN opam configuration
+test -r '/home/lautaro/.opam/opam-init/init.fish' && source '/home/lautaro/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
+# END opam configuration
 
 if command -v exa > /dev/null
 	abbr -a l 'exa'
@@ -44,6 +68,62 @@ function git_hash
     end
 end
 
+function software_version 
+    if test -f Cargo.toml
+        set_color --bold "#d64d0e"
+        echo -n "[🦀 "
+        echo -n (rustc --version | cut -d' ' -f2)
+        echo -n "]"
+        set_color normal
+    end
+
+    if test -f package.json
+        set_color --bold yellow
+        echo -n "["
+        echo -n (node --version)
+        echo -n "]"
+        set_color normal
+
+        set react_version (jq -r '.dependencies.react // .devDependencies.react // empty' < package.json)
+        if test -n "$react_version"
+            set_color --bold cyan
+            echo -n " [ "
+            echo -n $react_version
+            echo -n "] "
+            set_color normal
+        end
+
+        set svelte_version (jq -r '.dependencies.svelte // .devDependencies.svelte // empty' < package.json)
+        if test -n "$svelte_version"
+            set_color --bold red
+            echo -n " [ "
+            echo -n $svelte_version
+            echo -n "] "
+            set_color normal
+        end
+    end
+
+    if test -f bun.lockb
+        if type -q bun
+            set_color --bold magenta
+            echo -n "[🍞 "
+            echo -n (bun --version)
+            echo -n "] "
+            set_color normal
+        end
+    end
+
+    if test -f deno.json -o -f deno.jsonc
+        if type -q deno
+            set_color --bold green
+            echo -n "[🦕 "
+            echo -n (deno --version | grep deno | awk '{print $2}')
+            echo -n "] "
+            set_color normal
+        end
+    end
+end
+
 function fish_prompt
 	set_color brblack
 	echo -n "["(date "+%H:%M")"] "
@@ -59,7 +139,8 @@ function fish_prompt
 		echo -n (basename $PWD)
 	end
     set_color --bold "#8ABEB7"
-	printf ' %s\n' (git_hash)
+	printf ' %s' (git_hash)
+	printf ' %s\n' (software_version)
 	set_color brblack
     echo -n '>> '
 	set_color normal
@@ -105,45 +186,3 @@ function yy
 	end
 	rm -f -- "$tmp"
 end
-
-fish_add_path -aP /usr/local/go/bin
-fish_add_path -aP /home/lautaro/personal
-
-fish_add_path /home/lautaro/.mozbuild/git-cinnabar/
-fish_add_path ""$(python3 -m site --user-base)"/bin/"
-fish_add_path /home/lautaro/personal/apps/go/bin/
-fish_add_path /home/lautaro/personal/apps/spring-3.3.3/bin/
-fish_add_path /home/lautaro/personal/apps/zig/
-fish_add_path /home/lautaro/personal/apps/RustRover-2024.3.6/bin/
-
-set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
-set --export PATH "$HOME/.cargo/bin:$PATH"
-set --export PATH "$HOME/go/bin:$PATH"
-set --export PATH "$HOME/.config/herd-lite/bin/:$PATH"
-
-set --export DENO_INSTALL "/home/lautaro/.deno"
-set --export PATH "$DENO_INSTALL/bin:$PATH"
-set --export FLYCTL_INSTALL "/home/lautaro/.fly"
-set --export PATH "$FLYCTL_INSTALL/bin:$PATH"
-
-uv generate-shell-completion fish | source
-
-# pnpm
-set -gx PNPM_HOME "/home/lautaro/.local/share/pnpm"
-if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
-end
-# pnpm end
-
-theme_gruvbox dark hard
-~/.local/bin/mise activate fish | source
-
-
-# BEGIN opam configuration
-# This is useful if you're using opam as it adds:
-#   - the correct directories to the PATH
-#   - auto-completion for the opam binary
-# This section can be safely removed at any time if needed.
-test -r '/home/lautaro/.opam/opam-init/init.fish' && source '/home/lautaro/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
-# END opam configuration

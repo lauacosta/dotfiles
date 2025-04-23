@@ -7,14 +7,12 @@ local import = function(libraries)
 end
 
 return {
-  unpack(import({
-    "tpope/vim-fugitive",
-    "f-person/git-blame.nvim",
-    "windwp/nvim-ts-autotag",
-    "tpope/vim-commentary",
-    "mfussenegger/nvim-jdtls",
-    "nvim-tree/nvim-web-devicons",
-  })),
+  { "tpope/vim-fugitive",          enabled = true, event = "VeryLazy" },
+  { "f-person/git-blame.nvim",     enabled = true, event = "VeryLazy" },
+  { "windwp/nvim-ts-autotag",      enabled = true, event = "VeryLazy" },
+  { "tpope/vim-commentary",        enabled = true, event = "VeryLazy" },
+  { "mfussenegger/nvim-jdtls",     enabled = true, event = "VeryLazy" },
+  { "nvim-tree/nvim-web-devicons", enabled = true, event = "VeryLazy" },
 
   {
     "ellisonleao/gruvbox.nvim",

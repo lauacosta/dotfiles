@@ -1,3 +1,95 @@
+function SetLspKeymaps(event)
+  local map = function(keys, func, desc)
+    vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+  end
+
+  map("<space>e", vim.diagnostic.open_float, "")
+  map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+  map("K", vim.lsp.buf.hover, "[H]over")
+  map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+  map("gS", vim.lsp.buf.signature_help, "[G]oto [S]ignature")
+  map("gr", vim.lsp.buf.references, "[G]oto [R]erences")
+  map("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd")
+  map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove")
+  map("<leader>wl", function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, "[W]orkspace [L]ist")
+  map("<leader>D", vim.lsp.buf.type_definition, "[D]efinition")
+  map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+  map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+  map("<leader>f", function()
+    vim.lsp.buf.format({ async = true })
+  end, "[F]ormat")
+end
+
+function Particular_config(capabilities)
+  require "lspconfig".ocamllsp.setup {
+    settings = {
+      codelens = {
+        enabled = true,
+        position = "above"
+      },
+      syntaxDocumentation = { enable = true },
+    },
+    capabilities = capabilities
+  }
+
+  require "lspconfig".pylsp.setup {
+    settings = {
+      codelens = {
+        enabled = true,
+        position = "above"
+      },
+      syntaxDocumentation = { enable = true },
+    },
+    capabilities = capabilities
+  }
+
+  require "lspconfig".rust_analyzer.setup {
+    settings = {
+      codelens = { enabled = true },
+      syntaxDocumentation = { enable = true },
+      ["rust-analyzer"] = {
+        procMacro = {
+          ignored = {
+            leptos_macro = {
+              -- optional: --
+              -- "component",
+              "server",
+            },
+          },
+        },
+      },
+    },
+    capabilities = capabilities
+  }
+
+  require "lspconfig".phpactor.setup {
+    init_options = {
+      ["language_server_phpstan.enabled"] = false,
+      ["language_server_psalm.enabled"] = false, },
+
+    capabilities = capabilities
+  }
+
+  require "lspconfig".clangd.setup {
+    settings = {
+      codelens = { enabled = true },
+      syntaxDocumentation = { enable = true },
+    },
+    cmd = {
+      "clangd",
+      "--background-index",
+      "--clang-tidy",
+      "--header-insertion=iwyu",
+      "--completion-style=detailed",
+      "--function-arg-placeholders",
+      "--fallback-style=llvm",
+    },
+    capabilities = capabilities
+  }
+end
+
 return { {
   "neovim/nvim-lspconfig",
   dependencies = {
@@ -37,10 +129,6 @@ return { {
           end
         end
 
-        -- if client:supports_method("textDocument/completion") then
-        --   vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
-        -- end
-
         if client and client.server_capabilities.documentHighlightProvider then
           vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
             buffer = event.buf,
@@ -53,28 +141,36 @@ return { {
           })
         end
 
+        SetLspKeymaps(event)
 
-        local map = function(keys, func, desc)
-          vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-        end
 
-        map("<space>e", vim.diagnostic.open_float, "")
-        map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-        map("K", vim.lsp.buf.hover, "[H]over")
-        map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-        map("gS", vim.lsp.buf.signature_help, "[G]oto [S]ignature")
-        map("gr", vim.lsp.buf.references, "[G]oto [R]erences")
-        map("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd")
-        map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove")
-        map("<leader>wl", function()
-          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, "[W]orkspace [L]ist")
-        map("<leader>D", vim.lsp.buf.type_definition, "[D]efinition")
-        map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-        map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-        map("<leader>f", function()
-          vim.lsp.buf.format({ async = true })
-        end, "[F]ormat")
+        -- -- Good ol' js ecosystem
+        -- local disable_tsserver_for_deno = function(bufnr)
+        --   local file = vim.api.nvim_buf_get_name(bufnr)
+        --   if file == "" then return false end
+        --
+        --   local deno_config = vim.fs.find({ "deno.json", "deno.jsonc" }, {
+        --     upward = true,
+        --     path = file,
+        --     type = "file",
+        --   })
+        --
+        --   return not vim.tbl_isempty(deno_config)
+        -- end
+        --
+        -- if client.name == "tsserver" and disable_tsserver_for_deno(event.buf) then
+        --   vim.defer_fn(function()
+        --     vim.lsp.stop_client(client.id, true)
+        --   end, 0)
+        --   return
+        -- end
+        --
+        -- if client.name == "denols" and not disable_tsserver_for_deno(event.buf) then
+        --   vim.defer_fn(function()
+        --     vim.lsp.stop_client(client.id, true)
+        --   end, 0)
+        --   return
+        -- end
       end,
     })
 
@@ -87,73 +183,10 @@ return { {
         require "lspconfig"[server_name].setup { capatabilites = capabilities }
       end
     }
-    require "lspconfig".ocamllsp.setup {
-      settings = {
-        codelens = {
-          enabled = true,
-          position = "above"
-        },
-        syntaxDocumentation = { enable = true },
-      },
-      capabilities = capabilities
-    }
 
-    require "lspconfig".pylsp.setup {
-      settings = {
-        codelens = {
-          enabled = true,
-          position = "above"
-        },
-        syntaxDocumentation = { enable = true },
-      },
-      capabilities = capabilities
-    }
+    Particular_config(capabilities)
 
-    require "lspconfig".rust_analyzer.setup {
-      settings = {
-        codelens = { enabled = true },
-        syntaxDocumentation = { enable = true },
-        ["rust-analyzer"] = {
-          procMacro = {
-            ignored = {
-              leptos_macro = {
-                -- optional: --
-                -- "component",
-                "server",
-              },
-            },
-          },
-        },
-      },
-      capabilities = capabilities
-    }
-
-    require "lspconfig".phpactor.setup {
-      init_options = {
-        ["language_server_phpstan.enabled"] = false,
-        ["language_server_psalm.enabled"] = false, },
-
-      capabilities = capabilities
-    }
-
-    require "lspconfig".clangd.setup {
-      settings = {
-        codelens = { enabled = true },
-        syntaxDocumentation = { enable = true },
-      },
-      cmd = {
-        "clangd",
-        "--background-index",
-        "--clang-tidy",
-        "--header-insertion=iwyu",
-        "--completion-style=detailed",
-        "--function-arg-placeholders",
-        "--fallback-style=llvm",
-      },
-      capabilities = capabilities
-    }
-
-    vim.diagnostic.config { virtual_text = { current_line = true } }
+    vim.diagnostic.config { virtual_text = true }
   end,
 },
 }
