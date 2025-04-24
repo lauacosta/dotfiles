@@ -20,6 +20,8 @@ abbr -a cwr 'cargo-watch -q -c -x \'run -q\''
 
 fish_add_path -aP /usr/local/go/bin
 fish_add_path -aP /home/lautaro/personal
+fish_add_path -aP /home/lautaro/.dotnet/tools/
+fish_add_path -aP /home/lautaro/.config/emacs/bin/
 fish_add_path ""$(python3 -m site --user-base)"/bin/"
 fish_add_path /home/lautaro/personal/apps/zig/
 fish_add_path "$HOME/.juliaup/bin/"
