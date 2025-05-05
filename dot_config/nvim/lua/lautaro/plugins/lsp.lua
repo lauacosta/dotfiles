@@ -56,6 +56,25 @@ function Particular_config(capabilities)
     capabilities = capabilities
   }
 
+  require "lspconfig".omnisharp.setup {
+    settings = {
+      codelens = {
+        enabled = true,
+        position = "above"
+      },
+      syntaxDocumentation = { enable = true },
+      FormattingOptions = {
+        EnableEditorConfigSupport = false
+      },
+      Formatting = false,
+    },
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+    end
+  }
+
   require "lspconfig".rust_analyzer.setup {
     settings = {
       codelens = { enabled = true },
@@ -104,21 +123,16 @@ end
 return { {
   "neovim/nvim-lspconfig",
   dependencies = {
-    -- {
-    --   "folke/lazydev.nvim",
-    --   opts = {
-    --     library = {
-    --       { path = "${3d}/luv/library", words = { "vim%.uv" } },
-    --     }
-    --   }
-    -- },
     "saghen/blink.cmp",
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     { "https://git.sr.ht/~whynothugo/lsp_lines.nvim" },
     { "Hoffs/omnisharp-extended-lsp.nvim" },
-    { "j-hui/fidget.nvim",                           opts = {} },
+    {
+      "j-hui/fidget.nvim",
+      opts = {}
+    },
   },
   config = function()
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -128,17 +142,16 @@ return { {
         if not client then return end
 
         if client:supports_method('TextDocument/Formatting', 0) then
-          if client.name ~= 'pylsp' or client.name ~= 'ts_ls' then
-            vim.api.nvim_create_autocmd('BufWritePre', {
-              buffer = event.buf,
-              callback = function()
-                vim.lsp.buf.format({
-                  bufnr = event.buf,
-                  id = client.id
-                })
-              end,
-            })
-          end
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            buffer = event.buf,
+            callback = function()
+              -- vim.lsp.buf.format({
+              --   bufnr = event.buf,
+              --   id = client.id
+              -- })
+              require("conform").format({ bufnr = event.buf })
+            end,
+          })
         end
 
         if client and client.server_capabilities.documentHighlightProvider then

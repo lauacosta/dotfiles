@@ -1,4 +1,5 @@
 theme_gruvbox dark hard
+atuin init fish | source
 
 set -g fish_key_bindings fish_vi_key_bindings
 abbr -a c cargo
@@ -24,11 +25,11 @@ fish_add_path -aP /home/lautaro/.dotnet/tools/
 fish_add_path -aP /home/lautaro/.config/emacs/bin/
 fish_add_path ""$(python3 -m site --user-base)"/bin/"
 fish_add_path /home/lautaro/personal/apps/zig/
-fish_add_path "$HOME/.juliaup/bin/"
 fish_add_path "$HOME/.cargo/bin"
 
 uv generate-shell-completion fish | source
 ~/.local/bin/mise activate fish | source
+
 
 # pnpm
 set -gx PNPM_HOME "/home/lautaro/.local/share/pnpm"
@@ -120,6 +121,17 @@ function software_version
             set_color --bold green
             echo -n "[🦕 "
             echo -n (deno --version | grep deno | awk '{print $2}')
+            echo -n "] "
+            set_color normal
+        end
+    end
+
+    # set csproj_files (count *.csproj)
+    if test (count *.csproj) -gt 0
+        if type -q dotnet
+            set_color --bold magenta
+            echo -n "[C# "
+            echo -n (dotnet --version)
             echo -n "] "
             set_color normal
         end
