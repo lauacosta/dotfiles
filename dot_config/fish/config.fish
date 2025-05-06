@@ -8,6 +8,7 @@ abbr -a g git
 abbr -a k kubectl
 abbr -a j just
 abbr -a ga 'git add'
+abbr -a gpr 'gh pr create'
 abbr -a gap 'git add -p'
 abbr -a gc 'git commit'
 abbr -a gd 'git diff'
