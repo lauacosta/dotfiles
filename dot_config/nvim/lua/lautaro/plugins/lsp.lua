@@ -174,11 +174,16 @@ return { {
     require("mason-lspconfig").setup()
 
     local capabilities = require "blink.cmp".get_lsp_capabilities()
-    require "mason-lspconfig".setup_handlers {
-      function(server_name)
-        require "lspconfig"[server_name].setup { capatabilites = capabilities }
-      end
+    local mason_lspconfig = require "mason-lspconfig"
+
+    mason_lspconfig.setup {
+      automatic_enable = true,
     }
+    for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
+      vim.lsp.config(server_name, {
+        capabilities = capabilities,
+      })
+    end
 
     Particular_config(capabilities)
 

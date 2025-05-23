@@ -8,6 +8,8 @@ abbr -a g git
 abbr -a k kubectl
 abbr -a j just
 abbr -a ga 'git add'
+abbr -a glr pretty_git_log
+abbr -a co 'git checkout'
 abbr -a gpr 'gh pr create'
 abbr -a gap 'git add -p'
 abbr -a gc 'git commit'
@@ -21,7 +23,8 @@ abbr -a tma 'tmux attach'
 abbr -a cwr 'cargo-watch -q -c -x \'run -q\''
 
 fish_add_path -aP /usr/local/go/bin
-fish_add_path -aP /home/lautaro/personal
+fish_add_path -aP /home/lautaro/personal/apps/zen/
+fish_add_path -aP /home/lautaro/personal/apps/RustRover-2025.1.2/bin/
 fish_add_path -aP /home/lautaro/.dotnet/tools/
 fish_add_path -aP /home/lautaro/.config/emacs/bin/
 fish_add_path ""$(python3 -m site --user-base)"/bin/"
@@ -32,6 +35,7 @@ uv generate-shell-completion fish | source
 ~/.local/bin/mise activate fish | source
 
 
+set -gx DOCKER_BUILDKIT 1
 # pnpm
 set -gx PNPM_HOME "/home/lautaro/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
@@ -201,3 +205,4 @@ function yy
 	end
 	rm -f -- "$tmp"
 end
+

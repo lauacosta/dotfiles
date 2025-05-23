@@ -2,8 +2,14 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     enabled = true,
-    event = "VeryLazy",
     build = ":TSUpdate",
+    dependencies = {
+      "OXY2DEV/markview.nvim",
+      preview = {
+        icon_provider = "mini", -- "mini" or "devicons"
+      },
+      lazy = false,
+    },
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = { "c", "lua", "vim", "query", "sql" },

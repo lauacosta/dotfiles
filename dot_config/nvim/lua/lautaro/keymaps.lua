@@ -50,7 +50,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   pattern = { "*.md", "*.txt", "*.tex" },
-  command = "set linebreak | set wrap",
+  command = "set linebreak | set nowrap",
   vim.keymap.set("n", "<A-n>", "]sz=", { noremap = true }),
   vim.keymap.set("n", "<A-p>", "[sz=", { noremap = true }),
 })
