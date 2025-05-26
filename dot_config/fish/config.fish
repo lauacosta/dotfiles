@@ -111,36 +111,6 @@ function software_version
         end
     end
 
-    if test -f bun.lockb
-        if type -q bun
-            set_color --bold magenta
-            echo -n "[🍞 "
-            echo -n (bun --version)
-            echo -n "] "
-            set_color normal
-        end
-    end
-
-    if test -f deno.json -o -f deno.jsonc
-        if type -q deno
-            set_color --bold green
-            echo -n "[🦕 "
-            echo -n (deno --version | grep deno | awk '{print $2}')
-            echo -n "] "
-            set_color normal
-        end
-    end
-
-    # set csproj_files (count *.csproj)
-    if test (count *.csproj) -gt 0
-        if type -q dotnet
-            set_color --bold magenta
-            echo -n "[C# "
-            echo -n (dotnet --version)
-            echo -n "] "
-            set_color normal
-        end
-    end
 end
 
 function fish_prompt

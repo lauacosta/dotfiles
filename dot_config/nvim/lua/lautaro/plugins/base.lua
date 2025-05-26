@@ -1,11 +1,3 @@
-local import = function(libraries)
-  local libs = {}
-  for _, lib in ipairs(libraries) do
-    table.insert(libs, { lib, enabled = true, event = "VeryLazy" })
-  end
-  return libs
-end
-
 return {
   { "tpope/vim-fugitive",          enabled = true, event = "VeryLazy" },
   { "f-person/git-blame.nvim",     enabled = true, event = "VeryLazy" },
@@ -21,6 +13,42 @@ return {
     ---@type ibl.config
     opts = {},
   },
+  -- {
+  --   "elixir-tools/elixir-tools.nvim",
+  --   version = "*",
+  --   event = { "BufReadPre", "BufNewFile" },
+  --   config = function()
+  --     local elixir = require("elixir")
+  --     local elixirls = require("elixir.elixirls")
+
+  --     elixir.setup {
+  --       nextls = { enable = true, init_options = {
+  --         experimental = {
+  --           enable = true
+  --         }
+
+  --       } },
+  --       elixirls = {
+  --         enable = true,
+  --         settings = elixirls.settings {
+  --           dialyzerEnabled = false,
+  --           enableTestLenses = false,
+  --         },
+  --         on_attach = function()
+  --           vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
+  --           vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
+  --           vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
+  --         end,
+  --       },
+  --       projectionist = {
+  --         enable = false
+  --       }
+  --     }
+  --   end,
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --   },
+  -- },
   -- {
   --   "lewis6991/hover.nvim",
   --   config = function()
