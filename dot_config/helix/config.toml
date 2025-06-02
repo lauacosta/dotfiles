@@ -4,6 +4,9 @@ theme = "gruvbox_dark_hard"
 line-number = "relative"
 mouse = true
 
+[editor.lsp]
+display-inlay-hints = false
+
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
@@ -14,6 +17,8 @@ hidden = false
 
 [keys.normal]
 K = "hover"
+"F8" = ":toggle lsp.display-inlay-hints"
+"F1" = ":config-reload"
 
 [keys.normal.space]
 k = "keep_selections"
