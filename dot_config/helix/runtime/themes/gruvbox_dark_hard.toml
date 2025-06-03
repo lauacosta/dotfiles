@@ -1,0 +1,18 @@
+# Author : Sven-Hendrik Haase <svenstaro@gmail.com>
+# Author : Jakub Bartodziej <kubabartodziej@gmail.com>
+# The theme uses the gruvbox dark palette with hard contrast: github.com/morhetz/gruvbox
+
+inherits = "gruvbox"
+
+"ui.cursor.primary" = { modifiers = ["reversed"] }
+"ui.cursor.match" = { bg = "bg2" }
+
+"diagnostic.error" = { underline = { color = "red0", style = "curl"} }
+"comment" = { fg = "orange1" }
+"function.macro" = { fg = "aqua1" }
+"function" = {fg = "green1", modifiers = ["bold"]}
+"type.enum.variant" = {  fg = "purple1", modifiers = ["bold"] }
+"special" = { fg = "aqua1" }
+
+[palette]
+bg0 = "#1d2021" # main background
