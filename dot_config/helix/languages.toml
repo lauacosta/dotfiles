@@ -1,8 +1,10 @@
-[language-server]
-ocamllsp = { command = "ocamllsp" }
 
-[language-server.rust-analyzer]
-command = "rust-analyzer"
+# -------------------------------
+# Language Servers Configuration
+# -------------------------------
+
+[language-server]
+elixir-ls = { command = "elixir-ls", config = { elixirLS.dialyzerEnabled = false } }
 
 [language-server.rust-analyzer.config]
 inlayHints.bindingModeHints.enable = false
@@ -12,54 +14,37 @@ inlayHints.discriminantHints.enable = "fieldless"
 inlayHints.lifetimeElisionHints.enable = "skip_trivial"
 inlayHints.typeHints.hideClosureInitialization = false
 
-[language-server.rust-analyzer.config.files]
-watcher = "server"
-
-[[language]]
-name = "rust"
-scope = "source.rust"
-injection-regex = "rs|rust"
-file-types = ["rs"]
-roots = ["Cargo.toml", "Cargo.lock"]
-shebangs = ["rust-script", "cargo"]
-auto-format = true
-comment-tokens = ["//", "///", "//!"]
-block-comment-tokens = [
-  { start = "/*", end = "*/" },
-  { start = "/**", end = "*/" },
-  { start = "/*!", end = "*/" },
-]
-language-servers = [ "rust-analyzer" ]
-indent = { tab-width = 4, unit = "    " }
-persistent-diagnostic-sources = ["rustc", "clippy"]
-
-
-[[grammar]]
-name = "rust"
-source = { git = "https://github.com/tree-sitter/tree-sitter-rust", rev = "1f63b33efee17e833e0ea29266dd3d713e27e321" }
-
-
-[[language]]
-name = "ocaml"
-scope = "source.ocaml"
-injection-regex = "ocaml"
-file-types = ["ml"]
-shebangs = ["ocaml", "ocamlrun", "ocamlscript"]
-block-comment-tokens = { start = "(*", end = "*)" }
-language-servers = [ "ocamllsp" ]
-indent = { tab-width = 2, unit = "  " }
-
-[[grammar]]
-name = "ocaml"
-source = { git = "https://github.com/tree-sitter/tree-sitter-ocaml", rev = "9965d208337d88bbf1a38ad0b0fe49e5f5ec9677", subpath = "ocaml" }
-
-
-
-
 [language-server.typescript-language-server]
 command = "typescript-language-server"
 args = ["--stdio"]
 config.hostInfo = "helix"
+
+[language-server.rust-analyzer.config.files]
+watcher = "server"
+
+[language-server.gopls.config.hints]
+assignVariableTypes = true
+compositeLiteralFields = true
+constantValues = true
+functionTypeParameters = true
+parameterNames = true
+rangeVariableTypes = true
+
+[language-server.svelteserver.config.configuration.typescript]
+inlayHints.parameterTypes.enabled = true
+inlayHints.variableTypes.enabled = true
+inlayHints.propertyDeclarationTypes.enabled = true
+inlayHints.functionLikeReturnTypes.enabled = true
+inlayHints.enumMemberValues.enabled = true
+inlayHints.parameterNames.enabled = "all"
+
+[language-server.svelteserver.config.configuration.javascript]
+inlayHints.parameterTypes.enabled = true
+inlayHints.variableTypes.enabled = true
+inlayHints.propertyDeclarationTypes.enabled = true
+inlayHints.functionLikeReturnTypes.enabled = true
+inlayHints.enumMemberValues.enabled = true
+inlayHints.parameterNames.enabled = "all"
 
 [language-server.typescript-language-server.config.typescript.inlayHints]
 includeInlayEnumMemberValueHints = true
@@ -79,57 +64,80 @@ includeInlayParameterNameHintsWhenArgumentMatchesName = true
 includeInlayPropertyDeclarationTypeHints = true
 includeInlayVariableTypeHints = true
 
-[language-server.svelteserver]
-command = "svelteserver"
-args = ["--stdio"]
-
-[language-server.svelteserver.config.configuration.typescript]
-inlayHints.parameterTypes.enabled = true
-inlayHints.variableTypes.enabled = true
-inlayHints.propertyDeclarationTypes.enabled = true
-inlayHints.functionLikeReturnTypes.enabled = true
-inlayHints.enumMemberValues.enabled = true
-inlayHints.parameterNames.enabled = "all"
-
-[language-server.svelteserver.config.configuration.javascript]
-inlayHints.parameterTypes.enabled = true
-inlayHints.variableTypes.enabled = true
-inlayHints.propertyDeclarationTypes.enabled = true
-inlayHints.functionLikeReturnTypes.enabled = true
-inlayHints.enumMemberValues.enabled = true
-inlayHints.parameterNames.enabled = "all"
-
+# -------------------------------
+# Language Definitions
+# -------------------------------
 
 [[language]]
-name = "typescript"
-scope = "source.ts"
-injection-regex = "(ts|typescript)"
-language-id = "typescript"
-file-types = ["ts", "mts", "cts"]
-shebangs = ["deno", "bun", "ts-node"]
-roots = [ "package.json", "tsconfig.json" ]
-comment-token = "//"
-block-comment-tokens = { start = "/*", end = "*/" }
-language-servers = [ "typescript-language-server" ]
+name = "dune"
+scope = "source.dune"
+roots = ["dune-project"]
+file-types = [{ glob = "dune-project" }, { glob = "dune" }]
+comment-token = ";"
+indent = { tab-width = 1, unit = " " }
+grammar = "scheme"
+auto-format = true
+formatter = { command = "dune", args = ["format-dune-file"] }
+
+[[language]]
+name = "elixir"
+scope = "source.elixir"
+injection-regex = "(elixir|ex)"
+file-types = ["ex", "exs", { glob = "mix.lock" }]
+shebangs = ["elixir"]
+roots = ["mix.exs", "mix.lock"]
+comment-token = "#"
+language-servers = [ "elixir-ls" ]
 indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "iex"
+scope = "source.iex"
+injection-regex = "iex"
+file-types = ["iex"]
+comment-token = "#"
+
+# -------------------------------
+# Grammar Sources
+# -------------------------------
+
+[[grammar]]
+name = "javascript"
+source = { git = "https://github.com/tree-sitter/tree-sitter-javascript", rev = "f772967f7b7bc7c28f845be2420a38472b16a8e" }
+
+[[grammar]]
+name = "markdown"
+source = { git = "https://github.com/tree-sitter-grammars/tree-sitter-markdown", rev = "62516e8c78380e3b51d5b55727995d2c511436d8", subpath = "tree-sitter-markdown" }
+
+[[grammar]]
+name = "ocaml"
+source = { git = "https://github.com/tree-sitter/tree-sitter-ocaml", rev = "9965d208337d88bbf1a38ad0b0fe49e5f5ec9677", subpath = "ocaml" }
+
+[[grammar]]
+name = "ocaml-interface"
+source = { git = "https://github.com/tree-sitter/tree-sitter-ocaml", rev = "9965d208337d88bbf1a38ad0b0fe49e5f5ec9677", subpath = "interface" }
+
+[[grammar]]
+name = "rust"
+source = { git = "https://github.com/tree-sitter/tree-sitter-rust", rev = "1f63b33efee17e833e0ea29266dd3d713e27e321" }
 
 [[grammar]]
 name = "typescript"
 source = { git = "https://github.com/tree-sitter/tree-sitter-typescript", rev = "b1bf4825d9eaa0f3bdeb1e52f099533328acfbdf", subpath = "typescript" }
 
-[[language]]
-name = "javascript"
-scope = "source.js"
-injection-regex = "(js|javascript)"
-language-id = "javascript"
-file-types = ["js", "mjs", "cjs", "rules", "es6", "pac", { glob = ".node_repl_history" }, { glob = "jakefile" }]
-shebangs = ["node"]
-roots = [ "package.json" ]
-comment-token = "//"
-block-comment-tokens = { start = "/*", end = "*/" }
-language-servers = [ "typescript-language-server" ]
-indent = { tab-width = 2, unit = "  " }
+[[grammar]]
+name = "elixir"
+source = { git = "https://github.com/elixir-lang/tree-sitter-elixir", rev = "02a6f7fd4be28dd94ee4dd2ca19cb777053ea74e" }
 
 [[grammar]]
-name = "javascript"
-source = { git = "https://github.com/tree-sitter/tree-sitter-javascript", rev = "f772967f7b7bc7c28f845be2420a38472b16a8e" }
+name = "iex"
+source = { git = "https://github.com/elixir-lang/tree-sitter-iex", rev = "39f20bb51f502e32058684e893c0c0b00bb2332c" }
+# -------------------------------
+# Auto-Pairs Configuration
+# -------------------------------
+
+[language.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'

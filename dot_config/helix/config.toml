@@ -3,9 +3,13 @@ theme = "gruvbox_dark_hard"
 [editor]
 line-number = "relative"
 mouse = true
+end-of-line-diagnostics = "hint"
 
 [editor.lsp]
 display-inlay-hints = false
+
+[editor.inline-diagnostics]
+cursor-line = "warning" 
 
 [editor.cursor-shape]
 insert = "bar"
@@ -19,10 +23,29 @@ hidden = false
 K = "hover"
 "F8" = ":toggle lsp.display-inlay-hints"
 "F1" = ":config-reload"
+X = ["select_line_above", "extend_to_line_bounds"]
+V = "extend_to_line_bounds"
+A-x = "extend_to_line_bounds"
 
 [keys.normal.space]
 k = "keep_selections"
 
 [keys.normal.space.s]
 f = "file_picker"
+n = ":open ~/.config/helix/"
 
+[keys.insert]  
+"C-y" = "insert_tab" 
+
+[keys.select]
+X = ["select_line_above", "extend_to_line_bounds"]
+A-x = "extend_to_line_bounds"
+
+
+# [keys.insert.menu]
+## "C-y" = "completion_apply"
+# "ret" = "no_op"  # This disables Enter if you want
+
+# [keys.normal.menu]
+# "C-y" = "completion_apply"
+# "ret" = "no_op"  # This disables Enter if you want
