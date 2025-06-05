@@ -91,6 +91,13 @@ language-servers = [ "elixir-ls" ]
 indent = { tab-width = 2, unit = "  " }
 
 [[language]]
+name = "markdown"
+soft-wrap.enable = true
+soft-wrap.wrap-indicator = ""
+language-servers = ["marksman", "ltex-ls-plus"]
+# soft-wrap.wrap-at-text-width = true
+
+[[language]]
 name = "iex"
 scope = "source.iex"
 injection-regex = "iex"

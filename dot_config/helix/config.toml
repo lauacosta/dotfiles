@@ -8,6 +8,7 @@ end-of-line-diagnostics = "hint"
 [editor.lsp]
 display-inlay-hints = false
 
+
 [editor.inline-diagnostics]
 cursor-line = "warning" 
 
