@@ -13,6 +13,36 @@
 
 (
   (call_expression
+    (field_expression
+      value: (identifier)
+      field: (field_identifier) @function)
+    (arguments
+      (string_literal
+        (string_content) @injection.content)))
+  (#match? @function "^prepare(_cached)?$")
+  (#set! injection.language "sql")
+)
+
+(
+  (call_expression
+    (field_expression
+      value: (identifier)
+      field: (field_identifier) @function)
+    (arguments
+      (reference_expression
+        (macro_invocation
+          macro: (identifier) @macro_name
+          (token_tree
+            (string_literal
+              (string_content) @injection.content))))))
+  (#match? @function "^prepare(_cached)?$")
+  (#eq? @macro_name "format")
+  (#set! injection.language "sql")
+)
+
+
+(
+  (call_expression
     (scoped_identifier
       path: (identifier) @module
       name: (identifier) @function)
@@ -67,35 +97,3 @@
   )
 )
 
-(
-  (call_expression 
-  (field_expression 
-    (call_expression 
-      (field_expression 
-        (call_expression 
-          (field_expression 
-            (call_expression 
-              (field_expression 
-                value: (identifier) @struct (#eq? @struct "py")
-                field: (field_identifier) @method (#eq? @method "eval_bound")) 
-              (arguments 
-                (string_literal 
-                  (string_content) @injection.content (#set! injection.language "python")
-                )
-              )
-            )
-          )
-        )
-      )
-    )
-  )
- )
-)
-
-(
- (line_comment
-   doc: (doc_comment) @injection.content
- ) 
- (#set! injection.language "markdown")
- (#set! injection.include-children)
-)

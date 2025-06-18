@@ -18,44 +18,45 @@ abbr -a gs 'git status'
 abbr -a gp 'git push'
 abbr -a gl 'git log -1 HEAD'
 abbr -a ct 'cargo t'
-abbr -a vim 'nvim'
+abbr -a vim nvim
 abbr -a tma 'tmux attach'
 abbr -a cwr 'cargo-watch -q -c -x \'run -q\''
 
 fish_add_path -aP /usr/local/go/bin
 fish_add_path -aP /home/lautaro/personal/apps/zen/
 fish_add_path -aP /home/lautaro/personal/apps/RustRover-2025.1.2/bin/
+fish_add_path -aP /home/lautaro/personal/apps/ltex-ls-plus/bin
 fish_add_path -aP /home/lautaro/.dotnet/tools/
 fish_add_path -aP /home/lautaro/.config/emacs/bin/
 fish_add_path ""$(python3 -m site --user-base)"/bin/"
 fish_add_path /home/lautaro/personal/apps/zig/
 fish_add_path "$HOME/.cargo/bin"
+fish_add_path "$HOME/go/bin"
 
 uv generate-shell-completion fish | source
 ~/.local/bin/mise activate fish | source
-
 
 set -gx DOCKER_BUILDKIT 1
 # pnpm
 set -gx PNPM_HOME "/home/lautaro/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
+    set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
 
 # BEGIN opam configuration
-test -r '/home/lautaro/.opam/opam-init/init.fish' && source '/home/lautaro/.opam/opam-init/init.fish' > /dev/null 2> /dev/null; or true
+test -r '/home/lautaro/.opam/opam-init/init.fish' && source '/home/lautaro/.opam/opam-init/init.fish' >/dev/null 2>/dev/null; or true
 # END opam configuration
 
-if command -v exa > /dev/null
-	abbr -a l 'exa'
-	abbr -a ls 'exa'
-	abbr -a ll 'exa -l'
-	abbr -a lll 'exa -la'
+if command -v exa >/dev/null
+    abbr -a l exa
+    abbr -a ls exa
+    abbr -a ll 'exa -l'
+    abbr -a lll 'exa -la'
 else
-	abbr -a l 'ls'
-	abbr -a ll 'ls -l'
-	abbr -a lll 'ls -la'
+    abbr -a l ls
+    abbr -a ll 'ls -l'
+    abbr -a lll 'ls -la'
 end
 
 function multicd
@@ -76,7 +77,7 @@ function git_hash
     end
 end
 
-function software_version 
+function software_version
     if test -f Cargo.toml
         set_color --bold "#d64d0e"
         echo -n "[🦀 "
@@ -114,44 +115,44 @@ function software_version
 end
 
 function fish_prompt
-	set_color brblack
-	echo -n "["(date "+%H:%M")"] "
+    set_color brblack
+    echo -n "["(date "+%H:%M")"] "
     set_color "#fbf1c7"
-	echo -n (whoami)
-	echo -n "@"
-	set_color "#b8bb26"
-	echo -n (uname -n)
-	if [ $PWD != $HOME ]
-		set_color brblack
-		echo -n '::'
-	    set_color "#fabd2f"
-		echo -n (basename $PWD)
-	end
+    echo -n (whoami)
+    echo -n "@"
+    set_color "#b8bb26"
+    echo -n (uname -n)
+    if [ $PWD != $HOME ]
+        set_color brblack
+        echo -n '::'
+        set_color "#fabd2f"
+        echo -n (basename $PWD)
+    end
     set_color --bold "#8ABEB7"
-	printf ' %s' (git_hash)
-	printf ' %s\n' (software_version)
-	set_color brblack
+    printf ' %s' (git_hash)
+    printf ' %s\n' (software_version)
+    set_color brblack
     echo -n '>> '
-	set_color normal
+    set_color normal
 end
 
 function fish_greeting
     set_color --bold "#fbf1c7"
-    echo -n "OS: " 
+    echo -n "OS: "
 
-	set_color "#b8bb26"
+    set_color "#b8bb26"
     echo (uname --kernel-release --operating-system)
 
     set_color --bold "#fbf1c7"
-    echo -n "Hostname: " 
+    echo -n "Hostname: "
 
-	set_color "#b8bb26"
+    set_color "#b8bb26"
     echo (uname -n)
 
     set_color --bold "#fbf1c7"
     echo -n "Uptime: "
 
-	set_color "#b8bb26"
+    set_color "#b8bb26"
     echo (uptime -p)
 
     set_color --bold "#fbf1c7"
@@ -168,11 +169,10 @@ function fish_greeting
 end
 
 function yy
-	set tmp (mktemp -t "yazi-cwd.XXXXXX")
-	yazi $argv --cwd-file="$tmp"
-	if set cwd (cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-		cd -- "$cwd"
-	end
-	rm -f -- "$tmp"
+    set tmp (mktemp -t "yazi-cwd.XXXXXX")
+    yazi $argv --cwd-file="$tmp"
+    if set cwd (cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+        cd -- "$cwd"
+    end
+    rm -f -- "$tmp"
 end
-

@@ -104,9 +104,29 @@ injection-regex = "iex"
 file-types = ["iex"]
 comment-token = "#"
 
+[[language]]
+name = "typst"
+scope = "source.typst"
+injection-regex = "typ(st)?"
+file-types = ["typst", "typ"]
+comment-token = "//"
+soft-wrap.enable = true
+soft-wrap.wrap-indicator = ""
+block-comment-tokens = { start = "/*", end = "*/" }
+language-servers = ["tinymist"]
+indent = { tab-width = 2, unit = "  " }
+
 # -------------------------------
 # Grammar Sources
 # -------------------------------
+
+[[grammar]]
+name = "typst"
+source = { git = "https://github.com/uben0/tree-sitter-typst", rev = "13863ddcbaa7b68ee6221cea2e3143415e64aea4" }
+
+[[grammar]]
+name = "jinja2"
+source = { git = "https://github.com/varpeti/tree-sitter-jinja2", rev = "a533cd3c33aea6acb0f9bf9a56f35dcfe6a8eb53" }
 
 [[grammar]]
 name = "javascript"

@@ -24,9 +24,12 @@ hidden = false
 K = "hover"
 "F8" = ":toggle lsp.display-inlay-hints"
 "F1" = ":config-reload"
+"F2" = ":theme modus_operandi"
 X = ["select_line_above", "extend_to_line_bounds"]
 V = "extend_to_line_bounds"
 A-x = "extend_to_line_bounds"
+A-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+A-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
 
 [keys.normal.space]
 k = "keep_selections"
