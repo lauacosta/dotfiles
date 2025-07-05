@@ -20,7 +20,6 @@ abbr -a gl 'git log -1 HEAD'
 abbr -a ct 'cargo t'
 abbr -a vim nvim
 abbr -a tma 'tmux attach'
-abbr -a cwr 'cargo-watch -q -c -x \'run -q\''
 
 fish_add_path -aP /usr/local/go/bin
 fish_add_path -aP /home/lautaro/personal/apps/zen/
@@ -176,3 +175,6 @@ function yy
     end
     rm -f -- "$tmp"
 end
+
+# opencode
+fish_add_path /home/lautaro/.opencode/bin
