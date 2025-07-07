@@ -51,7 +51,7 @@ $env.config = {
     hooks: {
         pre_prompt: [
             {||
-                if not ($env | get -i BANNER_SHOWN | default false) {
+                if not ($env | get -i BANNER_SHOWN | default "false" | into bool) {
                     show-system-info
                     print ""
                     $env.BANNER_SHOWN = true
