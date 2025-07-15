@@ -1,4 +1,5 @@
 theme_gruvbox dark hard
+starship init fish | source
 atuin init fish | source
 
 set -g fish_key_bindings fish_vi_key_bindings
@@ -76,97 +77,6 @@ function git_hash
     end
 end
 
-function software_version
-    if test -f Cargo.toml
-        set_color --bold "#d64d0e"
-        echo -n "[🦀 "
-        echo -n (rustc --version | cut -d' ' -f2)
-        echo -n "]"
-        set_color normal
-    end
-
-    if test -f package.json
-        set_color --bold yellow
-        echo -n "["
-        echo -n (node --version)
-        echo -n "]"
-        set_color normal
-
-        set react_version (jq -r '.dependencies.react // .devDependencies.react // empty' < package.json)
-        if test -n "$react_version"
-            set_color --bold cyan
-            echo -n " [ "
-            echo -n $react_version
-            echo -n "] "
-            set_color normal
-        end
-
-        set svelte_version (jq -r '.dependencies.svelte // .devDependencies.svelte // empty' < package.json)
-        if test -n "$svelte_version"
-            set_color --bold red
-            echo -n " [ "
-            echo -n $svelte_version
-            echo -n "] "
-            set_color normal
-        end
-    end
-
-end
-
-function fish_prompt
-    set_color brblack
-    echo -n "["(date "+%H:%M")"] "
-    set_color "#fbf1c7"
-    echo -n (whoami)
-    echo -n "@"
-    set_color "#b8bb26"
-    echo -n (uname -n)
-    if [ $PWD != $HOME ]
-        set_color brblack
-        echo -n '::'
-        set_color "#fabd2f"
-        echo -n (basename $PWD)
-    end
-    set_color --bold "#8ABEB7"
-    printf ' %s' (git_hash)
-    printf ' %s\n' (software_version)
-    set_color brblack
-    echo -n '>> '
-    set_color normal
-end
-
-function fish_greeting
-    set_color --bold "#fbf1c7"
-    echo -n "OS: "
-
-    set_color "#b8bb26"
-    echo (uname --kernel-release --operating-system)
-
-    set_color --bold "#fbf1c7"
-    echo -n "Hostname: "
-
-    set_color "#b8bb26"
-    echo (uname -n)
-
-    set_color --bold "#fbf1c7"
-    echo -n "Uptime: "
-
-    set_color "#b8bb26"
-    echo (uptime -p)
-
-    set_color --bold "#fbf1c7"
-    echo "Disk usage:"
-    set_color "#fbf1c7"
-    echo \t (df -h | grep -E 'home' | awk '{print $6 "\t" $3 "\t" $2 "\t" $5}')
-
-    set_color "#fbf1c7"
-    echo "Network:"
-
-    set_color "#fbf1c7"
-    echo \t (ip -4 -brief -o addres show | awk 'NR==2')
-    echo \t (ip -6 -brief -o addres show | awk 'NR==2') \n
-end
-
 function yy
     set tmp (mktemp -t "yazi-cwd.XXXXXX")
     yazi $argv --cwd-file="$tmp"
@@ -176,5 +86,110 @@ function yy
     rm -f -- "$tmp"
 end
 
-# opencode
-fish_add_path /home/lautaro/.opencode/bin
+function fish_greeting
+    # Colors
+    set -l g (set_color normal; set_color '#b8bb26')
+    set -l y (set_color normal; set_color '#fabd2f')
+    set -l b (set_color normal; set_color '#83a598')
+    set -l dim (set_color normal; set_color '#a89984')
+    set -l r (set_color normal; set_color '#fb4934')
+    set -l reset (set_color normal)
+
+    # OS info
+    set -l os_name (grep -oP '(?<=^PRETTY_NAME=)"?\K[^"]+' /etc/os-release 2>/dev/null)
+
+    # Kernel & Host
+    set -l kernel (uname -r)
+    set -l host $hostname
+
+    # Uptime in hours (float, e.g., 23.92 hr)
+    set -l uptime_sec (cat /proc/uptime | awk '{print int($1)}')
+    set -l uptime_hr (math --scale 2 "$uptime_sec / 3600")
+
+    # Disk info - clean approach
+    set -l storage_info ""
+
+    # Get df output directly
+    set -l df_line (df -h / | grep -v Filesystem | head -n1)
+
+    if test -n "$df_line"
+        # Split the line into components
+        set -l parts (echo $df_line | string split -n ' ')
+
+        # Extract fields (handle potential spacing issues)
+        set -l device ""
+        set -l total_size ""
+        set -l used_size ""
+        set -l use_percent ""
+        set -l mount ""
+
+        # Parse fields more carefully
+        set -l field_count (count $parts)
+        if test $field_count -ge 6
+            set device $parts[1]
+            set total_size $parts[2]
+            set used_size $parts[3]
+            set use_percent $parts[5]
+            set mount $parts[6]
+        end
+
+        # Determine disk type
+        set -l disk_type Unknown
+        if test -n "$device"
+            set -l base_device (basename $device)
+            set -l disk_name ""
+
+            # Extract base disk name
+            if string match -qr '^sd[a-z][0-9]*$' $base_device
+                set disk_name (string replace -r '[0-9]*$' '' $base_device)
+            else if string match -qr '^nvme[0-9]+n[0-9]+p?[0-9]*$' $base_device
+                set disk_name (string replace -r 'p?[0-9]*$' '' $base_device)
+            else if string match -qr '^mmcblk[0-9]+p?[0-9]*$' $base_device
+                set disk_name (string replace -r 'p?[0-9]*$' '' $base_device)
+            else
+                set disk_name (string replace -r '[0-9]*$' '' $base_device)
+            end
+
+            # Check rotational flag
+            if test -n "$disk_name" -a -r "/sys/block/$disk_name/queue/rotational"
+                set -l rotational (cat "/sys/block/$disk_name/queue/rotational" 2>/dev/null)
+                if test "$rotational" = 0
+                    set disk_type SSD
+                else if test "$rotational" = 1
+                    set disk_type HDD
+                end
+            end
+        end
+
+        # Build storage info string
+        if test -n "$device" -a -n "$total_size" -a -n "$used_size" -a -n "$use_percent"
+            set storage_info "$device $disk_type • Mount: $mount • Used: $used_size/$total_size $use_percent"
+        else
+            set storage_info "Error parsing disk info"
+        end
+    else
+        set storage_info "Unable to read disk info"
+    end
+
+    # Network info
+    set -l network_info ""
+    set -l net_line (ip -brief addr show 2>/dev/null | grep -v lo | grep UP | head -n1)
+
+    if test -n "$net_line"
+        set -l iface (echo $net_line | awk '{print $1}')
+        set -l ip (echo $net_line | awk '{for(i=3;i<=NF;++i) if ($i ~ /^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/) {print $i; break}}')
+        if test -n "$ip"
+            set network_info "$iface UP - $ip"
+        else
+            set network_info "$iface UP"
+        end
+    else
+        set network_info "No network interface found"
+    end
+
+    # Output
+    echo -e "$dim OS:$reset      $y$os_name$reset • $dim Kernel:$reset $kernel"
+    echo -e "$dim Host:$reset    $b$host$reset • $dim Uptime:$reset $g$uptime_hr hr$reset"
+    echo -e "$dim Network:$reset $network_info"
+    echo -e "$dim Storage:$reset $storage_info"
+end

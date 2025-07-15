@@ -1,7 +1,6 @@
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 
-source ~/.cache/atuin.nu
 source ~/.cache/mise.nu
 source ~/.cache/uv.nu
 source ~/.local/share/atuin/init.nu
@@ -32,7 +31,7 @@ $env.PATH = ($env.PATH | default [] | prepend [
     "/home/lautaro/personal/apps/ltex-ls-plus/bin"
     "/home/lautaro/.dotnet/tools"
     "/home/lautaro/.config/emacs/bin"
-    ([(python3 -m site --user-base)] | str join) + "/bin"
+    "/home/lautaro/.local/share/pnpm"
     "/home/lautaro/personal/apps/zig"
     ($env.HOME + "/.cargo/bin")
     ($env.HOME + "/go/bin")
@@ -43,6 +42,7 @@ def multicd [dots: string] {
     let count = ($dots | str length) - 1
     cd (["../"] * $count | str join)
 }
+
 alias dotdot = multicd
 
 $env.config = {
