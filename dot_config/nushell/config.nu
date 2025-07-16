@@ -1,8 +1,6 @@
 mkdir ($nu.data-dir | path join "vendor/autoload")
 starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 
-source ~/.cache/mise.nu
-source ~/.cache/uv.nu
 source ~/.local/share/atuin/init.nu
 
 alias c = cargo
@@ -31,7 +29,10 @@ $env.PATH = ($env.PATH | default [] | prepend [
     "/home/lautaro/personal/apps/ltex-ls-plus/bin"
     "/home/lautaro/.dotnet/tools"
     "/home/lautaro/.config/emacs/bin"
+<<<<<<< Updated upstream
     "/home/lautaro/.local/share/pnpm"
+=======
+>>>>>>> Stashed changes
     "/home/lautaro/personal/apps/zig"
     ($env.HOME + "/.cargo/bin")
     ($env.HOME + "/go/bin")
@@ -86,5 +87,5 @@ def show-system-info [] {
     print $"(ansi $dim)OS:(ansi reset)      (ansi $y)($sys.name)(ansi reset) • (ansi $dim)Kernel:(ansi reset) ($sys.kernel_version)"
     print $"(ansi $dim)Host:(ansi reset)    (ansi $b)($sys.hostname)(ansi reset) • (ansi $dim)Uptime:(ansi reset) (ansi $g)($sys.uptime | into duration | format duration hr)(ansi reset)"
     print $"(ansi $dim)Network:(ansi reset) ($network_info)"
-    print $"(ansi $dim)Storage:(ansi reset) (ansi $b)($disk.device)(ansi reset) ((ansi $dim)($disk.kind)(ansi reset)) • (ansi $dim)Mount:(ansi reset) ($disk.mount) • (ansi $dim)Used:(ansi reset) (ansi $y)($used_bytes | into filesize)(ansi reset)/(ansi $g)($disk.total | into filesize)(ansi reset) ((ansi $y)($used_percent)%(ansi reset))"
+    print $"(ansi $dim)Storage:(ansi reset) (ansi $b)($disk.device)(ansi reset) (ansi $dim)($disk.kind)(ansi reset) • (ansi $dim)Mount:(ansi reset) ($disk.mount) • (ansi $dim)Used:(ansi reset) (ansi $y)($used_bytes | into filesize)(ansi reset)/(ansi $g)($disk.total | into filesize)(ansi reset) (ansi $y)($used_percent)%(ansi reset)"
 }
