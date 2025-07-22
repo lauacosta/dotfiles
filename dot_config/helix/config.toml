@@ -33,6 +33,7 @@ A-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_befor
 
 [keys.normal.space]
 k = "keep_selections"
+g = { d = [":vsplit", "goto_definition"]}
 
 [keys.normal.space.s]
 f = "file_picker"
@@ -44,12 +45,3 @@ n = ":open ~/.config/helix/"
 [keys.select]
 X = ["select_line_above", "extend_to_line_bounds"]
 A-x = "extend_to_line_bounds"
-
-
-# [keys.insert.menu]
-## "C-y" = "completion_apply"
-# "ret" = "no_op"  # This disables Enter if you want
-
-# [keys.normal.menu]
-# "C-y" = "completion_apply"
-# "ret" = "no_op"  # This disables Enter if you want
