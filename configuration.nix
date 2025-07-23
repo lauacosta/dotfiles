@@ -102,10 +102,13 @@
   environment.systemPackages = with pkgs; [
      wget
      git
+     rr
+     tokei
+     alacritty
+     tree
+     rustup
+     gcc
      watchexec
-     cargo
-     rustc
-     nushell
      docker
      syncthing
      tinymist
