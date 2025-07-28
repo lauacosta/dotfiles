@@ -4,21 +4,18 @@ theme = "gruvbox_dark_hard"
 line-number = "relative"
 mouse = true
 end-of-line-diagnostics = "hint"
-
-[editor.lsp]
-display-inlay-hints = false
-
-
-[editor.inline-diagnostics]
-cursor-line = "warning" 
+indent-guides.render = true
+indent-guides.character = "│"
+indent-guides.highlight = "comment"
+indent-guides.skip-levels=1
+lsp.display-inlay-hints = false
+inline-diagnostics.cursor-line = "warning" 
+file-picker.hidden = false
 
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
 select = "underline"
-
-[editor.file-picker]
-hidden = false
 
 [keys.normal]
 K = "hover"
@@ -30,6 +27,13 @@ V = "extend_to_line_bounds"
 A-x = "extend_to_line_bounds"
 A-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 A-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]
+"C-g" = [
+    ':new',
+    ':insert-output lazygit',
+    ':buffer-close!',
+    ":redraw"
+]
+
 
 [keys.normal.space]
 k = "keep_selections"

@@ -102,6 +102,11 @@
   environment.systemPackages = with pkgs; [
      wget
      git
+     gitui
+     lazygit
+     usbutils
+     valgrind
+     htop
      rr
      tokei
      alacritty

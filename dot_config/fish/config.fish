@@ -12,7 +12,6 @@ abbr -a j just
 abbr -a ga 'git add'
 abbr -a glr pretty_git_log
 abbr -a co 'git checkout'
-abbr -a gpr 'gh pr create'
 abbr -a gap 'git add -p'
 abbr -a gc 'git commit'
 abbr -a gd 'git diff'
@@ -38,6 +37,12 @@ end
 
 function multicd
     echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)
+end
+
+function gpr
+    set pr $argv[1]
+    git fetch upstream pull/$pr/head:pr-$pr
+    git checkout pr-$pr
 end
 
 abbr --add dotdot --regex '^\.\.+$' --function multicd

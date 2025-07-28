@@ -6,6 +6,12 @@
 [language-server]
 elixir-ls = { command = "elixir-ls", config = { elixirLS.dialyzerEnabled = false } }
 
+
+[language-server.deno-lsp]
+command = "deno"
+args = ["lsp"]
+config.deno.enable = true
+
 [language-server.rust-analyzer.config]
 inlayHints.bindingModeHints.enable = false
 inlayHints.closingBraceHints.minLines = 10
@@ -67,6 +73,20 @@ includeInlayVariableTypeHints = true
 # -------------------------------
 # Language Definitions
 # -------------------------------
+
+[[language]]
+name = "typescript"
+roots = ["deno.json", "deno.jsonc", "package.json"]
+file-types = ["ts", "tsx"]
+auto-format = true
+language-servers = ["deno-lsp"]
+
+[[language]]
+name = "javascript"
+roots = ["deno.json", "deno.jsonc", "package.json"]
+file-types = ["js", "jsx"]
+auto-format = true
+language-servers = ["deno-lsp"]
 
 [[language]]
 name = "dune"
