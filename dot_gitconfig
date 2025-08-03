@@ -1,0 +1,30 @@
+[credential "https://github.com"]
+	helper = 
+	helper = !/run/current-system/sw/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/run/current-system/sw/bin/gh auth git-credential
+
+[user]
+	email = acostaquintalautaro@gmail.com
+	name = Lautaro Acosta
+
+[merge]
+	conflictStyle = diff3
+
+[merge "mergiraf"]
+	name = mergiraf
+	driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
+
+[alias]
+    dl = -c diff.external=difft log -p --ext-diff
+    ds = -c diff.external=difft show --ext-diff
+    dft = -c diff.external=difft diff
+
+[pager]
+    difftool = true
+
+[diff]
+    tool = difftastic
+    external = difft

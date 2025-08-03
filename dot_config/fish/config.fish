@@ -17,7 +17,7 @@ abbr -a gc 'git commit'
 abbr -a gd 'git diff'
 abbr -a gs 'git status'
 abbr -a gp 'git push'
-abbr -a gl 'git log -1 HEAD'
+abbr -a gl 'git dl'
 abbr -a ct 'cargo t'
 abbr -a vim nvim
 abbr -a tma 'tmux attach'

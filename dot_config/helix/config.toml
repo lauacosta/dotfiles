@@ -11,6 +11,7 @@ indent-guides.skip-levels=1
 lsp.display-inlay-hints = false
 inline-diagnostics.cursor-line = "warning" 
 file-picker.hidden = false
+rulers = [80]
 
 [editor.cursor-shape]
 insert = "bar"

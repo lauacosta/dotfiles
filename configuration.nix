@@ -4,11 +4,18 @@
 
 { config, pkgs, ... }:
 
+let
+  unstable = import <nixpkgs-unstable> {
+    config = config.nixpkgs.config;
+  };
+in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -102,7 +109,9 @@
   environment.systemPackages = with pkgs; [
      wget
      git
-     gitui
+     difftastic
+     unstable.mergiraf
+     cartero
      lazygit
      usbutils
      valgrind
