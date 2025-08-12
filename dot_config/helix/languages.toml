@@ -98,16 +98,30 @@ grammar = "scheme"
 auto-format = true
 formatter = { command = "dune", args = ["format-dune-file"] }
 
+# [[language]]
+# name = "elixir"
+# scope = "source.elixir"
+# injection-regex = "(elixir|ex)"
+# file-types = ["ex", "exs", { glob = "mix.lock" }]
+# shebangs = ["elixir"]
+# roots = ["mix.exs", "mix.lock"]
+# comment-token = "#"
+# language-servers = [ "elixir-ls" ]
+# indent = { tab-width = 2, unit = "  " }
+
 [[language]]
 name = "elixir"
 scope = "source.elixir"
-injection-regex = "(elixir|ex)"
 file-types = ["ex", "exs", { glob = "mix.lock" }]
+auto-format = true
+# diagnostic-severity = "Hint"
+comment-token = "#"
+indent = {tab-width = 2, unit = " "}
+injection-regex = "(elixir|ex)"
 shebangs = ["elixir"]
 roots = ["mix.exs", "mix.lock"]
-comment-token = "#"
 language-servers = [ "elixir-ls" ]
-indent = { tab-width = 2, unit = "  " }
+
 
 [[language]]
 name = "markdown"

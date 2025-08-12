@@ -24,11 +24,11 @@ abbr -a tma 'tmux attach'
 
 set -gx DOCKER_BUILDKIT 1
 
-if command -v exa >/dev/null
-    abbr -a l exa
-    abbr -a ls exa
-    abbr -a ll 'exa -l'
-    abbr -a lll 'exa -la'
+if command -v eza >/dev/null
+    abbr -a l eza
+    abbr -a ls eza
+    abbr -a ll 'eza -l'
+    abbr -a lll 'eza -la'
 else
     abbr -a l ls
     abbr -a ll 'ls -l'
@@ -161,4 +161,13 @@ function fish_greeting
     echo -e "$dim Host:$reset    $b$host$reset $dim•$reset $dim Uptime:$reset $g$uptime_hr hr$reset"
     echo -e "$dim Network:$reset $network_info"
     echo -e "$dim Storage:$reset $storage_info"
+end
+
+function toggle-theme
+    if test "$ayu_variant" = light
+        set -U ayu_variant light
+    else
+        set -U ayu_variant light
+        source ~/.config/fish/conf.d/ayu.fish
+    end
 end
