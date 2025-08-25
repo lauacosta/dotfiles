@@ -6,6 +6,9 @@
 [language-server]
 elixir-ls = { command = "elixir-ls", config = { elixirLS.dialyzerEnabled = false } }
 
+[language-server.tinymist]
+config = { formatterMode = "typstyle" }
+
 [language-server.deno-lsp]
 command = "deno"
 args = ["lsp"]
@@ -69,23 +72,45 @@ includeInlayParameterNameHintsWhenArgumentMatchesName = true
 includeInlayPropertyDeclarationTypeHints = true
 includeInlayVariableTypeHints = true
 
+[language-server.basedpyright]
+command = "basedpyright-langserver"
+args = ["--stdio"]
+
+[language-server.basedpyright.config]
+basedpyright.analysis.autoSearchPaths = true
+basedpyright.analysis.diagnosticMode = "workspace"
+basedpyright.analysis.useLibraryCodeForTypes = true
+# Type checking strictness (can be "off", "basic", "standard", "strict")
+basedpyright.analysis.typeCheckingMode = "standard"
+basedpyright.analysis.diagnosticSeverityOverrides = {}
+
 # -------------------------------
 # Language Definitions
 # -------------------------------
+
+[[language]]
+name = "python"
+language-servers = ["basedpyright", "ruff"]
 
 [[language]]
 name = "typescript"
 roots = ["deno.json", "deno.jsonc", "package.json"]
 file-types = ["ts", "tsx"]
 auto-format = true
-language-servers = ["deno-lsp"]
+language-servers = ["deno-lsp", "typescript-language-server"]
+formatter = { command = "biome", args = ["format", "--stdin-file-path", "file.ts"] }
+
+[[language]]
+name = "svelte"
+formatter = { command = "biome", args = ["format", "--stdin-file-path", "file.svelte"] }
 
 [[language]]
 name = "javascript"
 roots = ["deno.json", "deno.jsonc", "package.json"]
 file-types = ["js", "jsx"]
 auto-format = true
-language-servers = ["deno-lsp"]
+language-servers = ["deno-lsp", "typescript-language-server"]
+formatter = { command = "biome", args = ["format", "--stdin-file-path", "file.js"] }
 
 [[language]]
 name = "dune"

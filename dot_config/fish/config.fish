@@ -1,4 +1,3 @@
-theme_gruvbox dark hard
 starship init fish | source
 atuin init fish | source
 
@@ -8,7 +7,8 @@ abbr -a nix-shell 'nix-shell --command fish'
 abbr -a m make
 abbr -a g git
 abbr -a k kubectl
-abbr -a j just
+abbr -a j jj
+abbr -a jjj jj
 abbr -a ga 'git add'
 abbr -a glr pretty_git_log
 abbr -a co 'git checkout'

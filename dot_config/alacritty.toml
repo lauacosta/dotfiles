@@ -1,17 +1,19 @@
 [font]
 size = 9.0
-normal = {family = "Iosevka Nerd Font", style = "Regular" }
-bold = { family = "Iosevka Nerd Font", style = "bold"}
-bold_italic = {family = "Iosevka Nerd Font", style = "bold"}
-italic = {family = "Iosevka Nerd Font", style = "italic"}
+normal = {family = "Iosevka Nerd Font Mono"}
+bold = {family = "Iosevka Nerd Font Mono", style = "Bold"}
+italic = {family = "Iosevka Nerd Font Mono", style = "Italic"}
+bold_italic = {family = "Iosevka Nerd Font Mono", style = "Bold Italic"}
+builtin_box_drawing = true
+offset = {x = 0, y = 0}
 
 [window]
 padding = {x = 12, y = 12}
 dimensions = { columns = 0, lines = 0 }
 startup_mode = "Maximized"
 
-[env]
-TERM = "xterm-256color"
+# [env]
+# TERM = "xterm-256color"
 
 [selection]
 save_to_clipboard = true

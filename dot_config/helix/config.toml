@@ -11,7 +11,6 @@ indent-guides.skip-levels=1
 lsp.display-inlay-hints = false
 inline-diagnostics.cursor-line = "warning" 
 file-picker.hidden = false
-rulers = [80]
 
 [editor.cursor-shape]
 insert = "bar"
@@ -22,7 +21,7 @@ select = "underline"
 K = "hover"
 "F8" = ":toggle lsp.display-inlay-hints"
 "F1" = ":config-reload"
-"F2" = ":theme modus_operandi"
+"F2" = ":theme github_light_high_contrast"
 X = ["select_line_above", "extend_to_line_bounds"]
 V = "extend_to_line_bounds"
 A-x = "extend_to_line_bounds"
@@ -43,6 +42,8 @@ g = { d = [":vsplit", "goto_definition"]}
 [keys.normal.space.s]
 f = "file_picker"
 n = ":open ~/.config/helix/"
+a = ":open ~/Notas/apuntes/"
+p = ":open ~/Documents/"
 
 [keys.insert]  
 "C-y" = "insert_tab" 

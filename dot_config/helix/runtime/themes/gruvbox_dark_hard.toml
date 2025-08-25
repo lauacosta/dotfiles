@@ -15,4 +15,5 @@ inherits = "gruvbox"
 "special" = { fg = "aqua1" }
 
 [palette]
-bg0 = "#1d2021" # main background
+# bg0 = "#1d2021" # main background
+bg0 = "#181818" # main background
