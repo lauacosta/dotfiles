@@ -34,10 +34,10 @@ A-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_befor
     ":redraw"
 ]
 
-
 [keys.normal.space]
 k = "keep_selections"
 g = { d = [":vsplit", "goto_definition"]}
+o = ":sh gh repo view --web"
 
 [keys.normal.space.s]
 f = "file_picker"

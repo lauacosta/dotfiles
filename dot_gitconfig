@@ -28,3 +28,7 @@
 [diff]
     tool = difftastic
     external = difft
+[core]
+	editor = hx
+[credential]
+	helper = !gh auth git-credential

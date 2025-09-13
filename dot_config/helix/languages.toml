@@ -76,6 +76,9 @@ includeInlayVariableTypeHints = true
 command = "basedpyright-langserver"
 args = ["--stdio"]
 
+[language-server.ocamllsp]
+config = { inlayHints = { enable = true, typeHints = { enable = true }, parameterHints = { enable = true } } }
+
 [language-server.basedpyright.config]
 basedpyright.analysis.autoSearchPaths = true
 basedpyright.analysis.diagnosticMode = "workspace"
