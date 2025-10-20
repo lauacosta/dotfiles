@@ -184,6 +184,7 @@ test -r '/home/lautaro/.opam/opam-init/init.fish' && source '/home/lautaro/.opam
 # pnpm
 set -gx PNPM_HOME "/home/lautaro/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
+    set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+~/.local/bin/mise activate fish | source

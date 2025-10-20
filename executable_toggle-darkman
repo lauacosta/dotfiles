@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+# Path to the state file
+STATE_FILE="$HOME/.cache/darkman_state"
+
+# Ensure cache directory exists
+mkdir -p "$(dirname "$STATE_FILE")"
+
+# Read current state, default to "light" if missing or empty
+CURRENT=$(cat "$STATE_FILE" 2>/dev/null | tr -d '[:space:]')
+[ -z "$CURRENT" ] && CURRENT="light"
+
+echo "Current mode: $CURRENT"
+
+# Function to run scripts and update state
+toggle() {
+    local folder="$1"
+    local new_state="$2"
+    
+    echo "Toggling to $new_state"
+    
+    # Collect all .sh scripts in folder
+    SCRIPTS=("$folder"/*.sh)
+    
+    if [ -e "${SCRIPTS[0]}" ]; then
+        for f in "${SCRIPTS[@]}"; do
+            echo "Running $f"
+            bash "$f" || echo "Warning: $f failed"
+        done
+    else
+        echo "No scripts found in $folder"
+    fi
+    
+    # Update state file
+    echo "$new_state" > "$STATE_FILE" || echo "Failed to write state file!"
+    echo "State file is now: $(<"$STATE_FILE")"
+}
+
+# Decide which mode to switch to
+if [ "$CURRENT" = "dark" ]; then
+    toggle "/usr/local/share/light-mode.d" "light"
+else
+    toggle "/usr/local/share/dark-mode.d" "dark"
+fi
