@@ -1,0 +1,189 @@
+# # Cloud Theme for Helix (functions highlighted)
+# # Ported and adjusted by ChatGPT
+
+# "annotation" = { fg = "accent" }
+# "attribute" = { fg = "sky", modifiers = ["italic"] }
+# "comment" = { fg = "gray", modifiers = ["italic"] }
+
+# "constant" = { fg = "amber" }
+# "constant.character.escape" = { fg = "midgray" }
+# "constant.language" = { fg = "teal" }
+# "constant.numeric" = { fg = "amber" }
+
+# "constructor" = { fg = "blue" }
+
+# "error" = { fg = "red" }
+
+# # Functions
+# "function" = { fg = "func_blue", modifiers = ["bold"] }
+# "function.call" = { fg = "func_blue", modifiers = ["bold"] }
+# "function.method" = { fg = "func_blue", modifiers = ["italic"] }
+# "function.builtin" = { fg = "teal" }
+# "function.macro" = { fg = "blue" }
+
+# "keyword" = { fg = "navy", modifiers = ["bold"] }
+# "keyword.control.import" = { fg = "navy", modifiers = ["bold"] }
+# "label" = { fg = "navy" }
+
+# "namespace" = { fg = "fg" }
+
+# "operator" = { fg = "gray" }
+# "punctuation" = { fg = "fg", modifiers = ["bold"] }
+
+# "string" = { fg = "green" }
+# "string.regexp" = { fg = "blue" }
+# "string.special" = { fg = "midgray" }
+
+# "tag" = { fg = "blue" }
+# "type" = { fg = "navy", modifiers = ["bold"] }
+# "type.enum.variant" = { fg = "blue" }
+
+# "variable" = { fg = "fg" }
+# "variable.builtin" = { fg = "teal", modifiers = ["italic"] }
+# "variable.other.member" = { fg = "blue" }
+# "variable.parameter" = { fg = "blue", modifiers = ["italic"] }
+
+# "markup.bold" = { modifiers = ["bold"] }
+# "markup.italic" = { modifiers = ["italic"] }
+# "markup.link.url" = { fg = "blue", modifiers = ["underlined"] }
+# "markup.heading" = { fg = "fg", modifiers = ["bold"] }
+# "markup.quote" = { fg = "purple" }
+
+# "diagnostic.error" = { underline = { color = "red", style = "curl" } }
+# "diagnostic.warning" = { underline = { color = "orange", style = "curl" } }
+# "diagnostic.info" = { underline = { color = "blue", style = "curl" } }
+# "diagnostic.hint" = { underline = { color = "navy", style = "curl" } }
+
+# "diff.plus" = { fg = "green" }
+# "diff.minus" = { fg = "red" }
+# "diff.delta" = { fg = "orange" }
+
+# # UI
+# "ui.background" = { bg = "bg" }
+# "ui.cursor" = { fg = "bg", bg = "navy" }
+# "ui.cursorline" = { bg = "lightbg" }
+# "ui.linenr" = { fg = "midgray" }
+# "ui.linenr.selected" = { fg = "amber" }
+# "ui.selection" = { bg = "selection" }
+# "ui.selection.primary" = { bg = "selection" }
+# "ui.statusline" = { fg = "fg", bg = "lightbg" }
+# "ui.statusline.inactive" = { fg = "gray", bg = "lightbg" }
+# "ui.text" = { fg = "fg" }
+# "ui.text.focus" = { fg = "blue", modifiers = ["bold"] }
+# "ui.window" = { bg = "lightbg" }
+# "ui.virtual.whitespace" = { fg = "lightbg" }
+# "ui.virtual.ruler" = { bg = "lightbg" }
+
+# [palette]
+# bg = "#f1f1f1"
+# lightbg = "#ededed"
+# fg = "#454545"
+# gray = "#919aa1"
+# midgray = "#777777"
+# navy = "#00638a"
+# blue = "#008abd"
+# func_blue = "#0073a6"
+# green = "#678f03"
+# amber = "#cc6d00"
+# orange = "#bf7000"
+# red = "#d0372d"
+# purple = "#7d57c2"
+# teal = "#008080"
+# accent = "#008abd"
+# selection = "#3389ab60"
+#
+# Cloud Theme for Helix (enhanced function + enum variant contrast)
+# Ported and refined by ChatGPT
+
+"annotation" = { fg = "accent" }
+"attribute" = { fg = "sky", modifiers = ["italic"] }
+"comment" = { fg = "gray", modifiers = ["italic"] }
+
+"constant" = { fg = "amber" }
+"constant.character.escape" = { fg = "midgray" }
+"constant.language" = { fg = "teal" }
+"constant.numeric" = { fg = "amber" }
+
+"constructor" = { fg = "blue" }
+
+"error" = { fg = "red" }
+
+# Functions
+"function" = { fg = "func_orange", modifiers = ["bold"] }
+"function.call" = { fg = "func_orange", modifiers = ["bold"] }
+"function.method" = { fg = "func_orange", modifiers = ["italic"] }
+"function.builtin" = { fg = "teal" }
+"function.macro" = { fg = "blue" }
+
+"keyword" = { fg = "navy", modifiers = ["bold"] }
+"keyword.control.import" = { fg = "navy", modifiers = ["bold"] }
+"label" = { fg = "navy" }
+
+"namespace" = { fg = "fg" }
+
+"operator" = { fg = "gray" }
+"punctuation" = { fg = "fg", modifiers = ["bold"] }
+
+"string" = { fg = "green" }
+"string.regexp" = { fg = "blue" }
+"string.special" = { fg = "midgray" }
+
+"tag" = { fg = "blue" }
+
+"type" = { fg = "navy", modifiers = ["bold"] }
+"type.enum.variant" = { fg = "blue", modifiers = ["bold"] } # light blue for enum variants
+
+"variable" = { fg = "fg" }
+"variable.builtin" = { fg = "teal", modifiers = ["italic"] }
+"variable.other.member" = { fg = "blue" }
+"variable.parameter" = { fg = "blue", modifiers = ["italic"] }
+
+"markup.bold" = { modifiers = ["bold"] }
+"markup.italic" = { modifiers = ["italic"] }
+"markup.link.url" = { fg = "blue", modifiers = ["underlined"] }
+"markup.heading" = { fg = "fg", modifiers = ["bold"] }
+"markup.quote" = { fg = "purple" }
+
+"diagnostic.error" = { underline = { color = "red", style = "curl" } }
+"diagnostic.warning" = { underline = { color = "orange", style = "curl" } }
+"diagnostic.info" = { underline = { color = "blue", style = "curl" } }
+"diagnostic.hint" = { underline = { color = "navy", style = "curl" } }
+
+"diff.plus" = { fg = "green" }
+"diff.minus" = { fg = "red" }
+"diff.delta" = { fg = "orange" }
+
+# UI
+"ui.background" = { bg = "bg" }
+"ui.cursor" = { fg = "bg", bg = "navy" }
+"ui.cursorline" = { bg = "lightbg" }
+"ui.linenr" = { fg = "midgray" }
+"ui.linenr.selected" = { fg = "amber" }
+"ui.selection" = { bg = "selection" }
+"ui.selection.primary" = { bg = "selection" }
+"ui.statusline" = { fg = "fg", bg = "lightbg" }
+"ui.statusline.inactive" = { fg = "gray", bg = "lightbg" }
+"ui.text" = { fg = "fg" }
+"ui.text.focus" = { fg = "blue", modifiers = ["bold"] }
+"ui.window" = { bg = "lightbg" }
+"ui.virtual.whitespace" = { fg = "lightbg" }
+"ui.virtual.ruler" = { bg = "lightbg" }
+
+[palette]
+bg = "#f1f1f1"
+lightbg = "#ededed"
+fg = "#454545"
+gray = "#919aa1"
+midgray = "#777777"
+navy = "#00638a"
+blue = "#008abd"
+func_orange = "#bf7000"
+green = "#678f03"
+amber = "#cc6d00"
+orange = "#bf7000"
+red = "#d0372d"
+purple = "#7d57c2"
+teal = "#008080"
+accent = "#008abd"
+selection = "#3389ab60"
+
