@@ -1,1 +1,0 @@
-source "/home/lautaro/.deno/env.fish"
