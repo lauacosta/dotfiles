@@ -18,23 +18,11 @@ function SetLspKeymaps(event)
 	map("<leader>f", function()
 		vim.lsp.buf.format({ async = true })
 	end, "[F]ormat")
-
-	-- if client.name == "omnisharp" then
-	-- 	local omnisharp = require("omnisharp_extended")
-	-- 	map("gd", omnisharp.lsp_definition, "[G]oto [D]efinition (OmniSharp)")
-	-- 	map("gI", omnisharp.lsp_implementation, "[G]oto [I]mplementation (OmniSharp)")
-	-- 	map("gr", omnisharp.lsp_references, "[G]oto [R]eferences (OmniSharp)")
-	-- 	map("<leader>D", omnisharp.lsp_type_definition, "[D]efinition (OmniSharp)")
-	-- else
-	-- 	map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-	-- 	map("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-	-- 	map("gr", vim.lsp.buf.references, "[G]oto [R]eferences")
-	-- 	map("<leader>D", vim.lsp.buf.type_definition, "[D]efinition")
-	-- end
 end
 
 function Particular_config(capabilities)
-	require("lspconfig").ocamllsp.setup({
+  local lsp_config = vim.lsp.config
+  lsp_config["ocamllsp"] = {
 		settings = {
 			codelens = {
 				enabled = true,
@@ -43,28 +31,9 @@ function Particular_config(capabilities)
 			syntaxDocumentation = { enable = true },
 		},
 		capabilities = capabilities,
-	})
+	}
 
-	-- require("lspconfig").omnisharp.setup({
-	-- 	settings = {
-	-- 		codelens = {
-	-- 			enabled = true,
-	-- 			position = "above",
-	-- 		},
-	-- 		syntaxDocumentation = { enable = true },
-	-- 		FormattingOptions = {
-	-- 			EnableEditorConfigSupport = false,
-	-- 		},
-	-- 		Formatting = false,
-	-- 	},
-	-- 	capabilities = capabilities,
-	-- 	on_attach = function(client, bufnr)
-	-- 		client.server_capabilities.documentFormattingProvider = false
-	-- 		client.server_capabilities.documentRangeFormattingProvider = false
-	-- 	end,
-	-- })
-
-	require("lspconfig").rust_analyzer.setup({
+	lsp_config["rust_analyzer"] ={
 		settings = {
 			codelens = { enabled = true },
 			syntaxDocumentation = { enable = true },
@@ -72,7 +41,6 @@ function Particular_config(capabilities)
 				procMacro = {
 					ignored = {
 						leptos_macro = {
-							-- optional: --
 							-- "component",
 							"server",
 						},
@@ -81,9 +49,9 @@ function Particular_config(capabilities)
 			},
 		},
 		capabilities = capabilities,
-	})
+	}
 
-	require("lspconfig").clangd.setup({
+	lsp_config["clangd"] = {
 		settings = {
 			codelens = { enabled = true },
 			syntaxDocumentation = { enable = true },
@@ -98,7 +66,7 @@ function Particular_config(capabilities)
 			"--fallback-style=llvm",
 		},
 		capabilities = capabilities,
-	})
+	}
 end
 
 return {

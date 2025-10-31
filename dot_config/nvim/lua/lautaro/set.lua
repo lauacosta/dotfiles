@@ -2,6 +2,7 @@ local set = vim.opt
 
 vim.g.have_nerd_font = true
 set.clipboard = "unnamedplus"
+vim.o.splitright = true
 set.cursorline = true
 vim.opt.signcolumn = "yes:1"
 set.linebreak = false
