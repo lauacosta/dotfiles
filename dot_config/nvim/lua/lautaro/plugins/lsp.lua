@@ -14,20 +14,23 @@ function SetLspKeymaps(event)
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, "[W]orkspace [L]ist")
     map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-    map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-    map("<leader>f", function()
+    map("<leader>a", vim.lsp.buf.code_action, "[C]ode [A]ction")
+    map("<leader>fo", function()
         vim.lsp.buf.format({ async = true })
     end, "[F]ormat")
 end
 
 function Particular_config(capabilities)
     local lsp_config = vim.lsp.config
+
     lsp_config["ocamllsp"] = {
         settings = {
             codelens = {
-                enabled = true,
-                position = "above",
+                enable = true,
+                forNestedBindings = true,
             },
+            duneDiagnostics = { enable = true },
+            inlayHints = { enable = true },
             syntaxDocumentation = { enable = true },
         },
         capabilities = capabilities,
@@ -35,9 +38,26 @@ function Particular_config(capabilities)
 
     lsp_config["rust_analyzer"] = {
         settings = {
-            codelens = { enabled = true },
-            syntaxDocumentation = { enable = true },
             ["rust-analyzer"] = {
+                codelens = { enabled = true },
+                syntaxDocumentation = { enable = true },
+
+                semanticTokenColorCustomizations = {
+                    rules = {
+                        ["*.mutable:rust"] = {
+                            italic = true,
+                        },
+                        ["*.consuming:rust"] = {
+                            italic = true,
+                            underline = true,
+                            foreground = "#83a598"
+                        },
+                        ["*.unsafe:rust"] = {
+                            underline = true,
+                            bold = true,
+                        },
+                    },
+                },
                 procMacro = {
                     ignored = {
                         leptos_macro = {
@@ -67,6 +87,30 @@ function Particular_config(capabilities)
         },
         capabilities = capabilities,
     }
+
+    lsp_config["typescript-language-server"] = {
+        semanticTokenColorCustomizations = {
+            rules = {
+                -- MUTATIONS
+                ["variable.modification:javascript"] = { underline = true },
+                ["property.modification:javascript"] = { underline = true },
+
+                ["*.deprecated:javascript"] = { strikethrough = true },
+
+                ["function.async:javascript"] = { italic = true },
+
+                ["property.readonly:javascript"] = { italic = true },
+
+                ["jsxComponent:javascriptreact"] = { bold = true },
+                ["jsxTag:javascriptreact"] = { italic = true },
+
+                ["type:typescript"] = { fg = "#80a0ff" },
+                ["interface:typescript"] = { fg = "#80a0ff" },
+
+                ["alias:typescript"] = { italic = true },
+            },
+        }
+    }
 end
 
 return {
@@ -77,8 +121,6 @@ return {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "WhoIsSethDaniel/mason-tool-installer.nvim",
-            { "https://git.sr.ht/~whynothugo/lsp_lines.nvim" },
-            -- { "Hoffs/omnisharp-extended-lsp.nvim" },
             {
                 "j-hui/fidget.nvim",
                 opts = {},
@@ -139,6 +181,7 @@ return {
 
             Particular_config(capabilities)
 
+            -- vim.diagnostic.config({ virtual_lines = true })
             vim.diagnostic.config({ virtual_text = true })
         end,
     },

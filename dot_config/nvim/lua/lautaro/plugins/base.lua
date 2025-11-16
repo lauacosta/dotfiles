@@ -15,10 +15,10 @@ return {
         build = function()
             require("fff.download").download_or_build_binary()
         end,
-        opts = {                    -- (optional)
+        opts = {
             debug = {
-                enabled = true,     -- we expect your collaboration at least during the beta
-                show_scores = true, -- to help us optimize the scoring system, feel free to share your scores!
+                enabled = true,
+                show_scores = true,
             },
         },
         lazy = false,

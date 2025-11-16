@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local map = function(keys, func, desc)
     vim.keymap.set("n", keys, func, { desc = desc, silent = true, noremap = true })
 end
@@ -14,6 +15,9 @@ map("<F8>", ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 map("<leader>pv", vim.cmd.Ex, "Open the current folder")
 
 
+map("gd", function()
+    vim.lsp.buf.definition()
+end, "Goto definition")
 
 map("<leader>gd", function()
     vim.cmd("vsplit")
@@ -63,9 +67,18 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     end,
 })
 
+-- vim.api.nvim_create_autocmd({ "LspAttach", "InsertLeave", "BufEnter" }, {
+--     group = vim.api.nvim_create_augroup("LspCodelens", { clear = true }),
+--     callback = function()
+--         vim.lsp.codelens.refresh({ bufnr = 0 })
+--     end,
+-- })
+
 vim.api.nvim_create_autocmd({ "LspAttach", "InsertLeave", "BufEnter" }, {
     group = vim.api.nvim_create_augroup("LspCodelens", { clear = true }),
-    callback = function()
-        vim.lsp.codelens.refresh({ bufnr = 0 })
+    callback = function(args)
+        -- Only refresh if buffer has LSP clients with codelens support
+        local bufnr = args.buf or 0
+        vim.lsp.codelens.refresh({ bufnr = bufnr })
     end,
 })
