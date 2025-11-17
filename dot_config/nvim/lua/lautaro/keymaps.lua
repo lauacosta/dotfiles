@@ -13,6 +13,8 @@ map("<A-k>", ":m-2<CR>==", "Move the line above")
 map("<A-j>", ":m+1<CR>==", "Move the line below")
 map("<F8>", ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>", "Enable inlay hints")
 map("<leader>pv", vim.cmd.Ex, "Open the current folder")
+map("<C-g>", ":Git<CR>", "[G]it fugitive")
+
 
 
 map("gd", function()

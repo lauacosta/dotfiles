@@ -59,9 +59,9 @@ return {
             map("<leader>sr", builtin.lsp_references, "[S]earch [R]eferences")
             map("<leader>sw", builtin.grep_string, "[S]earch current [W]ord")
             map("<leader>sh", builtin.help_tags, "[S]earch [H]elp")
-            map("<C-g>", function()
-                builtin.grep_string({ search = vim.fn.input("Grep > ") })
-            end, "[G]rep string")
+            -- map("<C-g>", function()
+            --     builtin.grep_string({ search = vim.fn.input("Grep > ") })
+            -- end, "[G]rep string")
 
             require("lautaro.telescope.multigrep").setup()
         end,
