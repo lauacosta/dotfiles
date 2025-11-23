@@ -1,5 +1,5 @@
 [terminal.shell]
-program = "/usr/bin/nu"
+program = "/usr/bin/fish"
 
 [font]
 size = 11.0

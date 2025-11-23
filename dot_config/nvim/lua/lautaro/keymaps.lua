@@ -16,7 +16,6 @@ map("<leader>pv", vim.cmd.Ex, "Open the current folder")
 map("<C-g>", ":Git<CR>", "[G]it fugitive")
 
 
-
 map("gd", function()
     vim.lsp.buf.definition()
 end, "Goto definition")

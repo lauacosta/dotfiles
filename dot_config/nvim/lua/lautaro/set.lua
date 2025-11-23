@@ -30,3 +30,6 @@ vim.api.nvim_set_hl(0, "@lsp.type.module.ocaml", { italic = true, underline = tr
 vim.api.nvim_set_hl(0, "@lsp.type.constructor.ocaml", { bold = true })
 vim.api.nvim_set_hl(0, "@lsp.type.operator.ocaml", { bold = true })
 vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.ocaml", { underline = true })
+
+-- vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+vim.o.winbar = "%=%{%v:lua.require'nvim-navic'.get_location()%} %="

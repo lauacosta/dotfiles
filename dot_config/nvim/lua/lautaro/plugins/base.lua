@@ -9,7 +9,15 @@ return {
             require("current").load()
         end,
     },
-
+    {
+        'SmiteshP/nvim-navic',
+        dependencies = "neovim/nvim-lspconfig",
+        opts = {
+            highlight = true,
+            custom_hl = true,
+            separator = " › ",
+        },
+    },
     {
         'dmtrKovalenko/fff.nvim',
         build = function()
@@ -46,22 +54,6 @@ return {
     { "tpope/vim-commentary",        enabled = true, event = "VeryLazy" },
     { "nvim-tree/nvim-web-devicons", enabled = true, event = "VeryLazy" },
     {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
-        opts = {
-            preset = "helix",
-        },
-        keys = {
-            {
-                "<leader>?",
-                function()
-                    require("which-key").show({ global = false })
-                end,
-                desc = "Buffer Local Keymaps (which-key)",
-            },
-        },
-    },
-    {
         "lewis6991/gitsigns.nvim",
         enabled = true,
         event = "VeryLazy",
@@ -89,6 +81,32 @@ return {
         config = function()
             local statusline = require("mini.statusline")
             statusline.setup({ use_icons = true })
+
+            local miniclue = require("mini.clue")
+            miniclue.setup({
+                triggers = {
+                    { mode = 'n', keys = '<Leader>' },
+                    { mode = 'n', keys = 'g' },
+                    { mode = 'n', keys = '<C-w>' },
+                    { mode = 'i', keys = '<C-x>' },
+                    { mode = 'c', keys = '<C-r>' },
+                },
+                clues = {
+                    { mode = 'n', keys = '<Leader>b', desc = '+Buffers' },
+                    miniclue.gen_clues.g(),
+                    miniclue.gen_clues.windows({ submode_resize = true }),
+                    miniclue.gen_clues.builtin_completion(),
+                    miniclue.gen_clues.registers(),
+                },
+
+                window = {
+                    delay = 100,
+                    config = {
+                        width = 'auto',
+                        border = 'double',
+                    }
+                }
+            })
         end,
     },
 }

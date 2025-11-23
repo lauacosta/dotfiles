@@ -135,6 +135,11 @@ return {
                         return
                     end
 
+                    if client:supports_method("textDocument/documentSymbol", 0) then
+                        local navic = require("nvim-navic")
+                        navic.attach(client, event.buf)
+                    end
+
                     if client:supports_method("TextDocument/Formatting", 0) then
                         vim.api.nvim_create_autocmd("BufWritePre", {
                             buffer = event.buf,
@@ -173,6 +178,7 @@ return {
             mason_lspconfig.setup({
                 automatic_enable = true,
             })
+
             for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
                 vim.lsp.config(server_name, {
                     capabilities = capabilities,
