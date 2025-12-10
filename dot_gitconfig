@@ -1,10 +1,11 @@
+[credential]
+	helper = store
+
 [credential "https://github.com"]
-	helper = 
-	helper = !/run/current-system/sw/bin/gh auth git-credential
+	helper = !/usr/bin/gh auth git-credential
 
 [credential "https://gist.github.com"]
-	helper = 
-	helper = !/run/current-system/sw/bin/gh auth git-credential
+	helper = !/usr/bin/gh auth git-credential
 
 [user]
 	email = acostaquintalautaro@gmail.com
@@ -29,6 +30,4 @@
     tool = difftastic
     external = difft
 [core]
-	editor = hx
-[credential]
-	helper = !gh auth git-credential
+	editor = nvim

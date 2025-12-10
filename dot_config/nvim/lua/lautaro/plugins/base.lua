@@ -10,6 +10,15 @@ return {
         end,
     },
     {
+        "seblyng/roslyn.nvim",
+    ---@module 'roslyn.config'
+    ---@type RoslynNvimConfig
+    opts = {
+        -- your configuration comes here; leave empty for default settings
+    },
+    },
+
+    {
         'SmiteshP/nvim-navic',
         dependencies = "neovim/nvim-lspconfig",
         opts = {

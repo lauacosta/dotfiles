@@ -3,8 +3,25 @@ local map = function(keys, func, desc)
     vim.keymap.set("n", keys, func, { desc = desc, silent = true, noremap = true })
 end
 
+local function toggle_devbacklog()
+    local target = vim.fn.expand("~/Documents/ideas/devbacklog.md")
+    local bufname = vim.fn.bufname(target)
+
+    -- Find window displaying the file
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.api.nvim_buf_get_name(buf) == target then
+            vim.api.nvim_win_close(win, true)
+            return
+        end
+    end
+
+    -- Not open → open via vsplit
+    vim.cmd("vsplit " .. target)
+end
+
 map("%", "ggVG", "Select all text")
-map("YY", "va{Vy", "Yanks el contenido entre dos llaves")
+map("YY", "va{V", "Selecciona el contenido entre dos llaves")
 map("<up>", "<C-w><up>", "Move to the tab above")
 map("<down>", "<C-w><down>", "Move to the tab below")
 map("<left>", "<C-w><left>", "Move to the left tab")
@@ -14,6 +31,7 @@ map("<A-j>", ":m+1<CR>==", "Move the line below")
 map("<F8>", ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>", "Enable inlay hints")
 map("<leader>pv", vim.cmd.Ex, "Open the current folder")
 map("<C-g>", ":Git<CR>", "[G]it fugitive")
+map("<C-p>", toggle_devbacklog, "[D]evbacklog")
 
 
 map("gd", function()

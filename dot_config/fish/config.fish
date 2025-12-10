@@ -8,8 +8,6 @@ abbr -a nix-shell 'nix-shell --command fish'
 abbr -a m make
 abbr -a g git
 abbr -a k kubectl
-abbr -a j jj
-abbr -a jjj jj
 abbr -a ga 'git add'
 abbr -a glr pretty_git_log
 abbr -a co 'git checkout'
@@ -19,9 +17,16 @@ abbr -a gd 'git diff'
 abbr -a gs 'git status'
 abbr -a gp 'git push'
 abbr -a gl 'git dl'
-abbr -a ct 'cargo t'
+
 abbr -a vim nvim
 abbr -a tma 'tmux attach'
+
+abbr -a j jj
+abbr -a jjj jj
+abbr -a js 'jj status'
+abbr -a jd 'jj describe'
+abbr -a jn 'jj new'
+abbr -a jh 'jj log -r \'heads(all())\''
 
 set -gx DOCKER_BUILDKIT 1
 
