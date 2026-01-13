@@ -86,8 +86,8 @@ Cloud.config = vim.deepcopy(default_config)
 ---@field selection string
 ---@field selection_text string
 Cloud.palette = {
-    bg = "#f5f5f5",
-    lightbg = "#ededed",
+    bg = "#fdfbf5",
+    lightbg = "#fefcf8",
     fg = "#454545",
     gray = "#919aa1",
     midgray = "#777777",
@@ -246,11 +246,11 @@ local function get_groups()
 
         -- core editor
         Normal                        = config.transparent_mode and { fg = colors.fg1, bg = nil } or
-        { fg = colors.fg1, bg = colors.bg0 },
+            { fg = colors.fg1, bg = colors.bg0 },
         NormalFloat                   = config.transparent_mode and { fg = colors.fg1, bg = nil } or
-        { fg = colors.fg1, bg = colors.bg1 },
+            { fg = colors.fg1, bg = colors.bg1 },
         NormalNC                      = config.dim_inactive and { fg = colors.fg3, bg = colors.bg1 } or
-        { link = "Normal" },
+            { link = "Normal" },
 
         CursorLine                    = { bg = colors.bg1 },
         CursorColumn                  = { link = "CursorLine" },
@@ -281,7 +281,7 @@ local function get_groups()
         WinBar                        = { fg = colors.fg4, bg = colors.bg0 },
         WinBarNC                      = { fg = colors.fg3, bg = colors.bg1 },
         WinSeparator                  = config.transparent_mode and { fg = colors.bg3, bg = nil } or
-        { fg = colors.bg3, bg = colors.bg0 },
+            { fg = colors.bg3, bg = colors.bg0 },
         WildMenu                      = { fg = colors.blue, bg = colors.bg2, bold = config.bold },
 
         Directory                     = { link = "CloudGreenBold" },
@@ -296,7 +296,7 @@ local function get_groups()
         SignColumn                    = config.transparent_mode and { bg = nil } or { bg = colors.bg0 },
         Folded                        = { fg = colors.gray, bg = colors.bg1, italic = config.italic.folds },
         FoldColumn                    = config.transparent_mode and { fg = colors.gray, bg = nil } or
-        { fg = colors.gray, bg = colors.bg1 },
+            { fg = colors.gray, bg = colors.bg1 },
 
         Cursor                        = { reverse = config.inverse },
         vCursor                       = { link = "Cursor" },

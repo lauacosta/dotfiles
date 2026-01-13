@@ -20,16 +20,24 @@ set.spelllang = { "en", "es" }
 set.tabstop = 4
 set.termguicolors = true
 set.wrap = false
+set.colorcolumn = "100"
 vim.o.completeopt = vim.o.completeopt:gsub(",?preview", "")
 vim.g.db_ui_auto_execute_table_helpers = 1
 
-vim.api.nvim_set_hl(0, "@lsp.mod.mutable", { underline = true })
-vim.api.nvim_set_hl(0, "@lsp.typemod.variable.consuming.rust", { underline = true, foreground = "#83a598" })
-vim.api.nvim_set_hl(0, "@lsp.typemod.keyword.unsafe.rust", { underline = true, bold = true })
-vim.api.nvim_set_hl(0, "@lsp.type.module.ocaml", { italic = true, underline = true })
-vim.api.nvim_set_hl(0, "@lsp.type.constructor.ocaml", { bold = true })
-vim.api.nvim_set_hl(0, "@lsp.type.operator.ocaml", { bold = true })
-vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.ocaml", { underline = true })
-
--- vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
-vim.o.winbar = "%=%{%v:lua.require'nvim-navic'.get_location()%} %="
+vim.api.nvim_create_autocmd("ColorScheme", {
+    callback = function()
+        vim.api.nvim_set_hl(0, "@lsp.typemod.comment.documentation.rust", {
+            fg = "#d79921",
+        })
+        vim.api.nvim_set_hl(0, "ocamlComment", {
+            fg = "#d79921",
+        })
+        vim.api.nvim_set_hl(0, "@lsp.mod.mutable", { underline = true })
+        vim.api.nvim_set_hl(0, "@lsp.typemod.variable.consuming.rust", { underline = true, foreground = "#83a598" })
+        vim.api.nvim_set_hl(0, "@lsp.typemod.keyword.unsafe.rust", { underline = true, bold = true })
+        vim.api.nvim_set_hl(0, "@lsp.type.module.ocaml", { italic = true, underline = true })
+        vim.api.nvim_set_hl(0, "@lsp.type.constructor.ocaml", { bold = true })
+        vim.api.nvim_set_hl(0, "@lsp.type.operator.ocaml", { bold = true })
+        vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.ocaml", { underline = true })
+    end,
+})

@@ -19,6 +19,6 @@ decorations = "None"
 save_to_clipboard = true
 
 [colors]
-primary.background = "#eff1f5"
+primary.background = "#fbfbf5"
 primary.foreground= "#4c4f69"
 

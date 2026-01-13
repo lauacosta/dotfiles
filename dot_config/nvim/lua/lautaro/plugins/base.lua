@@ -5,59 +5,53 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
-            -- Remember that current is just 'gruvbox' or 'cloud' depending on the darkman setting
             require("current").load()
         end,
     },
     {
-        "seblyng/roslyn.nvim",
-    ---@module 'roslyn.config'
-    ---@type RoslynNvimConfig
-    opts = {
-        -- your configuration comes here; leave empty for default settings
-    },
-    },
-
-    {
-        'SmiteshP/nvim-navic',
-        dependencies = "neovim/nvim-lspconfig",
-        opts = {
-            highlight = true,
-            custom_hl = true,
-            separator = " › ",
-        },
-    },
-    {
-        'dmtrKovalenko/fff.nvim',
-        build = function()
-            require("fff.download").download_or_build_binary()
+        'nvim-java/nvim-java',
+        config = function()
+            require('java').setup({
+                lombok = {
+                    enable = true,
+                    version = '1.18.40',
+                },
+            })
+            vim.lsp.enable('jdtls')
         end,
-        opts = {
-            debug = {
-                enabled = true,
-                show_scores = true,
-            },
-        },
-        lazy = false,
-        keys = {
-            {
-                "<space>ff",
-                function() require('fff').find_files() end,
-                desc = 'FFFind files',
-            },
-            {
-                "<space>sn",
-                function() require('fff').find_files_in_dir(vim.fn.stdpath("config")) end,
-                desc = "Find files in config dir",
-            },
-            {
-                "<space>g",
-                function() require('fff').find_in_git_root() end,
-                desc = "Find in git root",
-            }
-
-        }
     },
+    {
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!).
+        build = "make install_jsregexp",
+        config = function()
+            local ls = require("luasnip")
+
+            require("luasnip.loaders.from_lua").lazy_load({
+                paths = vim.fn.stdpath("config") .. "/lua/snippets"
+            })
+
+            -- TAB to expand/jump
+            vim.keymap.set({ "i", "s" }, "<Tab>", function()
+                if ls.expand_or_jumpable() then
+                    return "<Plug>luasnip-expand-or-jump"
+                else
+                    return "<Tab>"
+                end
+            end, { expr = true })
+
+            vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+                if ls.jumpable(-1) then
+                    return "<Plug>luasnip-jump-prev"
+                else
+                    return "<S-Tab>"
+                end
+            end, { expr = true })
+        end
+    },
+
     { "tpope/vim-fugitive",          enabled = true, event = "VeryLazy" },
     { "f-person/git-blame.nvim",     enabled = true, event = "VeryLazy" },
     { "tpope/vim-commentary",        enabled = true, event = "VeryLazy" },

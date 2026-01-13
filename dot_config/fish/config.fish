@@ -1,6 +1,7 @@
 starship init fish | source
 atuin init fish | source
 mise activate fish | source
+zoxide init fish | source
 
 set -g fish_key_bindings fish_vi_key_bindings
 abbr -a c cargo
@@ -24,9 +25,11 @@ abbr -a tma 'tmux attach'
 abbr -a j jj
 abbr -a jjj jj
 abbr -a js 'jj status'
-abbr -a jd 'jj describe'
+abbr -a jd 'jj diff'
 abbr -a jn 'jj new'
+abbr -a jsm 'jj bookmark set main'
 abbr -a jh 'jj log -r \'heads(all())\''
+abbr -a jjp 'jj git push'
 
 set -gx DOCKER_BUILDKIT 1
 
@@ -39,6 +42,10 @@ else
     abbr -a l ls
     abbr -a ll 'ls -l'
     abbr -a lll 'ls -la'
+end
+
+if command -v zoxide >/dev/null
+    abbr -a cd z 
 end
 
 function multicd

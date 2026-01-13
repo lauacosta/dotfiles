@@ -3,20 +3,60 @@ local map = function(keys, func, desc)
     vim.keymap.set("n", keys, func, { desc = desc, silent = true, noremap = true })
 end
 
-local function toggle_devbacklog()
-    local target = vim.fn.expand("~/Documents/ideas/devbacklog.md")
-    local bufname = vim.fn.bufname(target)
+local function toggle_project_notes()
+    local cwd = vim.fn.getcwd()
+    local documents = vim.fn.expand("~/Documents")
+    local notes_dir = vim.fn.expand("~/Documents/ideas")
 
-    -- Find window displaying the file
+    ---------------------------------------------------------------------
+    -- 1. OUTSIDE ~/Documents → do nothing
+    ---------------------------------------------------------------------
+    if not vim.startswith(cwd, documents) then
+        return
+    end
+
+    ---------------------------------------------------------------------
+    -- 2. INSIDE ~/Documents → figure out first-level folder
+    ---------------------------------------------------------------------
+    -- Remove "~/Documents/" prefix
+    local relative = cwd:sub(#documents + 2)
+
+    -- First directory inside Documents
+    local project = relative:match("^([^/]+)")
+
+    -- If directly in ~/Documents or invalid folder → do nothing
+    if not project or project == "" then
+        return
+    end
+
+    ---------------------------------------------------------------------
+    -- 3. Compute target notes file
+    ---------------------------------------------------------------------
+    local target = notes_dir .. "/" .. project .. ".md"
+    local target_abs = vim.fn.fnamemodify(target, ":p")
+
+    ---------------------------------------------------------------------
+    -- 4. Create file safely (never overwrites)
+    ---------------------------------------------------------------------
+    if vim.loop.fs_stat(target) == nil then
+        -- "touch" without truncating
+        io.open(target, "a"):close()
+    end
+
+    ---------------------------------------------------------------------
+    -- 5. Toggle notes file window
+    ---------------------------------------------------------------------
     for _, win in ipairs(vim.api.nvim_list_wins()) do
         local buf = vim.api.nvim_win_get_buf(win)
-        if vim.api.nvim_buf_get_name(buf) == target then
+        local name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":p")
+
+        if name == target_abs then
             vim.api.nvim_win_close(win, true)
             return
         end
     end
 
-    -- Not open → open via vsplit
+    -- Not open → open it
     vim.cmd("vsplit " .. target)
 end
 
@@ -31,7 +71,7 @@ map("<A-j>", ":m+1<CR>==", "Move the line below")
 map("<F8>", ":lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>", "Enable inlay hints")
 map("<leader>pv", vim.cmd.Ex, "Open the current folder")
 map("<C-g>", ":Git<CR>", "[G]it fugitive")
-map("<C-p>", toggle_devbacklog, "[D]evbacklog")
+map("<C-p>", toggle_project_notes, "[P]roject notes")
 
 
 map("gd", function()
