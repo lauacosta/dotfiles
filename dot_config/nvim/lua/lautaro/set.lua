@@ -39,5 +39,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "@lsp.type.constructor.ocaml", { bold = true })
         vim.api.nvim_set_hl(0, "@lsp.type.operator.ocaml", { bold = true })
         vim.api.nvim_set_hl(0, "@lsp.typemod.variable.readonly.ocaml", { underline = true })
+        vim.api.nvim_set_hl(0, "@lsp.typemod.property.readonly.java", { underline = true })
     end,
 })

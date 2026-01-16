@@ -19,7 +19,6 @@ abbr -a gs 'git status'
 abbr -a gp 'git push'
 abbr -a gl 'git dl'
 
-abbr -a vim nvim
 abbr -a tma 'tmux attach'
 
 abbr -a j jj
