@@ -1,4 +1,3 @@
-starship init fish | source
 atuin init fish | source
 mise activate fish | source
 zoxide init fish | source
@@ -59,19 +58,6 @@ end
 
 abbr --add dotdot --regex '^\.\.+$' --function multicd
 
-function git_hash
-    if git rev-parse --is-inside-work-tree >/dev/null 2>&1
-        set branch (git rev-parse --abbrev-ref HEAD 2>/dev/null)
-        set commit (git rev-parse HEAD 2>/dev/null | string replace -r '^(.{0,8}).*' '$1')
-
-        if test -z "$commit"
-            echo -n "[$branch (no commits)]"
-        else
-            echo -n "[$branch $commit]"
-        end
-    end
-end
-
 function yy
     set tmp (mktemp -t "yazi-cwd.XXXXXX")
     yazi $argv --cwd-file="$tmp"
@@ -81,8 +67,8 @@ function yy
     rm -f -- "$tmp"
 end
 
+
 function fish_greeting
-    # Colors
     set -l g (set_color normal; set_color '#b8bb26')
     set -l y (set_color normal; set_color '#fabd2f')
     set -l b (set_color normal; set_color '#83a598')
@@ -173,6 +159,8 @@ function fish_greeting
     echo -e "$dim Host:$reset    $b$host$reset $dim•$reset $dim Uptime:$reset $g$uptime_hr hr$reset"
     echo -e "$dim Network:$reset $network_info"
     echo -e "$dim Storage:$reset $storage_info"
+
+    echo -e ""
 end
 
 function toggle-theme
