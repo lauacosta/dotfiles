@@ -33,6 +33,7 @@ function Particular_config(capabilities)
             inlayHints = { enable = true },
             syntaxDocumentation = { enable = true },
         },
+        cmd = { "ocamllsp" },
         capabilities = capabilities,
     }
 
@@ -177,7 +178,9 @@ return {
             local mason_lspconfig = require("mason-lspconfig")
 
             mason_lspconfig.setup({
-                automatic_enable = true,
+                automatic_enable = {
+                    exclude = { "ocamllsp" },
+                },
             })
 
             for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
@@ -187,6 +190,7 @@ return {
             end
 
             Particular_config(capabilities)
+            vim.lsp.enable("ocamllsp")
 
             -- vim.diagnostic.config({ virtual_lines = true })
             vim.diagnostic.config({ virtual_text = true })

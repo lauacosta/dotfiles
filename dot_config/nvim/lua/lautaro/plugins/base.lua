@@ -9,6 +9,12 @@ return {
         end,
     },
     {
+        "catgoose/nvim-colorizer.lua",
+        event = "BufReadPre",
+        opts = { -- set to setup table
+        },
+    },
+    {
         'nvim-java/nvim-java',
         config = function()
             require('java').setup({

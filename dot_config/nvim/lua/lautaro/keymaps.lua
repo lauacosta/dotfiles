@@ -8,44 +8,24 @@ local function toggle_project_notes()
     local documents = vim.fn.expand("~/Documents")
     local notes_dir = vim.fn.expand("~/Documents/ideas")
 
-    ---------------------------------------------------------------------
-    -- 1. OUTSIDE ~/Documents → do nothing
-    ---------------------------------------------------------------------
     if not vim.startswith(cwd, documents) then
         return
     end
 
-    ---------------------------------------------------------------------
-    -- 2. INSIDE ~/Documents → figure out first-level folder
-    ---------------------------------------------------------------------
-    -- Remove "~/Documents/" prefix
     local relative = cwd:sub(#documents + 2)
 
-    -- First directory inside Documents
     local project = relative:match("^([^/]+)")
-
-    -- If directly in ~/Documents or invalid folder → do nothing
     if not project or project == "" then
         return
     end
 
-    ---------------------------------------------------------------------
-    -- 3. Compute target notes file
-    ---------------------------------------------------------------------
     local target = notes_dir .. "/" .. project .. ".md"
     local target_abs = vim.fn.fnamemodify(target, ":p")
 
-    ---------------------------------------------------------------------
-    -- 4. Create file safely (never overwrites)
-    ---------------------------------------------------------------------
     if vim.loop.fs_stat(target) == nil then
-        -- "touch" without truncating
         io.open(target, "a"):close()
     end
 
-    ---------------------------------------------------------------------
-    -- 5. Toggle notes file window
-    ---------------------------------------------------------------------
     for _, win in ipairs(vim.api.nvim_list_wins()) do
         local buf = vim.api.nvim_win_get_buf(win)
         local name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":p")
@@ -56,7 +36,6 @@ local function toggle_project_notes()
         end
     end
 
-    -- Not open → open it
     vim.cmd("vsplit " .. target)
 end
 
@@ -114,24 +93,20 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-    pattern = { "*.md", "*.txt", "*.tex" },
-    vim.keymap.set("n", "<A-n>", "]sz=", { noremap = true }),
-    vim.keymap.set("n", "<A-p>", "[sz=", { noremap = true }),
-
+    pattern = { "*.md", "*.txt", "*.tex", "*.dj" },
     callback = function()
         vim.opt_local.wrap = true
         vim.opt_local.linebreak = true
+        vim.opt_local.breakindent = true
+        vim.opt_local.colorcolumn = "100"
         vim.opt_local.conceallevel = 2
         vim.opt_local.formatoptions:append("n")
+
+        vim.keymap.set("n", "<A-n>", "]sz=", { noremap = true, buffer = true })
+        vim.keymap.set("n", "<A-p>", "[sz=", { noremap = true, buffer = true })
     end,
 })
 
--- vim.api.nvim_create_autocmd({ "LspAttach", "InsertLeave", "BufEnter" }, {
---     group = vim.api.nvim_create_augroup("LspCodelens", { clear = true }),
---     callback = function()
---         vim.lsp.codelens.refresh({ bufnr = 0 })
---     end,
--- })
 
 vim.api.nvim_create_autocmd({ "LspAttach", "InsertLeave", "BufEnter" }, {
     group = vim.api.nvim_create_augroup("LspCodelens", { clear = true }),

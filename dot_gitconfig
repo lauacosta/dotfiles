@@ -8,8 +8,8 @@
 	helper = !/usr/bin/gh auth git-credential
 
 [user]
-	email = acostaquintalautaro@gmail.com
-	name = Lautaro Acosta
+	email = lautaro@lautaroacosta.com
+	name = Lautaro Acosta Quintana
 
 [merge]
 	conflictStyle = diff3

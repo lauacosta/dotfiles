@@ -4,7 +4,6 @@ zoxide init fish | source
 
 set -g fish_key_bindings fish_vi_key_bindings
 abbr -a c cargo
-abbr -a nix-shell 'nix-shell --command fish'
 abbr -a m make
 abbr -a g git
 abbr -a k kubectl
@@ -66,7 +65,6 @@ function yy
     end
     rm -f -- "$tmp"
 end
-
 
 function fish_greeting
     set -l g (set_color normal; set_color '#b8bb26')
@@ -172,18 +170,14 @@ function toggle-theme
     end
 end
 
-# BEGIN opam configuration
-# This is useful if you're using opam as it adds:
-#   - the correct directories to the PATH
-#   - auto-completion for the opam binary
-# This section can be safely removed at any time if needed.
-test -r '/home/lautaro/.opam/opam-init/init.fish' && source '/home/lautaro/.opam/opam-init/init.fish' >/dev/null 2>/dev/null; or true
-# END opam configuration
-
 # pnpm
 set -gx PNPM_HOME "/home/lautaro/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+
+set -gx NIX_PATH nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs
+
 ~/.local/bin/mise activate fish | source
+
