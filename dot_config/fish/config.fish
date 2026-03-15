@@ -1,5 +1,4 @@
 atuin init fish | source
-mise activate fish | source
 zoxide init fish | source
 
 set -g fish_key_bindings fish_vi_key_bindings
@@ -179,5 +178,4 @@ end
 
 set -gx NIX_PATH nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs
 
-~/.local/bin/mise activate fish | source
 
