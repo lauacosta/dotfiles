@@ -1,13 +1,13 @@
 return {
-    -- {
-    --     dir = vim.fn.stdpath("config"),
-    --     name = "colors",
-    --     lazy = false,
-    --     priority = 1000,
-    --     config = function()
-    --         require("ink").load()
-    --     end,
-    -- },
+    {
+        dir = vim.fn.stdpath("config"),
+        name = "colors",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("gruvbox").load()
+        end,
+    },
     {
         "catgoose/nvim-colorizer.lua",
         event = "BufReadPre",

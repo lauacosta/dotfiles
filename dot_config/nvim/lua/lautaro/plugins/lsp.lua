@@ -20,7 +20,8 @@ function SetLspKeymaps(event)
     end, "[F]ormat")
 end
 
-function Particular_config(capabilities)
+---@diagnostic disable-next-line: lowercase-global
+function custom_config(capabilities)
     local lsp_config = vim.lsp.config
 
     lsp_config["ocamllsp"] = {
@@ -34,6 +35,12 @@ function Particular_config(capabilities)
             syntaxDocumentation = { enable = true },
         },
         cmd = { "ocamllsp" },
+        capabilities = capabilities,
+    }
+
+    lsp_config["deno"] = {
+        cmd = { "deno", "lsp" },
+        root_dir = vim.fn.getcwd(),
         capabilities = capabilities,
     }
 
@@ -62,7 +69,6 @@ function Particular_config(capabilities)
                 procMacro = {
                     ignored = {
                         leptos_macro = {
-                            -- "component",
                             "server",
                         },
                     },
@@ -87,30 +93,6 @@ function Particular_config(capabilities)
             "--fallback-style=llvm",
         },
         capabilities = capabilities,
-    }
-
-    lsp_config["typescript-language-server"] = {
-        semanticTokenColorCustomizations = {
-            rules = {
-                -- MUTATIONS
-                ["variable.modification:javascript"] = { underline = true },
-                ["property.modification:javascript"] = { underline = true },
-
-                ["*.deprecated:javascript"] = { strikethrough = true },
-
-                ["function.async:javascript"] = { italic = true },
-
-                ["property.readonly:javascript"] = { italic = true },
-
-                ["jsxComponent:javascriptreact"] = { bold = true },
-                ["jsxTag:javascriptreact"] = { italic = true },
-
-                ["type:typescript"] = { fg = "#80a0ff" },
-                ["interface:typescript"] = { fg = "#80a0ff" },
-
-                ["alias:typescript"] = { italic = true },
-            },
-        }
     }
 end
 
@@ -177,22 +159,16 @@ return {
             local capabilities = require("blink.cmp").get_lsp_capabilities()
             local mason_lspconfig = require("mason-lspconfig")
 
-            mason_lspconfig.setup({
-                automatic_enable = {
-                    exclude = { "ocamllsp" },
-                },
-            })
-
             for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
                 vim.lsp.config(server_name, {
                     capabilities = capabilities,
                 })
             end
 
-            Particular_config(capabilities)
-            vim.lsp.enable("ocamllsp")
+            custom_config(capabilities)
+            local lsps = { "ocamllsp", "deno", "rust_analyzer" }
+            vim.lsp.enable(lsps)
 
-            -- vim.diagnostic.config({ virtual_lines = true })
             vim.diagnostic.config({ virtual_text = true })
         end,
     },
