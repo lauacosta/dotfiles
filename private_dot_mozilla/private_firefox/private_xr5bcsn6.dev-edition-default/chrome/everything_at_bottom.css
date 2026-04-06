@@ -1,0 +1,91 @@
+@media -moz-pref("userchrome.force-window-controls-on-left.enabled"){
+  #nav-bar > .titlebar-buttonbox-container{
+    order: -1 !important;
+  }
+  #nav-bar > .titlebar-buttonbox-container > .titlebar-buttonbox{
+    flex-direction: row-reverse;
+  }
+}
+
+@media not -moz-pref("sidebar.verticalTabs"){
+  #main-window > body{
+    display: grid !important;
+
+    grid-template-rows:
+      repeat(8, max-content)
+      1fr
+      max-content  /* Tabs */
+      max-content  /* Navbar */
+      max-content; /* Bookmarks */
+
+    grid-auto-rows: auto;
+  }
+
+  #navigator-toolbox{
+    display: contents;
+  }
+
+  #main-window #browser{
+    grid-row: 9/10;
+  }
+
+  #TabsToolbar{
+    grid-row: 10/11;
+    background: inherit !important;
+    opacity: 1 !important;
+  }
+
+  #nav-bar{
+    grid-row: 11/12 !important;
+    position: static !important;
+    width: 100%;
+  }
+
+  #PersonalToolbar{
+    grid-row: 12/13 !important;
+    position: static !important; 
+    width: 100%;
+  }
+
+  .browser-toolbar{
+    background: inherit;
+    background-attachment: fixed;
+  }
+
+  #TabsToolbar > :is(.titlebar-buttonbox-container,.titlebar-spacer){
+    display: none;
+  }
+}
+
+#urlbar[breakout][breakout-extend]{
+  display: flex !important;
+  flex-direction: column-reverse !important;
+  top: auto !important;
+  bottom: auto !important;
+}
+
+.panel-viewstack{
+  max-height: unset !important;
+}
+
+#PersonalToolbar[collapsed="true"]{
+  display: none !important;
+}
+
+#navigator-toolbox:has(> #PersonalToolbar[collapsed="true"]) + #browser{
+  margin-bottom: 0 !important;
+  border-bottom: none !important;
+}
+
+#browser{
+  border-bottom: 1px solid var(--chrome-content-separator-color, light-dark(rgb(204,204,204), hsl(240,5%,5%)));
+}
+
+@media (-moz-platform: linux){
+  #notification-popup[side="top"]{
+    margin-top: -100px !important;
+  }
+  #permission-popup[side="top"]{
+    margin-top: -50px !important;
+  }
+}
