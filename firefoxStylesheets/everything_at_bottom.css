@@ -10,48 +10,39 @@
 @media not -moz-pref("sidebar.verticalTabs"){
   #main-window > body{
     display: grid !important;
-
     grid-template-rows:
       repeat(8, max-content)
       1fr
-      max-content  /* Tabs */
-      max-content  /* Navbar */
-      max-content; /* Bookmarks */
-
+      max-content
+      max-content
+      max-content;
     grid-auto-rows: auto;
   }
-
   #navigator-toolbox{
     display: contents;
   }
-
   #main-window #browser{
     grid-row: 9/10;
   }
-
-  #TabsToolbar{
-    grid-row: 10/11;
-    background: inherit !important;
-    opacity: 1 !important;
-  }
-
   #nav-bar{
-    grid-row: 11/12 !important;
+    grid-row: 10/11 !important;
     position: static !important;
     width: 100%;
   }
-
+  #TabsToolbar{
+    grid-row: 11/12;
+    background: inherit !important;
+    opacity: 1 !important;
+  }
   #PersonalToolbar{
     grid-row: 12/13 !important;
-    position: static !important; 
+    position: static !important;
     width: 100%;
   }
-
   .browser-toolbar{
     background: inherit;
     background-attachment: fixed;
   }
-
   #TabsToolbar > :is(.titlebar-buttonbox-container,.titlebar-spacer){
     display: none;
   }
@@ -62,8 +53,15 @@
   flex-direction: column-reverse !important;
   top: auto !important;
   bottom: auto !important;
+  position: fixed !important;
+  bottom: 48px !important; 
+  max-height: calc(100vh - 48px) !important;
 }
 
+#urlbar[breakout][breakout-extend] .urlbarView{
+  max-height: calc(100vh - 96px) !important;
+  overflow-y: auto !important;
+}
 .panel-viewstack{
   max-height: unset !important;
 }
@@ -81,11 +79,15 @@
   border-bottom: 1px solid var(--chrome-content-separator-color, light-dark(rgb(204,204,204), hsl(240,5%,5%)));
 }
 
-@media (-moz-platform: linux){
-  #notification-popup[side="top"]{
-    margin-top: -100px !important;
-  }
-  #permission-popup[side="top"]{
-    margin-top: -50px !important;
-  }
+#notification-popup,
+#permission-popup{
+  --panel-anchor-side: top;
+  margin-bottom: 4px !important;
+  max-height: calc(100vh - 80px) !important;
+}
+
+#notification-popup[side="bottom"],
+#permission-popup[side="bottom"]{
+  margin-top: 0 !important;
+  margin-bottom: 4px !important;
 }
