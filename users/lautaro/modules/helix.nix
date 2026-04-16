@@ -4,12 +4,7 @@
     enable = true;
 
     settings = {
-      # theme = {
-      #   dark = "gruvbox";
-      #   light = "gruvbox_light";
-      # };
-
-      theme = "gruvbox";
+      theme = "custom";
 
       editor = {
         auto-format = false;
@@ -148,4 +143,10 @@
      };
     };
   };
+
+  xdg.configFile."helix/themes/custom.toml".text = ''
+    inherits = "gruvbox"
+
+    "ui.background" = { bg = "#181818" }
+  '';
 }

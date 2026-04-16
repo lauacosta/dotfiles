@@ -103,6 +103,11 @@ alias m         = make
 alias g         = git
 alias k         = kubectl
 
+alias l = ls
+alias ll = ls -l
+alias lll = ls -la
+
+alias x = hx
 alias j = jj
 alias jjj = jj
 alias js = jj status
@@ -121,8 +126,11 @@ alias gd        = git diff
 alias gs        = git status
 alias gp        = git push
 alias gl        = git dl
-alias ct        = cargo t
-alias vim       = nvim
+alias glod      = git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset"
+alias glog      = git log --oneline --decorate --graph
+alias gloga     = git log --oneline --decorate --graph --all
+alias rgrep     = rg --smart-case --no-heading --color=always --line-number
+
 alias tma       = tmux attach
 
 def multicd [dots: string] {
@@ -214,6 +222,5 @@ print $"
  (ansi cyan_bold)Network:(ansi reset) (ansi yellow)($iface)(ansi reset) (ansi green)UP(ansi reset) - (ansi yellow)($ip)(ansi reset)
  (ansi cyan_bold)Storage:(ansi reset) (ansi yellow)($device)(ansi reset) •  (ansi cyan_bold)Used:(ansi reset) (ansi yellow)($used)/($total) (ansi $pct_color)($pct)(ansi reset)
 "
-
 
 source ~/.local/share/atuin/init.nu
