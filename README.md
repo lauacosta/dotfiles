@@ -1,8 +1,10 @@
+## instalación
 
-# dotfiles
-Este repositorio contiene las aplicaciones y la configuracion que uso en mi maquina. Utilizo [`chezmoi`](https://github.com/twpayne/chezmoi).
+```bash
+$ sh <(curl -L https://nixos.org/nix/install) --daemon
 
-## Instalación:
+$ git clone https://github.com/lauacosta/dotfiles.git
+$ cd dotfiles
 
-    export GITHUB_USERNAME=lauacosta
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
+$ home-manager switch --flake .#lautaro
+```
