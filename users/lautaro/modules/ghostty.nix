@@ -1,6 +1,9 @@
 {
   programs.ghostty = {
     enable = true;
+    # There are some issues with Ghostty unable to get a Open GL context when built with nix due to the disparity between it and the systems packages
+    package = null;
+    systemd.enable = false;
 
     settings = {
       font-family = "Iosevka Term Nerd Font Mono";

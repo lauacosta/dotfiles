@@ -15,7 +15,7 @@
         auto-format = false;
         auto-pairs = false;
         bufferline = "multiple";
-
+        clipboard-provider = "wayland";
         line-number = "relative";
         mouse = false;
 
