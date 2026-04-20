@@ -8,6 +8,7 @@
         email = "me@lautaroacosta.com";
       };
       ui.default-command = [ "log" ];
+      ui.editor = "hx";
       git.colocate = true;
       templates.git_push_bookmark = "'lautaro/' ++ change_id.short()";
       "template-aliases"."format_timestamp(timestamp)" = "timestamp.ago()";

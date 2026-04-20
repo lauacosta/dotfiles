@@ -149,4 +149,18 @@
 
     "ui.background" = { bg = "#181818" }
   '';
+
+  xdg.configFile."helix/languages.toml".text = ''
+    [[language]]
+    name = "typescript"
+    language-servers = ["deno-lsp"]
+
+    [[language]]
+    name = "tsx"
+    language-servers = ["deno-lsp"]
+
+    [language-server.deno-lsp]
+    command = "deno"
+    args = ["lsp"]
+  '';
 }
