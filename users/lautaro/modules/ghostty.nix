@@ -9,10 +9,8 @@
       font-family = "Iosevka Term Nerd Font Mono";
       command = "nu --interactive";
       shell-integration = "nushell";
-      theme = "light:Gruvbox Light,dark:Gruvbox Dark";
+      theme = "light:Alabaster,dark:Gruvbox Dark Hard";
       font-size = 12;
-      background = "#181818";
-      foreground = "#ebdbb2";
       adjust-cell-height = "5%";
       adjust-cell-width = "0%";
       window-padding-x = 5;

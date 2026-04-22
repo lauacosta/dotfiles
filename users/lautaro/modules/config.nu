@@ -1,3 +1,7 @@
+source ~/.local/share/atuin/init.nu
+zoxide init nushell | save -f ~/.zoxide.nu
+source ~/.zoxide.nu
+
 def git-ahead-behind [] {
     let upstream = (do { git rev-parse --abbrev-ref "@{upstream}" } | complete)
     if $upstream.exit_code != 0 { return "" }
@@ -101,6 +105,7 @@ $env.config.edit_mode = 'vi'
 alias c         = cargo
 alias m         = make
 alias g         = git
+alias cd = z
 alias k         = kubectl
 
 alias l = ls
@@ -223,4 +228,3 @@ print $"
  (ansi cyan_bold)Storage:(ansi reset) (ansi yellow)($device)(ansi reset) •  (ansi cyan_bold)Used:(ansi reset) (ansi yellow)($used)/($total) (ansi $pct_color)($pct)(ansi reset)
 "
 
-source ~/.local/share/atuin/init.nu

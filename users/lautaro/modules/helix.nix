@@ -1,23 +1,26 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   programs.helix = {
     enable = true;
+    package = inputs.helix.packages.${pkgs.system}.default;
 
     settings = {
-      theme = "custom";
-
+      theme = {
+        dark = "custom";
+        light = "wolf-alabaster-light";
+      };
       editor = {
-        auto-format = false;
+        auto-format = true;
         auto-pairs = false;
-        bufferline = "multiple";
+          bufferline = "never";
         clipboard-provider = "wayland";
         line-number = "relative";
         mouse = false;
 
-        end-of-line-diagnostics = "hint";
-        inline-diagnostics.cursor-line = "warning";
+        end-of-line-diagnostics = "warning";
+        inline-diagnostics.cursor-line = "disable";
 
-        popup-border = "all";
+        # popup-border = "all";
 
         shell = [
           "nu"
@@ -27,7 +30,7 @@
         file-picker.hidden = false;
 
         indent-guides = {
-          render = true;
+          render = false;
           character = "│";
           highlight = "comment";
           skip-levels = 1;
@@ -128,8 +131,11 @@
             };
             o = ":sh gh repo view --web";
 
+            f = {       
+              f = "file_picker";  
+            };
+
             s = {
-              f = "file_picker";
               n = ":open ~/.config/helix/";
               a = ":open ~/Notas/apuntes/";
               p = ":open ~/Documents/";

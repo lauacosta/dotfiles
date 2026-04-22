@@ -16,6 +16,7 @@
     unzip
     htop
     atuin
+    zoxide
   ];
 
   imports = [
