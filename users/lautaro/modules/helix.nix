@@ -2,7 +2,7 @@
 {
   programs.helix = {
     enable = true;
-    package = inputs.helix.packages.${pkgs.system}.default;
+    package = inputs.helix.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     settings = {
       theme = {
@@ -16,11 +16,10 @@
         clipboard-provider = "wayland";
         line-number = "relative";
         mouse = false;
-
-        end-of-line-diagnostics = "warning";
+        rulers = [ 80 ];
+        text-width = 80;
+        end-of-line-diagnostics = "hint";
         inline-diagnostics.cursor-line = "disable";
-
-        # popup-border = "all";
 
         shell = [
           "nu"
@@ -65,7 +64,10 @@
           };
         };
 
-        soft-wrap.enable = true;
+        soft-wrap = {
+          enable = true;
+          wrap-indicator = "";
+        };
 
         statusline = {
           left = [
@@ -160,10 +162,28 @@
     [[language]]
     name = "typescript"
     language-servers = ["deno-lsp"]
+    auto-format = true
+
+    [[language]]
+    name = "ocaml"
+    auto-format = true
 
     [[language]]
     name = "tsx"
     language-servers = ["deno-lsp"]
+    auto-format = true
+
+    [[language]]
+    name = "python"
+    language-servers = ["basedpyright", "ruff"]
+    auto-format = true
+
+    [language-server.basedpyright]
+    command = "basedpyright-langserver"
+
+    [language-server.ruff]
+    command = "ruff"
+    args = ["server"]
 
     [language-server.deno-lsp]
     command = "deno"

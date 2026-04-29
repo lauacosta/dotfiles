@@ -118,7 +118,7 @@ alias jjj = jj
 alias js = jj status
 alias jd = jj diff
 alias jn = jj new
-alias jsm = jj bookmark set main
+alias jjs = jj bookmark set 
 alias jh = jj log -r \'heads(all())\'
 alias jjp = jj git push
 
