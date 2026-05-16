@@ -59,15 +59,24 @@ def prompt-git [] {
 
 def create_left_prompt [] {
     let project = (pwd | path basename)
-    let nixenv  = if ("IN_NIX_SHELL" in $env) {
-        if ("DEVSHELL_NAME" in $env) { $env.DEVSHELL_NAME } else { "nix" }
-    } else { "" }
+
+    let in_nix = (
+        ($env.IN_NIX_SHELL? | default "")
+        | str trim
+        | is-not-empty
+    )
+
+    let nixenv = if $in_nix {
+        $env.DEVSHELL_NAME? | default "nix"
+    } else {
+        null
+    }
 
     let vcs = (prompt-jj | if $in == null { prompt-git } else { $in })
 
     mut out = $"(ansi cyan)($project)(ansi reset)"
 
-    if ($nixenv | str length) > 0 {
+    if $in_nix {
         $out = $"($out)(ansi blue_bold) [($nixenv)](ansi reset)"
     }
 
@@ -93,8 +102,8 @@ def create_left_prompt [] {
 
 def create_right_prompt [] { "" }
 
-$env.PROMPT_COMMAND       = { create_left_prompt }
-$env.PROMPT_COMMAND_RIGHT = { create_right_prompt }
+$env.PROMPT_COMMAND       = { || create_left_prompt }
+$env.PROMPT_COMMAND_RIGHT = { || create_right_prompt }
 $env.PROMPT_INDICATOR            = " > "
 $env.PROMPT_INDICATOR_VI_INSERT  = " > "
 $env.PROMPT_INDICATOR_VI_NORMAL  = " > "
